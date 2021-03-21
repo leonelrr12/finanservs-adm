@@ -1,0 +1,120 @@
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import axios from 'axios'
+import NotData from '../NotData'
+require('dotenv').config()
+
+const Show = () => {
+  const [entities_f, setEntities_f] = useState([])
+  const URL = process.env.REACT_APP_URL_SERVER
+
+  const getAll = async () => {
+    const res = await axios.get(URL + '/adm/entities_f')
+    const data = await res.data
+    setEntities_f(data)
+  }
+
+  const delRecord = async (id) => {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Esta seguro?',
+      text: "No será porsible revertir esto!",
+      icon: '',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(URL + '/adm/entities_f/' + id)
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'Registro eliminado.',
+            'success'
+          )
+          getAll()
+        }catch(e){
+          swalWithBootstrapButtons.fire(
+            'Error en Conexion',
+            'Favor verificar LOG del Servidor',
+            'error'
+          )
+        }
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Registro segurado :)',
+          'error'
+        )
+      }
+    })
+  }
+
+  useEffect(() => {
+    getAll()
+  }, [])
+
+  return ( 
+    <div className="w-75 m-auto">
+      <h2 className="text-center mt-5">Entidades Financieras</h2>
+      <div className="my-2 d-flex justify-content-end">
+        <Link to={"/entities_f/new"} className="btn btn-primary btn-md ">Nuevo</Link>
+      </div>
+      <table className="table table-striped table-sm">
+        <thead className="bg-primary text-white">
+          <tr>
+            <th scope="col" className="text-center">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Ruta</th>
+            <th scope="col">Contacto</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Celular</th>
+            <th scope="col">Activo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody> 
+          {(typeof(entities_f) === "object") ? 
+            entities_f.map(item => {
+              return (
+              <tr key={item.id}>
+                <td className="text-center">{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.id_ruta}</td>
+                <td>{item.contact}</td>
+                <td>{item.phone_number}</td>
+                <td>{item.cellphone}</td>
+                <td>{item.is_active}</td>
+                <td>
+                  <Link to={"/entities_f/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
+                  <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2">Borrar</button>
+                </td>
+              </tr>
+            )})
+            :
+            <tr>
+              <td colSpan="8">
+              <NotData />
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+   )
+}
+ 
+export default Show
