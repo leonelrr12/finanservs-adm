@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header'
 
 import AllProspects from './components/prospects/Show'
-import NewProspects from './components/prospects/New'
-import EditProspects from './components/prospects/Edit'
 
 import AllSectors from './components/sectors/Show'
 import NewSector from './components/sectors/New'
@@ -42,14 +40,26 @@ import AllPayments from './components/payments/Show'
 import NewPayments from './components/payments/New'
 import EditPayments from './components/payments/Edit'
 
+import AllEstados_tramite from './components/estadosTramite/Show'
+import NewEstados_tramite from './components/estadosTramite/New'
+import EditEstados_tramite from './components/estadosTramite/Edit'
+
+import AllType_documents from './components/typeDocuments/Show'
+import NewType_documents from './components/typeDocuments/New'
+import EditType_documents from './components/typeDocuments/Edit'
+
+import AllTerms_loan from './components/termsLoan/Show'
+import NewTerms_loan from './components/termsLoan/New'
+import EditTerms_loan from './components/termsLoan/Edit'
+
 import AllEntities from './components/entities_f/Show'
 import NewEntities from './components/entities_f/New'
 import EditEntities from './components/entities_f/Edit'
 
 import ProspectAproach from './components/prospectAproach/Show'
+
 import ProspectsEntity from './components/prospectsEntity/Show'
 import EditProspectsEntity from './components/prospectsEntity/Edit'
-
 
 import Login from './components/users/login';
 import MissingRoute from './components/MissingRoute'
@@ -62,8 +72,6 @@ function App() {
         <div className="container">
           <Switch>
             <Route path="/" exact component={AllProspects} />
-            <Route path="/prospects/new" exact component={NewProspects} />
-            <Route path="/prospects/edit/:id" exact component={EditProspects} />
 
             <Route path="/sectors" exact component={AllSectors} />
             <Route path="/sectors/new" exact component={NewSector} />
@@ -100,12 +108,25 @@ function App() {
             <Route path="/payments" exact component={AllPayments} />
             <Route path="/payments/new" exact component={NewPayments} />
             <Route path="/payments/edit/:id" exact component={EditPayments} />
+   
+            <Route path="/estados_tramite" exact component={AllEstados_tramite} />
+            <Route path="/estados_tramite/new" exact component={NewEstados_tramite} />
+            <Route path="/estados_tramite/edit/:id" exact component={EditEstados_tramite} />
+
+            <Route path="/type_documents" exact component={AllType_documents} />
+            <Route path="/type_documents/new" exact component={NewType_documents} />
+            <Route path="/type_documents/edit/:id" exact component={EditType_documents} />
+
+            <Route path="/terms_loan" exact component={AllTerms_loan} />
+            <Route path="/terms_loan/new" exact component={NewTerms_loan} />
+            <Route path="/terms_loan/edit/:id" exact component={EditTerms_loan} />
 
             <Route path="/entities_f" exact component={AllEntities} />
             <Route path="/entities_f/new" exact component={NewEntities} />
             <Route path="/entities_f/edit/:id" exact component={EditEntities} />
 
             <Route path="/prospects/aproach" exact component={ProspectAproach} />
+            
             <Route path="/entity_f" exact component={ProspectsEntity} />
             <Route path="/entity_f/edit/:id" exact component={EditProspectsEntity} />
 

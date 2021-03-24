@@ -68,7 +68,7 @@ const Show = () => {
   }, [])
 
   return ( 
-    <div className="w-25 m-auto">
+    <div className="w-50 m-auto">
       <h2 className="text-center mt-5">Estado Civil</h2>
       <div className="my-2 d-flex justify-content-end">
         <Link to={"/civilstatus/new"} className="btn btn-primary btn-md ">Nuevo</Link>

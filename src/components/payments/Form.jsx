@@ -42,25 +42,6 @@ const Form = (props) => {
             value={data.name}
           />
         </div>
-        <div className="form-group mt-2">
-          <label className="mx-3">Activo</label>
-          <label>Si</label>
-          <input 
-            type="Radio"
-            name="is_active"
-            checked={data.is_active === "Si"}
-            onChange={onChange}
-            value="Si"
-          />
-          <label>No</label>
-          <input 
-            type="Radio"
-            name="is_active"
-            checked={data.is_active === "No"}
-            onChange={onChange}
-            value="No"
-          />
-        </div>
         <div className="mt-3">
           <button
             type="submit"

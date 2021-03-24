@@ -68,7 +68,7 @@ const Show = () => {
   }, [])
 
   return ( 
-    <div className="w-50 m-auto">
+    <div className="w-75 m-auto">
       <h2 className="text-center mt-5">Instituciones</h2>
       <div className="my-2 d-flex justify-content-end">
         <Link to={"/institutions/new"} className="btn btn-primary btn-md ">Nuevo</Link>

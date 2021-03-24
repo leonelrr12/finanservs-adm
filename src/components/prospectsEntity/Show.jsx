@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { auth } from '../../config/firebase.js'
 import axios from 'axios'
 import NotData from '../NotData'
@@ -8,21 +8,19 @@ const Show = () => {
   const history = useHistory()
   const [prospects, setProspects] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
-  const { id_personal = null, id_entity = null } = useParams()
-
-  console.log(id_personal, id_entity)
 
   useEffect(() => {
     auth.onAuthStateChanged( user => {
       if (!user){
         history.push("/login")
       }else{
-        getByEntity_f()
+        let id_entity = '100'
+        getByEntity_f(id_entity)
       }
     })
   },[])
 
-  const getByEntity_f = async () => {
+  const getByEntity_f = async (id_entity) => {
     const res = await axios.get(URL + '/adm/prospects/entity_f/' + id_entity)
     const data = await res.data
     setProspects(data)
@@ -67,7 +65,7 @@ const Show = () => {
                 <td>{item.estado}</td>
                 <td>{item.fcreate}</td>
                 <td>
-                    <Link to={"/prospects/entity_f/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
+                    <Link to={"/entity_f/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
                   </td>
                 {/* <td>{item.dias}</td> */}
               </tr>

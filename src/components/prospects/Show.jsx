@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { auth } from '../../config/firebase.js'
 import axios from 'axios'
 import NotData from '../NotData'
@@ -8,9 +8,6 @@ const Show = () => {
   const history = useHistory()
   const [prospects, setProspects] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
-  const { id_personal = null, id_entity = null } = useParams()
-
-  console.log(id_personal, id_entity)
 
   useEffect(() => {
     auth.onAuthStateChanged( user => {

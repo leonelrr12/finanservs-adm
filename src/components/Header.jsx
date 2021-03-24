@@ -44,7 +44,7 @@ const Header = () => {
               Entidades F
               </Link>
               <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><Link to={"/entiry_f"} className="dropdown-item">Listado de Prospectos</Link></li>
+                <li><Link to={"/entity_f"} className="dropdown-item">Listado de Prospectos</Link></li>
               </ul>
             </li>
             <li className="nav-item">
@@ -66,7 +66,9 @@ const Header = () => {
                 <li><Link to={"/planillas_j"} className="dropdown-item">Planillas CSS</Link></li>
                 <li><Link to={"/institutions"} className="dropdown-item">Instituciones</Link></li>
                 <li><hr className="dropdown-divider" /></li>
-                <li><Link to={""} className="dropdown-item">Tipo de Documentos</Link></li>
+                <li><Link to={"/estados_tramite"} className="dropdown-item">Estados del Trámite</Link></li>
+                <li><Link to={"/type_documents"} className="dropdown-item">Tipo de Documentos</Link></li>
+                <li><Link to={"/terms_loan"} className="dropdown-item">Plazos del Préstamo</Link></li>
                 <li><Link to={""} className="dropdown-item">Capacidad</Link></li>
               </ul>
             </li>

@@ -78,18 +78,16 @@ const Show = () => {
           <tr>
             <th scope="col" className="text-center">ID</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Activo</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody> 
-          {(typeof(institutions) === "object") ? 
+          {(typeof(payments) === "object") ? 
             payments.map(item => {
               return (
               <tr key={item.id}>
                 <td className="text-center">{item.id}</td>
                 <td>{item.name}</td>
-                <td>{item.is_active}</td>
                 <td>
                   <Link to={"/payments/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
                   <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2">Borrar</button>

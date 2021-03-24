@@ -9,7 +9,7 @@ const Edit = () => {
   const URL = process.env.REACT_APP_URL_SERVER
 
   const getById = async () => {
-    const res = await axios.get(URL + '/adm/prospects/' + id)
+    const res = await axios.get(URL + '/adm/prospects/entity_f/entity/' + id)
     const data = await res.data
     setData(data)
   }
@@ -19,7 +19,7 @@ const Edit = () => {
   }, [])
 
   return ( 
-    <div className="row justify-conten-center">
+    <div className="row justify-content-center mt-5">
       <div className="col-md-8">
         <div className="card">
           <div className="card-body">
