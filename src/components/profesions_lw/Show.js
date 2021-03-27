@@ -65,7 +65,7 @@ const Show = () => {
 
   useEffect(() => {
     getAll(0, 10)
-  }, [])
+  })
 
   return ( 
     <div className="w-75 m-auto">

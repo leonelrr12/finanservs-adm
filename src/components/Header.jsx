@@ -19,7 +19,7 @@ const Header = () => {
       //   history.push("/login")
       }
     })
-  }, [])
+  })
 
   const handleLogin = () => {
     history.push("/login")

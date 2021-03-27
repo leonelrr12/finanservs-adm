@@ -23,7 +23,7 @@ const New = () => {
   useEffect(() => {
     getRoles()
     getEntities()
-  }, [])
+  })
 
   return ( 
     <div className="row justify-content-center my-4">

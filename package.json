@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "eslint-plugin-react-hooks": "0.0.0-a77dd13ed",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-bootstrap-4-pagination": "^1.0.4",
@@ -27,7 +28,12 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "plugins": ["react-hooks"],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn" 
+    }
   },
   "browserslist": {
     "production": [

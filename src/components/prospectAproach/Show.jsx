@@ -10,7 +10,7 @@ const Show = () => {
     // const id_personal = localStorage.get('finanservsIdUser')
     const id_personal = '7-094-486'
     getByAproach(id_personal)
-  },[])
+  })
 
   const getByAproach = async (id) => {
     const res = await axios.get(URL + '/adm/prospects/aproach/' + id)

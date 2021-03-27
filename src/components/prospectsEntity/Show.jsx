@@ -21,7 +21,7 @@ const Show = () => {
         history.push("/login")
       }
     })
-  }, [])
+  })
 
   const getByEntity_f = async (id_entity) => {
     const res = await axios.get(URL + '/adm/prospects/entity_f/' + id_entity)

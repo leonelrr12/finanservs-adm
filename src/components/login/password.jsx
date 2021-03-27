@@ -36,7 +36,7 @@ const Password = () => {
   useEffect(() => {
     const email = window.localStorage.getItem('pwd')
     setUser({...user, email: email})
-  }, [])
+  },[user])
 
   return ( 
     <div className="row mt-5">

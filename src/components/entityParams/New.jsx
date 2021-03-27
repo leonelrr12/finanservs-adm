@@ -23,7 +23,7 @@ const New = () => {
   useEffect(() => {
     getEntities()
     getSectorProfesion()
-  }, [])
+  })
 
   return ( 
     <div className="row justify-content-center mt-5">

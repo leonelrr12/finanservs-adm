@@ -20,7 +20,7 @@ const Show = () => {
         history.push("/login")
       }
     })
-  }, [])
+  })
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/prospects')
