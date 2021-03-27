@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import {auth} from '../../config/firebase.js'
+// import {auth} from '../../config/firebase.js'
 import AlertMessage from '../AlertMessage'
 
 const Login = () => {
