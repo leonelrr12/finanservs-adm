@@ -56,12 +56,30 @@ import AllEntities from './components/entities_f/Show'
 import NewEntities from './components/entities_f/New'
 import EditEntities from './components/entities_f/Edit'
 
+import AllSectorProfesion from './components/sectorProfesion/Show'
+import NewSectorProfesion from './components/sectorProfesion/New'
+import EditSectorProfesion from './components/sectorProfesion/Edit'
+
+import AllEntityParams from './components/entityParams/Show'
+import NewEntityParams from './components/entityParams/New'
+import EditEntityParams from './components/entityParams/Edit'
+
+import AllUsers from './components/users/Show'
+import NewUsers from './components/users/New'
+import EditUsers from './components/users/Edit'
+
+import AllRoles from './components/roles/Show'
+import NewRoles from './components/roles/New'
+import EditRoles from './components/roles/Edit'
+
 import ProspectAproach from './components/prospectAproach/Show'
 
 import ProspectsEntity from './components/prospectsEntity/Show'
 import EditProspectsEntity from './components/prospectsEntity/Edit'
 
-import Login from './components/users/login';
+import Login from './components/login/login';
+import Password from './components/login/password';
+// import Login from './components/users/login';
 import MissingRoute from './components/MissingRoute'
 
 function App() {
@@ -125,12 +143,29 @@ function App() {
             <Route path="/entities_f/new" exact component={NewEntities} />
             <Route path="/entities_f/edit/:id" exact component={EditEntities} />
 
+            <Route path="/sector_profesion" exact component={AllSectorProfesion} />
+            <Route path="/sector_profesion/new" exact component={NewSectorProfesion} />
+            <Route path="/sector_profesion/edit/:id" exact component={EditSectorProfesion} />
+
+            <Route path="/entity_params" exact component={AllEntityParams} />
+            <Route path="/entity_params/new" exact component={NewEntityParams} />
+            <Route path="/entity_params/edit/:id" exact component={EditEntityParams} />
+ 
+            <Route path="/users" exact component={AllUsers} />
+            <Route path="/users/new" exact component={NewUsers} />
+            <Route path="/users/edit/:id" exact component={EditUsers} />
+
+            <Route path="/roles" exact component={AllRoles} />
+            <Route path="/roles/new" exact component={NewRoles} />
+            <Route path="/roles/edit/:id" exact component={EditRoles} />
+
             <Route path="/prospects/aproach" exact component={ProspectAproach} />
             
             <Route path="/entity_f" exact component={ProspectsEntity} />
             <Route path="/entity_f/edit/:id" exact component={EditProspectsEntity} />
 
             <Route path="/login" exact component={Login} />
+            <Route path="/password" exact component={Password} />
             <Route component={MissingRoute} />
 
           </Switch>

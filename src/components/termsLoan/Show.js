@@ -30,7 +30,7 @@ const Show = () => {
     
     swalWithBootstrapButtons.fire({
       title: 'Esta seguro?',
-      text: "No será porsible revertir esto!",
+      text: "No será posible revertir esto!",
       icon: '',
       showCancelButton: true,
       confirmButtonText: 'Aceptar',

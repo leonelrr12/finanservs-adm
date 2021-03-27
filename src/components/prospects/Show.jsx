@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { auth } from '../../config/firebase.js'
 import axios from 'axios'
+import verifyToken from '../login/token'
 import NotData from '../NotData'
 
 const Show = () => {
@@ -10,14 +10,17 @@ const Show = () => {
   const URL = process.env.REACT_APP_URL_SERVER
 
   useEffect(() => {
-    auth.onAuthStateChanged( user => {
-      if (!user){
-        history.push("/login")
-      }else{
+    verifyToken().then(res => {
+      const {isValid, username} = res
+      console.log(isValid, username)
+      if(isValid){
         getAll()
+      }else{
+        window.localStorage.removeItem('jwt')
+        history.push("/login")
       }
     })
-  },[])
+  }, [])
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/prospects')

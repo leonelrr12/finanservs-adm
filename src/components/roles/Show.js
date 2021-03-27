@@ -6,13 +6,13 @@ import NotData from '../NotData'
 require('dotenv').config()
 
 const Show = () => {
-  const [planillas_j, setPlanillas_j] = useState([])
+  const [data, setData] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
 
   const getAll = async () => {
-    const res = await axios.get(URL + '/adm/planillas_j')
-    const data = await res.data
-    setPlanillas_j(data)
+    const res = await axios.get(URL + '/adm/roles')
+    const da = await res.data
+    setData(da)
   }
 
   const delRecord = async (id) => {
@@ -36,7 +36,7 @@ const Show = () => {
     }).then( async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(URL + '/adm/planillas_j/' + id)
+          await axios.delete(URL + '/adm/roles/' + id)
           swalWithBootstrapButtons.fire(
             'Eliminado!',
             'Registro eliminado.',
@@ -68,28 +68,30 @@ const Show = () => {
   }, [])
 
   return ( 
-    <div className="w-100 m-auto">
-      <h2 className="text-center mt-5">Instituciones</h2>
+    <div className="w-75 m-auto">
+      <h2 className="text-center mt-5">Usuarios</h2>
       <div className="my-2 d-flex justify-content-end">
-        <Link to={"/planillas_j/new"} className="btn btn-primary btn-md ">Nuevo</Link>
+        <Link to={"/roles/new"} className="btn btn-primary btn-md ">Nuevo</Link>
       </div>
       <table className="table table-striped table-sm">
         <thead className="bg-primary text-white">
           <tr>
             <th scope="col" className="text-center">ID</th>
-            <th scope="col">Nombre</th>
+            <th scope="col">Role</th>
+            <th scope="col">Descripción</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody> 
-          {(typeof(planillas_j) === "object") ? 
-            planillas_j.map(item => {
+          {(typeof(data) === "object") ? 
+            data.map(item => {
               return (
               <tr key={item.id}>
                 <td className="text-center">{item.id}</td>
-                <td>{item.name}</td>
+                <td>{item.role}</td>
+                <td>{item.description}</td>
                 <td>
-                  <Link to={"/planillas_j/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
+                  <Link to={"/roles/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
                   <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2">Borrar</button>
                 </td>
               </tr>
