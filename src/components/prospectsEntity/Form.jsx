@@ -32,8 +32,7 @@ const Form = (props) => {
   useEffect(() => {
     axios.get(URL + '/adm/estados_tramite')
     .then(estados => setEstados(estados.data))
-  })
-
+  },[])
 
   return ( 
     <>

@@ -16,7 +16,7 @@ const Edit = (props) => {
 
   useEffect(() => {
     getById()
-  })
+  },[])
 
   return ( 
     <div className="row justify-content-center my-4">

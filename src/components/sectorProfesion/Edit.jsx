@@ -30,7 +30,7 @@ const Edit = (props) => {
     getById()
     getSectors()
     getProfesions()
-  })
+  },[])
 
   return ( 
     <div className="row justify-content-center mt-5">

@@ -13,13 +13,9 @@ const Header = () => {
       if(isValid){
         setUser(username)
         history.push("/")
-      // }else{
-      //   window.localStorage.removeItem('jwt')
-      //   setUser(null)
-      //   history.push("/login")
       }
     })
-  })
+  },[])
 
   const handleLogin = () => {
     history.push("/login")
