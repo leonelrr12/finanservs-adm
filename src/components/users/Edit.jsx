@@ -32,7 +32,7 @@ const Edit = () => {
     getById()
     getRoles()
     getEntities()
-  })
+  },[])
 
   return ( 
     <div className="row justify-content-center my-4">
