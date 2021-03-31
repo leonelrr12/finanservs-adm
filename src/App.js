@@ -72,8 +72,6 @@ import AllRoles from './components/roles/Show'
 import NewRoles from './components/roles/New'
 import EditRoles from './components/roles/Edit'
 
-import ProspectAproach from './components/prospectAproach/Show'
-
 import ProspectsEntity from './components/prospectsEntity/Show'
 import EditProspectsEntity from './components/prospectsEntity/Edit'
 
@@ -159,8 +157,6 @@ function App() {
             <Route path="/roles/new" exact component={NewRoles} />
             <Route path="/roles/edit/:id" exact component={EditRoles} />
 
-            <Route path="/prospects/aproach" exact component={ProspectAproach} />
-            
             <Route path="/entity_f" exact component={ProspectsEntity} />
             <Route path="/entity_f/edit/:id" exact component={EditProspectsEntity} />
 

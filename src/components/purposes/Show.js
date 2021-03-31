@@ -6,13 +6,13 @@ import NotData from '../NotData'
 require('dotenv').config()
 
 const Show = () => {
-  const [purposes, setPurposes] = useState([])
+  const [data, setData] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/purposes')
-    const data = await res.data
-    setPurposes(data)
+    const da = await res.data
+    setData(da)
   }
 
   const delRecord = async (id) => {
@@ -83,8 +83,8 @@ const Show = () => {
           </tr>
         </thead>
         <tbody> 
-          {(typeof(purposes) === "object") ? 
-            purposes.map(item => {
+          {(typeof(data) === "object") ? 
+            data.map(item => {
               return (
                 <tr key={item.id}>
                   <td className="text-center">{item.id}</td>

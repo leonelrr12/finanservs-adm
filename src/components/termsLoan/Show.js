@@ -6,20 +6,20 @@ import NotData from '../NotData'
 require('dotenv').config()
 
 const Show = () => {
-  const [terms_loan, setTerms_loan] = useState([])
+  const [data, setData] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
 
-  const hoyes = axios.get(URL + '/api/today-is/')
-  console.log(hoyes)
+  // axios.get(URL + '/api/today-is/')
+  // .then(res => res.data)
+  // .then(ok => console.log(ok))
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/terms_loan')
-    const data = await res.data
-    setTerms_loan(data)
+    const da = await res.data
+    setData(da)
   }
 
   const delRecord = async (id) => {
-
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -86,8 +86,8 @@ const Show = () => {
           </tr>
         </thead>
         <tbody> 
-          {(typeof(terms_loan) === "object") ? 
-            terms_loan.map(item => {
+          {(typeof(data) === "object") ? 
+            data.map(item => {
               return (
               <tr key={item.id}>
                 <td className="text-center">{item.id}</td>

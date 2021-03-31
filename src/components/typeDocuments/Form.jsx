@@ -60,7 +60,7 @@ const Form = (props) => {
             onChange={onChange}
             value="No"
           />
-        </div>
+        </div>  
         <div className="mt-3">
           <button
             type="submit"

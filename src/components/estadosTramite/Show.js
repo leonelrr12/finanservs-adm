@@ -9,7 +9,6 @@ const Show = () => {
   const [estados_tramite, setEstados_tramite] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
 
-  console.log('process.env.REACT_APP_URL_SERVER',URL);
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/estados_tramite')
     const data = await res.data

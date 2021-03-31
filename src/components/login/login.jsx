@@ -7,7 +7,7 @@ const Login = () => {
   const history = useHistory()
   const [user, setUser] = useState({
     email: 'guasimo01@gmail.com',
-    password: 'elguasimo',
+    password: '123456',
     confPassword: ''
   })
   

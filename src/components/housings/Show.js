@@ -83,7 +83,7 @@ const Show = () => {
           </tr>
         </thead>
         <tbody> 
-          {(typeof(civilstatus) === "object") ? 
+          {(typeof(housings) === "object") ? 
             housings.map(item => {
               return (
               <tr key={item.id}>
@@ -98,7 +98,7 @@ const Show = () => {
             )})
             :
             <tr>
-              <td colSpan="3">
+              <td colSpan="4">
               <NotData />
               </td>
             </tr>

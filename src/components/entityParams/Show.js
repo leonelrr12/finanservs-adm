@@ -2,17 +2,47 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import NotData from '../NotData'
 require('dotenv').config()
 
+const useStyles = makeStyles((theme) => ({ 
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }, 
+}));
+
+
 const Show = () => {
-  const [purposes, setPurposes] = useState([])
+  const classes = useStyles();
+
+  const [data, setData] = useState([])
+  const [dataE, setDataE] = useState([])
+  const [entities, setEntities] = useState([])
+  const [entity, setEntity] = useState('0')
   const URL = process.env.REACT_APP_URL_SERVER
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/entity_params')
-    const data = await res.data
-    setPurposes(data)
+    const da = await res.data
+    setDataE(da)
+  }
+
+  const getEntities = async () => {
+    const res = await axios.get(URL + '/api/entities_f')
+    const da = await res.data
+    setEntities(da)
+  }
+
+  const handleChange = (event) => {
+    setEntity(event.target.value)
   }
 
   const delRecord = async (id) => {
@@ -65,11 +95,33 @@ const Show = () => {
 
   useEffect(() => {
     getAll()
+    getEntities()
   },[])
+
+  useEffect(() => {
+    const showActivo = dataE.filter(p => p.id_entity === Number(entity))
+    setData(showActivo)
+  },[entity])
+
 
   return ( 
     <div className="w-100 m-auto">
       <h2 className="text-center mt-5">Tarifas para Cálculo</h2>
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paper}>
+              <label className="font-weight-lighter">Entidad Financiera: </label>
+              <select className="font-weight-lighter" onChange={handleChange} name='entity'>
+                <option value="0">Seleccione una Entidad</option>
+                {entities.map((item) => (
+                  <option value={item.id} selected={item.id===entity}>{item.name}</option>
+                ))}
+              </select>
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>      
       <div className="my-2 d-flex justify-content-end">
         <Link to={"/entity_params/new"} className="btn btn-primary btn-md ">Nuevo</Link>
       </div>
@@ -89,12 +141,11 @@ const Show = () => {
             <th scope="col">Tasa</th>
             <th scope="col">Comision</th>
             <th scope="col">Acciones</th>
-
           </tr>
         </thead>
         <tbody> 
-          {(typeof(purposes) === "object") ? 
-            purposes.map(item => {
+          {(typeof(data) === "object") ? 
+            data.map(item => {
               return (
                 <tr key={item.id}>
                   <td className="text-center">{item.id}</td>

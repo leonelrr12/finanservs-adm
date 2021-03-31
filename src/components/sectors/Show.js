@@ -6,13 +6,13 @@ import NotData from '../NotData'
 require('dotenv').config()
 
 const Show = () => {
-  const [sectors, setSectors] = useState([])
+  const [data, setData] = useState([])
   const URL = process.env.REACT_APP_URL_SERVER
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/sectors')
-    const data = await res.data
-    setSectors(data)
+    const da = await res.data
+    setData(da)
   }
 
   const delRecord = async (id) => {
@@ -83,8 +83,8 @@ const Show = () => {
           </tr>
         </thead>
         <tbody> 
-          {(typeof(sectors) === "object") ? 
-            sectors.map(sector => {
+          {(typeof(data) === "object") ? 
+            data.map(sector => {
               return (
               <tr key={sector.id}>
                 <td className="text-center">{sector.id}</td>
