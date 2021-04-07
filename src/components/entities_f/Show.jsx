@@ -1,65 +1,143 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Swal from 'sweetalert2'
 import axios from 'axios'
+import { Table, Button, Modal, Input, Form, Radio } from 'antd'
+import 'antd/dist/antd.css'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import NotData from '../NotData'
 require('dotenv').config()
 
+const { Item } = Form
+const URL = process.env.REACT_APP_URL_SERVER
+
+const layout={
+  labelCol:{
+    span: 6
+  },
+  wrapperCol:{
+    span: 16
+  }
+}
+
 const Show = () => {
-  const [entities_f, setEntities_f] = useState([])
-  const URL = process.env.REACT_APP_URL_SERVER
+  const [data, setData] = useState([])
+  const [value, setValue] = useState('Si')
+  const [item, setItem] = useState({
+    id:'',
+    name:'',
+    id_ruta:'',
+    contact:'',
+    phone_number:'',
+    cellphone:'',
+    is_active:''
+  })
+  const [modalInsertar, setModalInsertar] = useState(false)
+  const [modalEditar, setModalEditar] = useState(false)
+  const [modalEliminar, setModalEliminar] = useState(false)
+
+  const handleChange = e => {
+    const {name, value} = e.target
+    setItem({...item,
+    [name]: value})
+  }
+  const onChange = e => {
+    setValue(e.target.value)
+  }
+
+  const abrirCerrarModalInsertar = () => {
+    setModalInsertar(!modalInsertar)
+  }
+  const abrirCerrarModalEditar = () => {
+    setModalEditar(!modalEditar)
+  }
+  const abrirCerrarModalEliminar = () => {
+    setModalEliminar(!modalEliminar)
+  }
+
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id"
+    },
+    {
+      title: "Nombre",
+      dataIndex: "name",
+      key: "name"
+    },
+    {
+      title: "Ruta",
+      dataIndex: "id_ruta",
+      key: "id_ruta"
+    },
+    {
+      title: "Contacto",
+      dataIndex: "contact",
+      key: "contact"
+    },
+    {
+      title: "Teléfono",
+      dataIndex: "phone_number",
+      key: "phone_number"
+    },
+    {
+      title: "Celular",
+      dataIndex: "callphone",
+      key: "callphone"
+    },
+    {
+      title: "Activo",
+      dataIndex: "is_active",
+      key: "is_active"
+    },    
+    {
+      title: "Acciones",
+      key: "acciones",
+      render: fila => 
+      <>
+         <Button type="primary" onClick={()=>{setItem(fila); setValue(fila.is_active); recordSelected('Editar')}}><EditOutlined /></Button>{"   "}
+         <Button type="primary" onClick={()=>{setItem(fila); recordSelected('')}} danger><DeleteOutlined /></Button>
+      </>
+    },    
+  ]
 
   const getAll = async () => {
     const res = await axios.get(URL + '/adm/entities_f')
     const data = await res.data
-    setEntities_f(data)
+    setData(data)
   }
 
-  const delRecord = async (id) => {
-
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
+  const recordSelected = (caso) => {
+    (caso === 'Editar') ? abrirCerrarModalEditar() : abrirCerrarModalEliminar()
+  }
+  const saveRecord = async () => {
+    item.is_active=value
+    delete item.id
+    await axios.post(URL + '/adm/entities_f/', item)
+    .then(response => {
+      item.id=response.data.insertId
+      setData(data.concat(item))
+      abrirCerrarModalInsertar()
+    }).catch(error => {
+      console.log(error)
     })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Esta seguro?',
-      text: "No será posible revertir esto!",
-      icon: '',
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      reverseButtons: true
-    }).then( async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await axios.delete(URL + '/adm/entities_f/' + id)
-          swalWithBootstrapButtons.fire(
-            'Eliminado!',
-            'Registro eliminado.',
-            'success'
-          )
-          getAll()
-        }catch(e){
-          swalWithBootstrapButtons.fire(
-            'Error en Conexion',
-            'Favor verificar LOG del Servidor',
-            'error'
-          )
-        }
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelado',
-          'Registro segurado :)',
-          'error'
-        )
-      }
+  }
+  const updateRecord = async () => {
+    item.is_active=value
+    await axios.put(URL + '/adm/entities_f/', item)
+    .then(response => {
+      setData(data.map(p=>p.id===item.id?item:p))
+      abrirCerrarModalEditar()
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+  const deleteRecord = async () => {
+    await axios.delete(URL + '/adm/entities_f/' + item.id)
+    .then(response => {
+      setData(data.filter(p=>p.id!==item.id))
+      abrirCerrarModalEliminar()
+    }).catch(error => {
+      console.log(error)
     })
   }
 
@@ -68,51 +146,102 @@ const Show = () => {
   },[])
 
   return ( 
-    <div className="w-75 m-auto">
+    <div className="m-auto">
       <h2 className="text-center mt-5">Entidades Financieras</h2>
-      <div className="my-2 d-flex justify-content-end">
-        <Link to={"/entities_f/new"} className="btn btn-primary btn-md ">Nuevo</Link>
-      </div>
-      <table className="table table-striped table-sm">
-        <thead className="bg-primary text-white">
-          <tr>
-            <th scope="col" className="text-center">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Ruta</th>
-            <th scope="col">Contacto</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Celular</th>
-            <th scope="col">Activo</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody> 
-          {(typeof(entities_f) === "object") ? 
-            entities_f.map(item => {
-              return (
-              <tr key={item.id}>
-                <td className="text-center">{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.id_ruta}</td>
-                <td>{item.contact}</td>
-                <td>{item.phone_number}</td>
-                <td>{item.cellphone}</td>
-                <td>{item.is_active}</td>
-                <td>
-                  <Link to={"/entities_f/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
-                  <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2">Borrar</button>
-                </td>
-              </tr>
-            )})
-            :
-            <tr>
-              <td colSpan="8">
-              <NotData />
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+      <Button type="primary" onClick={abrirCerrarModalInsertar}>Nuevo</Button>
+      {(typeof(data) === "object") ?
+        <Table columns={columns} dataSource={data} />
+      :
+        <tr>
+          <td colSpan="8">
+          <NotData />
+          </td>
+        </tr>
+      }
+
+      <Modal
+        visible={modalInsertar}
+        title="Nueva Entidad Financiera"
+        destroyOnClose={true}
+        onCancel={abrirCerrarModalInsertar}
+        centered
+        footer={[
+          <Button onClick={abrirCerrarModalInsertar}>Cancelar</Button>,
+          <Button type="primary" onClick={saveRecord}>{"Guardar"}</Button>,
+        ]}
+      >
+        <Form {...layout}>
+          <Item label="Nombre">
+            <Input name="name" onChange={handleChange}/>
+          </Item>
+          <Item label="Ruta">
+            <Input name="id_ruta" onChange={handleChange}/>
+          </Item>
+          <Item label="Contacto">
+            <Input name="contact" onChange={handleChange}/>
+          </Item>
+          <Item label="Teléfono">
+            <Input name="phone_number" onChange={handleChange}/>
+          </Item>
+          <Item label="Celular">
+            <Input name="cellphone" onChange={handleChange}/>
+          </Item>
+          <Item label="Activo">
+            <Radio.Group onChange={onChange} value={value}>
+              <Radio value={'Si'}>Si</Radio>
+              <Radio value={'No'}>No</Radio>
+            </Radio.Group>
+          </Item>
+        </Form>
+      </Modal>
+
+      <Modal
+        visible={modalEditar}
+        title="Actualizar Entidad Financiera"
+        onCancel={abrirCerrarModalEditar}
+        centered
+        footer={[
+          <Button onClick={abrirCerrarModalEditar}>Cancelar</Button>,
+          <Button type="primary" onClick={updateRecord}>Actualizar</Button>
+        ]}
+      >
+        <Form {...layout}>
+          <Item label="ID">{item.id}</Item>
+          <Item label="Nombre">
+            <Input name="name" onChange={handleChange} value={item && item.name}/>
+          </Item>
+          <Item label="Ruta">
+            <Input name="id_ruta" onChange={handleChange} value={item && item.id_ruta}/>
+          </Item>
+          <Item label="Contacto">
+            <Input name="contact" onChange={handleChange} value={item && item.contact}/>
+          </Item>
+          <Item label="Teléfono">
+            <Input name="phone_number" onChange={handleChange} value={item && item.phone_number}/>
+          </Item>
+          <Item label="Celular">
+            <Input name="cellphone" onChange={handleChange} value={item && item.cellphone}/>
+          </Item>
+          <Item label="Activo">
+            <Radio.Group onChange={onChange} value={value}>
+              <Radio value='Si'>Si</Radio>
+              <Radio value='No'>No</Radio>
+            </Radio.Group>
+          </Item>
+        </Form>
+      </Modal>
+
+      <Modal
+        visible={modalEliminar}
+        onCancel={abrirCerrarModalEliminar}
+        centered
+        footer={[
+          <Button onClick={abrirCerrarModalEliminar}>No</Button>,
+          <Button type="primary" danger onClick={deleteRecord}>Si</Button>
+        ]}
+      >
+        Esta seguro que desea elimnar el registro con <b><br />ID: {item.id} - {item.name}</b>
+      </Modal>
     </div>
    )
 }

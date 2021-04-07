@@ -2,7 +2,14 @@ import React, { useState } from 'react'
 import Form from "./Form"
 
 const New = () => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    name:'',
+    id_ruta:'',
+    contact:'',
+    phone_number:'',
+    cellphone:'',
+    is_active:'',
+  })
 
   return ( 
     <div className="row justify-content-center mt-5">

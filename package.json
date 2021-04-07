@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
+    "antd": "^4.15.0",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "0.0.0-a77dd13ed",
