@@ -73,7 +73,7 @@ const Login = () => {
             type="button"
             className="form-control btn btn-primary btn-block mt-3"
             onClick={handleSubmit}
-          >Iniciar Sessión</button>
+          >Iniciar Sessión - {URL}</button>
         </form>
         { errorMessage ? 
         <AlertMessage 
