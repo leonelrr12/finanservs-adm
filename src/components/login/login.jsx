@@ -12,6 +12,7 @@ const Login = () => {
   })
   
   const URL = process.env.REACT_APP_URL_SERVER
+  axios.defaults.baseURL = 'http:134.122.114.209:3001';
   const [errorMessage, setErrorMessage] = useState(null)
 
   const handleChange = (e) => {
@@ -23,7 +24,7 @@ const Login = () => {
     getNewUser()
     try {
       // const uuu = await axios.get(URL + '/api/login/'+user.email+'/'+user.password)
-      const uuu = await axios.get('http:134.122.114.209:3001/api/login/'+user.email+'/'+user.password)
+      const uuu = await axios.get('/api/login/'+user.email+'/'+user.password)
       const token = uuu.data.token
       if(token.length > 0) {
         const userJSON = {
@@ -43,7 +44,7 @@ const Login = () => {
   const getNewUser = async () => {
     console.log(URL + '/api/login/new-user/'+user.email);
     // const uuu = await axios.get(URL + '/api/login/new-user/'+user.email)
-    const uuu = await axios.get('http:134.122.114.209:3001/api/login/new-user/'+user.email)
+    const uuu = await axios.get('/api/login/new-user/'+user.email)
     if(uuu && uuu.data.is_new){
       window.localStorage.setItem('pwd',user.email)
       history.push("/password")
