@@ -11,9 +11,9 @@ const Login = () => {
     confPassword: ''
   })
   
-  console.log(11,axios.defaults.baseURL)
-  axios.defaults.baseURL = 'http://134.122.114.209:3001';
-  console.log(22,axios.defaults.baseURL)
+  // console.log(11,axios.defaults.baseURL)
+  // axios.defaults.baseURL = 'http://134.122.114.209:3001';
+  // console.log(22,axios.defaults.baseURL)
 
   const URL = process.env.REACT_APP_URL_SERVER
   const [errorMessage, setErrorMessage] = useState(null)
