@@ -22,7 +22,8 @@ const Login = () => {
     console.log('AAAAAAAAAAAAA', URL)
     getNewUser()
     try {
-      const uuu = await axios.get(URL + '/api/login/'+user.email+'/'+user.password)
+      // const uuu = await axios.get(URL + '/api/login/'+user.email+'/'+user.password)
+      const uuu = await axios.get('http:134.122.114.209:3001/api/login/'+user.email+'/'+user.password)
       const token = uuu.data.token
       if(token.length > 0) {
         const userJSON = {
@@ -41,7 +42,8 @@ const Login = () => {
 
   const getNewUser = async () => {
     console.log(URL + '/api/login/new-user/'+user.email);
-    const uuu = await axios.get(URL + '/api/login/new-user/'+user.email)
+    // const uuu = await axios.get(URL + '/api/login/new-user/'+user.email)
+    const uuu = await axios.get('http:134.122.114.209:3001/api/login/new-user/'+user.email)
     if(uuu && uuu.data.is_new){
       window.localStorage.setItem('pwd',user.email)
       history.push("/password")
@@ -73,7 +75,7 @@ const Login = () => {
             type="button"
             className="form-control btn btn-primary btn-block mt-3"
             onClick={handleSubmit}
-          >Iniciar Sessión - {URL}</button>
+          >Iniciar Sessión</button>
         </form>
         { errorMessage ? 
         <AlertMessage 
