@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const Password = () => {
   const history = useHistory()
   const [user, setUser] = useState({
@@ -11,7 +13,6 @@ const Password = () => {
     confPassword: ''
   })
   
-  const URL = process.env.REACT_APP_URL_SERVER
   const [errorMessage, setErrorMessage] = useState(null)
 
   const handleChange = (e) => {
@@ -26,7 +27,7 @@ const Password = () => {
       }
     }
     try {
-      await axios.put(URL + '/api/login/chgpwd', user)
+      await axios.put(URL_API + '/api/login/chgpwd', user)
       history.push("/login")
     }catch(e) {
       setErrorMessage(e.message)    

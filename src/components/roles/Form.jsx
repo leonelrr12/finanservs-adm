@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const Form = (props) => {
   const history = useHistory()
   const { update = null, data, setData } = props
@@ -14,14 +16,11 @@ const Form = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    const URL = process.env.REACT_APP_URL_SERVER
-
     try {
       if(update) {
-        await axios.put(URL + '/adm/roles/', data)
+        await axios.put(URL_API + '/adm/roles/', data)
       } else {
-        await axios.post(URL + '/adm/roles/', data)
+        await axios.post(URL_API + '/adm/roles/', data)
       }
       history.push('/roles')
     }catch(ex){

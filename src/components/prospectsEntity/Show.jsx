@@ -17,6 +17,8 @@ import Paper from '@material-ui/core/Paper';
 import { TableHead } from '@material-ui/core'
 import GetAppIcon from '@material-ui/icons/GetApp';
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -50,7 +52,6 @@ const Show = () => {
   const [images, setImages] = useState([])
   const [data, setData] = useState('')
   const [downloadUrl, setDownloadUrl] = useState(null)
-  const URL = process.env.REACT_APP_URL_SERVER
 
   const bucket = process.env.REACT_APP_BUCKET;
   const id_entity = '300';
@@ -70,13 +71,13 @@ const Show = () => {
   },[])
 
   const getByEntity_f = async (id_entity) => {
-    const res = await axios.get(URL + '/adm/prospects/entity_f/' + id_entity)
+    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + id_entity)
     const data = await res.data
     setProspects(data)
   }
 
   const getImages = async () => {
-    const res = await axios.get(URL + '/upload/list/', { 
+    const res = await axios.get(URL_API + '/upload/list/', { 
       params: { bucket: bucket, entity_f: entity_f } 
     })
     const data = await res.data
@@ -84,7 +85,7 @@ const Show = () => {
   }
 
   const getOneFile = async (key, nameFile) => {
-    const res = await axios.get(URL + '/upload/file/', { 
+    const res = await axios.get(URL_API + '/upload/file/', { 
       params: { bucket: bucket, key: key, name: nameFile } 
     })
     const data = (await res.data)
@@ -92,7 +93,7 @@ const Show = () => {
   }
 
   const getFiles = async () => {
-    const res = await axios.get(URL + '/upload/files/', { 
+    const res = await axios.get(URL_API + '/upload/files/', { 
       params: { bucket: bucket, entity_f: entity_f } 
     })
     const data = await res.data

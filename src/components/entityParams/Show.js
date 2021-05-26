@@ -6,7 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import NotData from '../NotData'
-require('dotenv').config()
+
+const URL_API = process.env.REACT_APP_URL_SERVER
 
 const useStyles = makeStyles((theme) => ({ 
   root: {
@@ -27,16 +28,15 @@ const Show = () => {
   const [dataE, setDataE] = useState([])
   const [entities, setEntities] = useState([])
   const [entity, setEntity] = useState('0')
-  const URL = process.env.REACT_APP_URL_SERVER
 
   const getAll = async () => {
-    const res = await axios.get(URL + '/adm/entity_params')
+    const res = await axios.get(URL_API + '/adm/entity_params')
     const da = await res.data
     setDataE(da)
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL + '/api/entities_f')
+    const res = await axios.get(URL_API + '/api/entities_f')
     const da = await res.data
     setEntities(da)
   }

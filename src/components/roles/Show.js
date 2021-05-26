@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import NotData from '../NotData'
-require('dotenv').config()
+
+const URL_API = process.env.REACT_APP_URL_SERVER
 
 const Show = () => {
   const [data, setData] = useState([])
-  const URL = process.env.REACT_APP_URL_SERVER
-
   const getAll = async () => {
-    const res = await axios.get(URL + '/adm/roles')
+    const res = await axios.get(URL_API + '/adm/roles')
     const da = await res.data
     setData(da)
   }
@@ -36,7 +35,7 @@ const Show = () => {
     }).then( async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(URL + '/adm/roles/' + id)
+          await axios.delete(URL_API + '/adm/roles/' + id)
           swalWithBootstrapButtons.fire(
             'Eliminado!',
             'Registro eliminado.',

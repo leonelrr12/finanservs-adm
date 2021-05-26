@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import NotData from '../NotData'
-require('dotenv').config()
+
+const URL_API = process.env.REACT_APP_URL_SERVER
 
 const Show = () => {
   const [estados_tramite, setEstados_tramite] = useState([])
-  const URL = process.env.REACT_APP_URL_SERVER
-
   const getAll = async () => {
-    const res = await axios.get(URL + '/adm/estados_tramite')
+    const res = await axios.get(URL_API + '/adm/estados_tramite')
     const data = await res.data
     setEstados_tramite(data)
   }
@@ -36,7 +35,7 @@ const Show = () => {
     }).then( async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(URL + '/adm/estados_tramite/' + id)
+          await axios.delete(URL_API + '/adm/estados_tramite/' + id)
           swalWithBootstrapButtons.fire(
             'Eliminado!',
             'Registro eliminado.',

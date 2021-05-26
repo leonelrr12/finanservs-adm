@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Form from "./Form"
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const New = () => {
   const [data, setData] = useState({})
   const [roles, setRoles] = useState({})
   const [entities, setEntities] = useState({})
-  const URL = process.env.REACT_APP_URL_SERVER
 
   const getRoles = async () => {
-    const res = await axios.get(URL + '/adm/roles')
+    const res = await axios.get(URL_API + '/adm/roles')
     const da = await res.data
     setRoles(da)
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL + '/api/entities_f')
+    const res = await axios.get(URL_API + '/api/entities_f')
     const da = await res.data
     setEntities(da)
   }

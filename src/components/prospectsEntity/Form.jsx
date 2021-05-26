@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const Form = (props) => {
   const history = useHistory()
   const { update = null, data, setData } = props
@@ -14,14 +16,11 @@ const Form = (props) => {
     setData({...data, [e.target.name] : e.target.value})
   }
 
-  const URL = process.env.REACT_APP_URL_SERVER
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     try {
       if(update) {
-        await axios.put(URL + '/adm/prospects/entity_f/', data)
+        await axios.put(URL_API + '/adm/prospects/entity_f/', data)
       }
       history.push('/entity_f')
     }catch(ex){
@@ -30,7 +29,7 @@ const Form = (props) => {
   }
 
   useEffect(() => {
-    axios.get(URL + '/adm/estados_tramite')
+    axios.get(URL_API + '/adm/estados_tramite')
     .then(estados => setEstados(estados.data))
   },[])
 

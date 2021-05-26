@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Form from './Form';
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const Edit = (props) => {
   const [data, setData] = useState({})
   const { id } = useParams()
-  const URL = process.env.REACT_APP_URL_SERVER
-
   const getById = async () => {
-    const res = await axios.get(URL + '/adm/housings/' + id)
+    const res = await axios.get(URL_API + '/adm/housings/' + id)
     const data = await res.data
     setData(data)
   }

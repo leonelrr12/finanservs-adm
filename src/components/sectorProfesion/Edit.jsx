@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import Form from './Form';
+import Form from './Form'
+
+const URL_API = process.env.REACT_APP_URL_SERVER
 
 const Edit = (props) => {
   const [data, setData] = useState({})
   const [sectors, setSectors] = useState({})
   const [profesions, setProfesions] = useState({})
   const { id } = useParams()
-  const URL = process.env.REACT_APP_URL_SERVER
 
   const getById = async () => {
-    const res = await axios.get(URL + '/adm/sector_profesion/' + id)
+    const res = await axios.get(URL_API + '/adm/sector_profesion/' + id)
     const data = await res.data
     setData(data)
   }
   const getSectors = async () => {
-    const res = await axios.get(URL + '/api/sectors')
+    const res = await axios.get(URL_API + '/api/sectors')
     const data = await res.data
     setSectors(data)
   }
   const getProfesions = async () => {
-    const res = await axios.get(URL + '/api/profesions')
+    const res = await axios.get(URL_API + '/api/profesions')
     const data = await res.data
     setProfesions(data)
   }

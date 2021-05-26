@@ -15,8 +15,9 @@ import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
 import Sign from '../../components/sign'
+
+const URL_API = process.env.REACT_APP_URL_SERVER
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -61,7 +62,6 @@ const Show = () => {
   const [prospectsA, setProspectsA] = useState([])
   const [entities, setEntities] = useState([])
   const [entity, setEntity] = useState('0')
-  const URL = process.env.REACT_APP_URL_SERVER
 
   useEffect(() => {
     console.log(URL);
@@ -81,7 +81,7 @@ const Show = () => {
   },[entity])
 
   const getByEntity = async () => {
-    const res = await axios.get(URL + '/adm/prospects/entity_f/' + entity)
+    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + entity)
     const da = await res.data
     setProspects(da)
     setProspectsA(da)
@@ -101,7 +101,7 @@ const Show = () => {
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL + '/api/entities_f')
+    const res = await axios.get(URL_API + '/api/entities_f')
     const da = await res.data
     setEntities(da)
   }

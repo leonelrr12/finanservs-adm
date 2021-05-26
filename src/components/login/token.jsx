@@ -1,4 +1,4 @@
-const URL = process.env.REACT_APP_URL_SERVER
+const URL_API = process.env.REACT_APP_URL_SERVER
 
 const VerifyToken = async () => {
   const loggedUserJSON = window.localStorage.getItem('jwt');
@@ -11,7 +11,7 @@ const VerifyToken = async () => {
     username = user.username
 
     if (token) {
-      const response = await fetch(`${URL}/api/login/token-verify`, {
+      const response = await fetch(`${URL_API}/api/login/token-verify`, {
         method: 'POST',
         body: new URLSearchParams({token})
       });

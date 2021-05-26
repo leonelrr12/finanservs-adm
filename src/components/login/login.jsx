@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
+const URL_API = process.env.REACT_APP_URL_SERVER
+
 const Login = () => {
   const history = useHistory()
   const [user, setUser] = useState({
@@ -11,11 +13,6 @@ const Login = () => {
     confPassword: ''
   })
   
-  // console.log(11,axios.defaults.baseURL)
-  // axios.defaults.baseURL = 'http://134.122.114.209:3001';
-  // console.log(22,axios.defaults.baseURL)
-
-  const URL = process.env.REACT_APP_URL_SERVER
   const [errorMessage, setErrorMessage] = useState(null)
 
   const handleChange = (e) => {
@@ -23,11 +20,9 @@ const Login = () => {
   }
 
   const handleSubmit = async () => {
-    console.log('AAAAAAAAAAAAA', URL)
     getNewUser()
     try {
-      // const uuu = await axios.get(URL + '/api/login/'+user.email+'/'+user.password)
-      const uuu = await axios.get('/api/login/'+user.email+'/'+user.password)
+      const uuu = await axios.get(URL_API + '/api/login/'+user.email+'/'+user.password)
       const token = uuu.data.token
       if(token.length > 0) {
         const userJSON = {
@@ -45,9 +40,8 @@ const Login = () => {
   }  
 
   const getNewUser = async () => {
-    console.log(URL + '/api/login/new-user/'+user.email);
-    // const uuu = await axios.get(URL + '/api/login/new-user/'+user.email)
-    const uuu = await axios.get('/api/login/new-user/'+user.email)
+    console.log(URL_API + '/api/login/new-user/'+user.email);
+    const uuu = await axios.get(URL_API + '/api/login/new-user/'+user.email)
     if(uuu && uuu.data.is_new){
       window.localStorage.setItem('pwd',user.email)
       history.push("/password")
