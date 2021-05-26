@@ -39,6 +39,7 @@ const Login = () => {
   }  
 
   const getNewUser = async () => {
+    console.log(URL + '/api/login/new-user/'+user.email);
     const uuu = await axios.get(URL + '/api/login/new-user/'+user.email)
     if(uuu && uuu.data.is_new){
       window.localStorage.setItem('pwd',user.email)
