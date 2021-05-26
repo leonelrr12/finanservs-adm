@@ -9,7 +9,7 @@ const Header = () => {
   useEffect(() => {
     verifyToken().then(res => {
       const {isValid, username} = res
-      console.log(isValid, username)
+      // console.log(isValid, username)
       if(isValid){
         setUser(username)
         history.push("/")
@@ -27,7 +27,7 @@ const Header = () => {
     history.push("/login")
   }
 
-  console.log(user);
+  // console.log(user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid mx-3">
