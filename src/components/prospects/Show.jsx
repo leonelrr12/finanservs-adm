@@ -64,6 +64,7 @@ const Show = () => {
   const URL = process.env.REACT_APP_URL_SERVER
 
   useEffect(() => {
+    console.log(URL);
     verifyToken().then(res => {
       const { isValid } = res
       if(isValid){
