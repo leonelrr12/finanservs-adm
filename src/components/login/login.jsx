@@ -19,6 +19,7 @@ const Login = () => {
   }
 
   const handleSubmit = async () => {
+    console.log('AAAAAAAAAAAAA', URL)
     getNewUser()
     try {
       const uuu = await axios.get(URL + '/api/login/'+user.email+'/'+user.password)
