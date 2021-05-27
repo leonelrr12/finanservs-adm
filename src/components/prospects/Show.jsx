@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 // import Sign from '../../components/sign'
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' //process.env.REACT_APP_URL_SERVER
 
 const useStyles = makeStyles((theme) => ({
   modal: {

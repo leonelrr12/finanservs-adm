@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' //process.env.REACT_APP_URL_SERVER
 
 const Login = () => {
   const history = useHistory()
