@@ -12,7 +12,7 @@ const Login = () => {
     password: '123456',
     confPassword: ''
   })
-  
+
   const [errorMessage, setErrorMessage] = useState(null)
 
   const handleChange = (e) => {

@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Sign from '../../components/sign'
+// import Sign from '../../components/sign'
 
 const URL_API = process.env.REACT_APP_URL_SERVER
 
@@ -123,7 +123,7 @@ const Show = () => {
     <>
       <h2 className="text-center my-2">Prospectos</h2>
  
-      <Sign />
+      {/* <Sign /> */}
       <div className={classes.root2}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
