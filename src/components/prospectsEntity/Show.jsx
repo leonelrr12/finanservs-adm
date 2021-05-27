@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import { TableHead } from '@material-ui/core'
 import GetAppIcon from '@material-ui/icons/GetApp';
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const useStyles = makeStyles((theme) => ({
   modal: {

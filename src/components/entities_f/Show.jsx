@@ -5,7 +5,7 @@ import 'antd/dist/antd.css'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import NotData from '../NotData'
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' // process.env.REACT_APP_URL_SERVER
 const { Item } = Form
 
 const layout={

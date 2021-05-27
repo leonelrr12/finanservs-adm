@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Form from './Form';
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const Edit = (props) => {
   const [data, setData] = useState({})

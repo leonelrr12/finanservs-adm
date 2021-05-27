@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import NotData from '../NotData'
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const useStyles = makeStyles((theme) => ({ 
   root: {

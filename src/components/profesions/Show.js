@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import NotData from '../NotData'
 
-const URL_API = process.env.REACT_APP_URL_SERVER
+const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const Show = () => {
   const [profesions, setProfesions] = useState([])
