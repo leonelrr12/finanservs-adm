@@ -13,13 +13,15 @@ const Password = () => {
     confPassword: ''
   })
   
+  const [email, setEmail] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
   const handleChange = (e) => {
-    setUser({...user, [e.target.name] : e.target.value})
+    setUser({...user, [e.target.name] : e.target.value, email: email})
   }
 
   const handleSubmit = async () => {
+    
     if(user.confPassword.length){
       if(user.confPassword !== user.password) {
         setErrorMessage('Contraseñas no coinciden!') 
@@ -36,8 +38,8 @@ const Password = () => {
 
   useEffect(() => {
     const email = window.localStorage.getItem('pwd')
-    setUser({...user, email: email})
-  },[user])
+    setEmail(email)
+  },[email])
 
   return ( 
     <div className="row mt-5">

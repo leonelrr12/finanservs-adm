@@ -85,6 +85,7 @@ const Show = () => {
     const da = await res.data
     setProspects(da)
     setProspectsA(da)
+    console.log(da)
   }
 
   const handleChange = (event) => {
@@ -118,6 +119,23 @@ const Show = () => {
     setOpen(false);
   };
 
+  const downLoad = id =>{
+    let enlace = `${id}`
+    console.log(enlace)
+    axios.get(enlace,{
+      responseType: 'blob',
+    }).then(response=>{
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href= url
+      link.setAttribute('download','Ticket.pdf')
+      document.body.appendChild(link)
+      link.click();
+
+    }).catch(error=>{
+    console.log(error);
+    });
+  }
 
   return ( 
     <>
@@ -223,18 +241,17 @@ const Show = () => {
                     {Object.keys(item).map((key) => (
                     <TableRow>
                         <TableCell align="right">{key}:</TableCell>
-                        <TableCell align="left">{item[key]}</TableCell>
+                        {key[0] === '_' && item[key] !== "undefined"
+                          ? <TableCell align="left"><a href={item[key]}><img src={item[key]} width="200" alt={key}/></a></TableCell>
+                          : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
                     </TableRow>
                     ))}
                 </TableBody>
               </Table>
             </TableContainer>
             <div className={classes.root + " text-center"}>
-              <Button variant="contained" color="primary">
-                Imprimir
-              </Button>
-              <Button variant="contained" color="secondary">
-                Descargar Imágenes
+              <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
+                Cerrar
               </Button>
             </div>
           </div>

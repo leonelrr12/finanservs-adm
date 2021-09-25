@@ -49,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
 const Show = () => {
   const history = useHistory()
   const [prospects, setProspects] = useState([])
-  const [images, setImages] = useState([])
-  const [data, setData] = useState('')
-  const [downloadUrl, setDownloadUrl] = useState(null)
+  // const [images, setImages] = useState([])
+  // const [data, setData] = useState('')
+  // const [downloadUrl, setDownloadUrl] = useState(null)
 
   const bucket = process.env.REACT_APP_BUCKET;
   const id_entity = '300';
@@ -62,7 +62,7 @@ const Show = () => {
       const { isValid } = res
       if(isValid){
         getByEntity_f(id_entity)
-        getImages()
+        //getImages()
       }else{
         window.localStorage.removeItem('jwt')
         history.push("/login")
@@ -76,13 +76,13 @@ const Show = () => {
     setProspects(data)
   }
 
-  const getImages = async () => {
-    const res = await axios.get(URL_API + '/upload/list/', { 
-      params: { bucket: bucket, entity_f: entity_f } 
-    })
-    const data = await res.data
-    setImages(data)
-  }
+  // const getImages = async () => {
+  //   const res = await axios.get(URL_API + '/upload/list/', { 
+  //     params: { bucket: bucket, entity_f: entity_f } 
+  //   })
+  //   const data = await res.data
+  //   setImages(data)
+  // }
 
   const getOneFile = async (key, nameFile) => {
     const res = await axios.get(URL_API + '/upload/file/', { 
@@ -92,18 +92,18 @@ const Show = () => {
     console.log(data)
   }
 
-  const getFiles = async () => {
-    const res = await axios.get(URL_API + '/upload/files/', { 
-      params: { bucket: bucket, entity_f: entity_f } 
-    })
-    const data = await res.data
-  }  
+  // const getFiles = async () => {
+  //   const res = await axios.get(URL_API + '/upload/files/', { 
+  //     params: { bucket: bucket, entity_f: entity_f } 
+  //   })
+  //   const data = await res.data
+  // }  
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
-  const [item2, setItem2] = useState({});
+  // const [item2, setItem2] = useState({});
 
   const handleOpen = (pitem) => {
     setItem(pitem)
@@ -114,28 +114,28 @@ const Show = () => {
     setOpen(false);
   };
 
-  const handleOpen2 = (pitem) => {
-    const id = '7-94-485' //pitem['Cédula Id']
+  // const handleOpen2 = (pitem) => {
+  //   const id = '7-94-485' //pitem['Cédula Id']
 
-    const newD = []
-    images.map(item => {
-      const x = item.Key.split('/')
-      if(x.length > 2) {
-        if(x[2] === id) {
-          const obj = {
-            "Key": item.Key,
-            "Date": item.LastModified,
-            "Size": Math.floor(item.Size/1000),
-            "ETag": item.ETag,
-            "File": x[3]
-          }
-          newD.push(obj)
-        }
-      }
-    })    
-    setItem2(newD)
-    setOpen2(true);
-  };
+  //   const newD = []
+  //   images.map(item => {
+  //     const x = item.Key.split('/')
+  //     if(x.length > 2) {
+  //       if(x[2] === id) {
+  //         const obj = {
+  //           "Key": item.Key,
+  //           "Date": item.LastModified,
+  //           "Size": Math.floor(item.Size/1000),
+  //           "ETag": item.ETag,
+  //           "File": x[3]
+  //         }
+  //         newD.push(obj)
+  //       }
+  //     }
+  //   })    
+  //   setItem2(newD)
+  //   setOpen2(true);
+  // };
 
   const handleClose2 = () => {
     setOpen2(false);
@@ -212,21 +212,18 @@ const Show = () => {
                 <TableBody id="transition-modal-description">
                     {Object.keys(item).map((key) => (
                     <TableRow>
-                        <TableCell align="right">{key}:</TableCell>
-                        <TableCell align="left">{item[key]}</TableCell>
-                    </TableRow>
+                    <TableCell align="right">{key}:</TableCell>
+                    {key[0] === '_' && item[key] !== "undefined"
+                      ? <TableCell align="left"><a href={item[key]}><img src={item[key]} width="200" alt={key}/></a></TableCell>
+                      : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
+                </TableRow>
                     ))}
                 </TableBody>
               </Table>
             </TableContainer>
             <div className={classes.root + " text-center"}>
-              <Button variant="contained" color="primary">
-                Imprimir
-              </Button>
-              <Button variant="contained" color="secondary"
-                onClick={()=>{handleOpen2(item)}}
-              >
-                Ver Imágenes
+              <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
+                Cerrar
               </Button>
             </div>
           </div>
@@ -245,7 +242,7 @@ const Show = () => {
           timeout: 500,
         }}
       >
-        <Fade in={open2}>
+        {/* <Fade in={open2}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title" className="text-center">Archivos</h2>
             <TableContainer component={Paper} className={classes.container}>
@@ -280,7 +277,7 @@ const Show = () => {
               </Button>
             </div>
           </div>
-        </Fade>
+        </Fade> */}
       </Modal>
     </>
    )
