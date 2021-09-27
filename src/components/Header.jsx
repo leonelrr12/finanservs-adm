@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import verifyToken from './login/token'
 
-const Header = () => {
+
+const Header = (props) => {
+  const { loggedInStatus } = props
   const history = useHistory()
   const [user, setUser] = useState(null)
+  const [role, setRole] = useState(0)
 
   useEffect(() => {
-    verifyToken().then(res => {
-      const {isValid, username} = res
-      // console.log(isValid, username)
-      if(isValid){
-        setUser(username)
-        history.push("/")
-      }
-    })
+      window.localStorage.removeItem('jwt')
+      history.push("/")  // Manda a ruta de Login
   },[])
 
-  const handleLogin = () => {
-    history.push("/login")
-  }
+  
+  useEffect(() => {
+    if(loggedInStatus.loggedInSatus) {
+      setUser(loggedInStatus.user.email)
+      setRole(loggedInStatus.user.role)
+    }
+  },[loggedInStatus])
 
   const handleLogout = () => {
     window.localStorage.removeItem('jwt')
     setUser(null)
-    history.push("/login")
+    history.push("/")  // Manda a ruta de Login
   }
 
-  // console.log(user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid mx-3">
-        <Link to={"/"} className="navbar-brand" href="#">
+        <Link to={"/entity_f"} className="navbar-brand" href="#">
           <span className="logo">FINAN<span className="logo_2">SERVS</span></span>
         </Link>
 
@@ -43,16 +42,16 @@ const Header = () => {
         
         <div className="collapse navbar-collapse" id="navbarScroll">
           <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
-            <li className="nav-item dropdown">
-              <Link to={""} className="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Entidades F
-              </Link>
-              <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><Link to={"/entity_f"} className="dropdown-item">Listado de Prospectos</Link></li>
-              </ul>
-            </li>
+            {role !== 1 ? 
+            <>
+              <li className="nav-item">
+                <Link to={"/entity_f"} className="nav-link">Prospectos</Link>
+              </li>
+            </>
+            :
+            <>
             <li className="nav-item">
-              <Link to={""} className="nav-link">Prospectos</Link>
+              <Link to={"/prospects"} className="nav-link">Prospectos</Link>
             </li>
             <li className="nav-item dropdown">
               <Link to={""} className="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,15 +90,14 @@ const Header = () => {
                 <li><Link to={"/roles"} className="dropdown-item">Roles</Link></li>
                 <li><Link to={"/users"} className="dropdown-item">Usuarios</Link></li>
               </ul>
-            </li>            
+            </li>      
+            </>}
           </ul>
           <div className="d-flex">
             {user ? 
               <button onClick={handleLogout} className="btn btn-info" type="button">Log Out</button>
               :  
-              (
-                <button onClick={handleLogin} className="btn btn-info" type="subbuttonmit">Log In</button>
-              )
+              ""
             }
           </div>
         </div>

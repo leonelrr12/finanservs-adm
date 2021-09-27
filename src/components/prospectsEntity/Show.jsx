@@ -49,26 +49,27 @@ const useStyles = makeStyles((theme) => ({
 const Show = () => {
   const history = useHistory()
   const [prospects, setProspects] = useState([])
+  const [id_entity, setId_entity] = useState("0")
   // const [images, setImages] = useState([])
   // const [data, setData] = useState('')
   // const [downloadUrl, setDownloadUrl] = useState(null)
 
   const bucket = process.env.REACT_APP_BUCKET;
-  const id_entity = '300';
-  const entity_f = 'BAC';
-    
+
   useEffect(() => {
-    verifyToken().then(res => {
-      const { isValid } = res
-      if(isValid){
-        getByEntity_f(id_entity)
-        //getImages()
-      }else{
-        window.localStorage.removeItem('jwt')
-        history.push("/login")
-      }
-    })
+    const loggedUserJSON = window.localStorage.getItem('jwt');
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setId_entity(user.entity_f)
+    }
   },[])
+
+
+  useEffect(() => {
+    getByEntity_f(id_entity)
+  },[id_entity])
+
 
   const getByEntity_f = async (id_entity) => {
     const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + id_entity)

@@ -1,4 +1,5 @@
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header'
 
@@ -82,13 +83,37 @@ import MissingRoute from './components/MissingRoute'
 
 function App() {
 
+  const [loggedInStatus, setLoggedInStatus] = useState({
+    loggedInStatus: false,
+    user: {
+      email: '',
+      token: false,
+      entity_f: ''
+    }
+  })
+
+  const udtStatusUser = data => {
+    setLoggedInStatus(data)
+  }
+
   return (
     <Router>
-        <Header />
+      <Header 
+        loggedInStatus = {loggedInStatus}
+        udtStatusUser = {udtStatusUser}
+      />
+
         <div className="container">
           <Switch>
-            <Route path="/" exact component={AllProspects} />
+            
+            <Route 
+              path="/" 
+              exact 
+              render = {(props) => <Login {...props} udtStatusUser={udtStatusUser} />}
+             />
 
+            <Route path="/prospects" exact component={AllProspects} />
+ 
             <Route path="/sectors" exact component={AllSectors} />
             <Route path="/sectors/new" exact component={NewSector} />
             <Route path="/sectors/edit/:id" exact component={EditSector} />
@@ -160,7 +185,7 @@ function App() {
             <Route path="/entity_f" exact component={ProspectsEntity} />
             <Route path="/entity_f/edit/:id" exact component={EditProspectsEntity} />
 
-            <Route path="/login" exact component={Login} />
+            {/* <Route path="/login" exact component={Login} /> */}
             <Route path="/password" exact component={Password} />
             <Route component={MissingRoute} />
 

@@ -3,13 +3,16 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
+
 const URL_API = '' //process.env.REACT_APP_URL_SERVER
 
-const Login = () => {
+const Login = (props) => {
+  const {udtStatusUser} = props
+
   const history = useHistory()
   const [user, setUser] = useState({
-    email: 'guasimo01@gmail.com',
-    password: '123456',
+    email: '',
+    password: '',
     confPassword: ''
   })
 
@@ -24,13 +27,28 @@ const Login = () => {
     try {
       const uuu = await axios.get(URL_API + '/api/login/'+user.email+'/'+user.password)
       const token = uuu.data.token
+      
       if(token.length > 0) {
         const userJSON = {
           username: user.email,
-          token: token
+          token: token,
+          entity_f: uuu.data.Ruta,
+          role: uuu.data.Role
         }
+        const dataUser = {
+          loggedInSatus: true,
+          user: {
+            email: user.email,
+            token: true,
+            entity_f: uuu.data.Ruta,
+            role: uuu.data.Role
+          }
+        }
+        
+        udtStatusUser(dataUser)
+
         window.localStorage.setItem('jwt', JSON.stringify(userJSON));
-        history.push("/")
+        history.push("/entity_f")
       } else {
         setErrorMessage(uuu.data.message)    
       }

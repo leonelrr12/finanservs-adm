@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
-import verifyToken from '../login/token'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -57,35 +56,21 @@ const useStyles = makeStyles((theme) => ({
 const Show = () => {
   const classes = useStyles();
   
-  const history = useHistory()
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
   const [entities, setEntities] = useState([])
   const [entity, setEntity] = useState('0')
 
   useEffect(() => {
-    console.log(URL);
-    verifyToken().then(res => {
-      const { isValid } = res
-      if(isValid){
-        getEntities()
-      }else{
-        window.localStorage.removeItem('jwt')
-        history.push("/login")
-      }
-    })
-  },[])
-
-  useEffect(() => {
     getByEntity()
-  },[entity])
+    getEntities()
+  },[])
 
   const getByEntity = async () => {
     const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + entity)
     const da = await res.data
     setProspects(da)
     setProspectsA(da)
-    console.log(da)
   }
 
   const handleChange = (event) => {
@@ -261,4 +246,5 @@ const Show = () => {
    )
 }
  
+
 export default Show

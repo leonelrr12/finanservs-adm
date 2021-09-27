@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import verifyToken from '../login/token'
 import NotData from '../NotData'
 
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
@@ -14,6 +15,19 @@ const Show = () => {
     const da = await res.data
     setData(da)
   }
+
+  const [tokenValid, setTokenValid] = useState(false)
+  useEffect(() => {
+    verifyToken().then(res => {
+      const { isValid } = res
+      if(isValid){
+        setTokenValid(true)
+        getAll()
+      }else{
+        window.localStorage.removeItem('jwt')
+      }
+    })
+  },[])
 
   const delRecord = async (id) => {
 
@@ -63,11 +77,13 @@ const Show = () => {
     })
   }
 
-  useEffect(() => {
-    getAll()
-  },[])
+  // useEffect(() => {
+  //   getAll()
+  // },[])
 
   return ( 
+    <>
+    {tokenValid ? 
     <div className="w-75 m-auto">
       <h2 className="text-center mt-5">Usuarios</h2>
       <div className="my-2 d-flex justify-content-end">
@@ -116,6 +132,8 @@ const Show = () => {
         </tbody>
       </table>
     </div>
+    :""}
+    </>
    )
 }
  

@@ -62,14 +62,14 @@ const Form = (props) => {
         <div className="form-group my-2">
           <label>Entidad Financiera</label>
           <select 
-            name="id_entity_f"
+            name="entity_f"
             onChange={onChange}
             className="form-control"
           >
             <option value="0">&nbsp;Uso Interno&nbsp;</option>
             {entities.length ? 
               entities.map(item => 
-                <option value={item.id} selected={item.id === data.id_entity_f}>{item.name}</option>
+                <option value={item.id} selected={item.id === data.entity_f}>{item.name}</option>
               )
             : ""  }
           </select>
