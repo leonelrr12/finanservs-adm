@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Show = () => {
   const classes = useStyles();
+  const history = useHistory()
   
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
@@ -62,9 +63,21 @@ const Show = () => {
   const [entity, setEntity] = useState('0')
 
   useEffect(() => {
-    getByEntity()
+    const loggedUserJSON = window.localStorage.getItem('jwt');
+
+    if (!loggedUserJSON) {
+      history.push("/")
+    }
+  },[])
+
+
+  useEffect(() => {
     getEntities()
   },[])
+
+  useEffect(() => {
+    getByEntity()
+  },[entity])
 
   const getByEntity = async () => {
     const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + entity)

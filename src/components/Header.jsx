@@ -30,7 +30,7 @@ const Header = (props) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid mx-3">
-        <Link to={"/entity_f"} className="navbar-brand" href="#">
+        <Link to={role === 1 ? "/prospects" : "/entity_f"} className="navbar-brand" href="#">
           <span className="logo">FINAN<span className="logo_2">SERVS</span></span>
         </Link>
 

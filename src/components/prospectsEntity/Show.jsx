@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
-import verifyToken from '../login/token'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -62,6 +61,8 @@ const Show = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setId_entity(user.entity_f)
+    } else {
+      history.push("/")
     }
   },[])
 

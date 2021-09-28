@@ -48,7 +48,7 @@ const Login = (props) => {
         udtStatusUser(dataUser)
 
         window.localStorage.setItem('jwt', JSON.stringify(userJSON));
-        history.push("/entity_f")
+        history.push(uuu.data.Role === 1 ? "/prospects" : "/entity_f")
       } else {
         setErrorMessage(uuu.data.message)    
       }
