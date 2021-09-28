@@ -30,7 +30,7 @@ const Password = () => {
     }
     try {
       await axios.put(URL_API + '/api/login/chgpwd', user)
-      history.push("/login")
+      history.push("/")
     }catch(e) {
       setErrorMessage(e.message)    
     } 
