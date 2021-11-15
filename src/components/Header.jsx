@@ -9,10 +9,13 @@ const Header = (props) => {
   const [role, setRole] = useState(0)
 
   useEffect(() => {
-      window.localStorage.removeItem('jwt')
-      history.push("/")  // Manda a ruta de Login
+      const wUser = window.localStorage.getItem('jwt')
+      if(wUser) {
+        const user = JSON.parse(wUser)
+        setUser(user.username)
+        setRole(user.role)
+      }
   },[])
-
   
   useEffect(() => {
     if(loggedInStatus.loggedInSatus) {
@@ -45,7 +48,7 @@ const Header = (props) => {
             {role !== 1 ? 
             <>
               <li className="nav-item">
-                <Link to={"/entity_f"} className="nav-link">Prospectos</Link>
+                <Link to={"/entity_f"} className="nav-link">Prospectos{role}</Link>
               </li>
             </>
             :

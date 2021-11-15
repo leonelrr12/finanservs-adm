@@ -80,6 +80,8 @@ import Login from './components/login/login';
 import Password from './components/login/password';
 // import Login from './components/users/login';
 import MissingRoute from './components/MissingRoute'
+import { AppBar, CssBaseline, Toolbar, Typography } from '@material-ui/core';
+import { PhotoCameraOutlined } from '@material-ui/icons';
 
 function App() {
 
@@ -98,14 +100,21 @@ function App() {
 
   return (
     <Router>
-      <Header 
-        loggedInStatus = {loggedInStatus}
-        udtStatusUser = {udtStatusUser}
-      />
+      {/* <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar>
+          <PhotoCameraOutlined />
+        </Toolbar>
+      </AppBar> */}
+
+        <Header 
+          loggedInStatus = {loggedInStatus}
+          udtStatusUser = {udtStatusUser}
+        />
+
 
         <div className="container">
           <Switch>
-            
             <Route 
               path="/" 
               exact 

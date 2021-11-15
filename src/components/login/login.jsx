@@ -45,6 +45,7 @@ const Login = (props) => {
           }
         }
         
+        debugger
         udtStatusUser(dataUser)
 
         window.localStorage.setItem('jwt', JSON.stringify(userJSON));
