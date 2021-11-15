@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 // import Sign from '../../components/sign'
+import Edit from '../prospectsEntity/Edit'
 
 const URL_API = '' //process.env.REACT_APP_URL_SERVER
 
@@ -100,12 +101,13 @@ const Show = () => {
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL_API + '/api/entities_f')
+    const res = await axios.get(URL_API + '/adm/entities_f')
     const da = await res.data
     setEntities(da)
   }
 
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
 
   const handleOpen = (pitem) => {
@@ -113,27 +115,36 @@ const Show = () => {
     setOpen(true);
   };
 
+  const handleOpen2 = (pitem) => {
+    setItem(pitem)
+    setOpen2(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
+  const handleClose2 = () => {
+    setOpen2(false);
+    getByEntity(entity)
+  };
 
-  const downLoad = id =>{
-    let enlace = `${id}`
-    console.log(enlace)
-    axios.get(enlace,{
-      responseType: 'blob',
-    }).then(response=>{
-      const url = window.URL.createObjectURL(new Blob([response.data]))
-      const link = document.createElement('a')
-      link.href= url
-      link.setAttribute('download','Ticket.pdf')
-      document.body.appendChild(link)
-      link.click();
+  // const downLoad = id =>{
+  //   let enlace = `${id}`
+  //   console.log(enlace)
+  //   axios.get(enlace,{
+  //     responseType: 'blob',
+  //   }).then(response=>{
+  //     const url = window.URL.createObjectURL(new Blob([response.data]))
+  //     const link = document.createElement('a')
+  //     link.href= url
+  //     link.setAttribute('download','Ticket.pdf')
+  //     document.body.appendChild(link)
+  //     link.click();
 
-    }).catch(error=>{
-    console.log(error);
-    });
-  }
+  //   }).catch(error=>{
+  //   console.log(error);
+  //   });
+  // }
 
   return ( 
     <>
@@ -148,7 +159,7 @@ const Show = () => {
               <select className="font-weight-lighter" onChange={handleChange} name='entity'>
                 <option value="0">Seleccione una Entidad</option>
                 {entities.map((item) => (
-                  <option value={item.id_ruta}>{item.name}</option>
+                  <option key={item.id} value={item.id_ruta}>{item.name}</option>
                 ))}
               </select>
             </Paper>
@@ -183,6 +194,8 @@ const Show = () => {
             <th scope="col">Teléfono</th>
             <th scope="col">Sector</th>
             <th scope="col">Profesión</th>
+            <th scope="col">Ejecutivo</th>
+            <th scope="col">Monto</th>
             <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
           </tr>
@@ -201,10 +214,13 @@ const Show = () => {
                 <td>{item.Telefono}</td>
                 <td>{item.Sector}</td>
                 <td>{item['Profesión']}</td>
+                <td>{item.Ejecutivo}</td>
+                <td>{new Intl.NumberFormat("en-US", {currency: 'USD', minimumFractionDigits: 2}).format(Number(item['Préstamo Personal']))}</td>
                 <td>{item.Estado}</td>
                 <td>
                     <button onClick={()=>{handleOpen(item)}} className="btn btn-secondary btn-sm">Ver +</button>
-                    <Link to={"/entity_f/edit/" + item.ID} className="btn btn-warning btn-sm">Editar</Link>
+                    <button onClick={()=>{handleOpen2(item)}} className="btn btn-warning btn-sm">Editar</button>
+                    {/* <Link to={"/entity_f/edit/" + item.ID} className="btn btn-warning btn-sm">Editar</Link> */}
                 </td>
                 {/* <td>{item.dias}</td> */}
               </tr>
@@ -218,6 +234,7 @@ const Show = () => {
           }
         </tbody>
       </table>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -238,10 +255,10 @@ const Show = () => {
                 <TableBody id="transition-modal-description">
                     {Object.keys(item).map((key) => (
                     <TableRow>
-                        <TableCell align="right">{key}:</TableCell>
-                        {key[0] === '_' && item[key] !== "undefined"
-                          ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
-                          : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
+                      <TableCell align="right">{key}:</TableCell>
+                      {key[0] === '_' && item[key] !== "undefined"
+                        ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
+                        : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
                     </TableRow>
                     ))}
                 </TableBody>
@@ -252,6 +269,28 @@ const Show = () => {
                 Cerrar
               </Button>
             </div>
+          </div>
+        </Fade>
+      </Modal>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open2}
+        onClose={handleClose2}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open2}>
+          <div className={classes.paper}>
+            <Edit 
+              handleClose2={handleClose2}
+              id={item.ID}
+            />
           </div>
         </Fade>
       </Modal>

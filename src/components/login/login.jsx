@@ -33,7 +33,8 @@ const Login = (props) => {
           username: user.email,
           token: token,
           entity_f: uuu.data.Ruta,
-          role: uuu.data.Role
+          role: uuu.data.Role,
+          idUser: uuu.data.idUser
         }
         const dataUser = {
           loggedInSatus: true,
@@ -45,7 +46,6 @@ const Login = (props) => {
           }
         }
         
-        debugger
         udtStatusUser(dataUser)
 
         window.localStorage.setItem('jwt', JSON.stringify(userJSON));
@@ -59,7 +59,7 @@ const Login = (props) => {
   }  
 
   const getNewUser = async () => {
-    console.log(URL_API + '/api/login/new-user/'+user.email);
+    // console.log(URL_API + '/api/login/new-user/'+user.email);
     const uuu = await axios.get(URL_API + '/api/login/new-user/'+user.email)
     if(uuu && uuu.data.is_new){
       window.localStorage.setItem('pwd',user.email)

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Form from './Form'
 
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
-const Edit = () => {
-  const [data, setData] = useState({})
-  const { id } = useParams()
+const Edit = ({handleClose2, id}) => {
+  const [ data, setData ] = useState({})
+  // const { id } = useParams()
+
   const getById = async () => {
     const res = await axios.get(URL_API + '/adm/prospects/entity_f/entity/' + id)
     const data = await res.data
@@ -30,6 +31,7 @@ const Edit = () => {
               update={true} 
               data={data} 
               setData={setData}
+              handleClose2={handleClose2}
             />
           </div>
         </div>

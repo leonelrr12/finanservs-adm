@@ -13,8 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { TableHead } from '@material-ui/core'
-import GetAppIcon from '@material-ui/icons/GetApp';
+import Edit from './Edit'
 
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
@@ -53,7 +52,7 @@ const Show = () => {
   // const [data, setData] = useState('')
   // const [downloadUrl, setDownloadUrl] = useState(null)
 
-  const bucket = process.env.REACT_APP_BUCKET;
+  // const bucket = process.env.REACT_APP_BUCKET;
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('jwt');
@@ -86,13 +85,13 @@ const Show = () => {
   //   setImages(data)
   // }
 
-  const getOneFile = async (key, nameFile) => {
-    const res = await axios.get(URL_API + '/upload/file/', { 
-      params: { bucket: bucket, key: key, name: nameFile } 
-    })
-    const data = (await res.data)
-    console.log(data)
-  }
+  // const getOneFile = async (key, nameFile) => {
+  //   const res = await axios.get(URL_API + '/upload/file/', { 
+  //     params: { bucket: bucket, key: key, name: nameFile } 
+  //   })
+  //   const data = (await res.data)
+  //   console.log(data)
+  // }
 
   // const getFiles = async () => {
   //   const res = await axios.get(URL_API + '/upload/files/', { 
@@ -105,16 +104,23 @@ const Show = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
-  // const [item2, setItem2] = useState({});
 
   const handleOpen = (pitem) => {
     setItem(pitem)
-    setOpen(true);
-  };
+    setOpen(true)
+  }
+  const handleOpen2 = (pitem) => {
+    setItem(pitem)
+    setOpen2(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
+  const handleClose2 = () => {
+    setOpen2(false)
+    getByEntity_f(id_entity)
+  }
 
   // const handleOpen2 = (pitem) => {
   //   const id = '7-94-485' //pitem['Cédula Id']
@@ -139,10 +145,6 @@ const Show = () => {
   //   setOpen2(true);
   // };
 
-  const handleClose2 = () => {
-    setOpen2(false);
-  };
-
   return ( 
     <>
       <h2 className="text-center my-4">Prospectos</h2>
@@ -158,6 +160,8 @@ const Show = () => {
             <th scope="col">Teléfono</th>
             <th scope="col">Sector</th>
             <th scope="col">Profesión</th>
+            <th scope="col">Ejecutivo</th>
+            <th scope="col">Monto</th>
             <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
           </tr>
@@ -176,10 +180,13 @@ const Show = () => {
                 <td>{item.Telefono}</td>
                 <td>{item.Sector}</td>
                 <td>{item['Profesión']}</td>
+                <td>{item.Ejecutivo}</td>
+                <td>{new Intl.NumberFormat("en-US", {currency: 'USD', minimumFractionDigits: 2}).format(Number(item['Préstamo Personal']))}</td>
                 <td>{item.Estado}</td>
                 <td>
                     <button onClick={()=>{handleOpen(item)}} className="btn btn-secondary btn-sm">Ver +</button>
-                    <Link to={"/entity_f/edit/" + item.ID} className="btn btn-warning btn-sm">Editar</Link>
+                    <button onClick={()=>{handleOpen2(item)}} className="btn btn-warning btn-sm">Editar</button>
+                    {/* <Link to={"/entity_f/edit/" + item.ID} className="btn btn-warning btn-sm">Editar</Link> */}
                 </td>
                 {/* <td>{item.dias}</td> */}
               </tr>
@@ -214,11 +221,11 @@ const Show = () => {
                 <TableBody id="transition-modal-description">
                     {Object.keys(item).map((key) => (
                     <TableRow>
-                    <TableCell align="right">{key}:</TableCell>
-                    {key[0] === '_' && item[key] !== "undefined"
-                      ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
-                      : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
-                </TableRow>
+                      <TableCell align="right">{key}:</TableCell>
+                      {key[0] === '_' && item[key] !== "undefined"
+                        ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
+                        : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
+                    </TableRow>
                     ))}
                 </TableBody>
               </Table>
@@ -244,42 +251,14 @@ const Show = () => {
           timeout: 500,
         }}
       >
-        {/* <Fade in={open2}>
+        <Fade in={open2}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title" className="text-center">Archivos</h2>
-            <TableContainer component={Paper} className={classes.container}>
-              <Table className={classes.table} size="small" aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="left">Documento</TableCell>
-                    <TableCell align="left">Size</TableCell>
-                    <TableCell align="left">Fecha</TableCell>
-                    <TableCell align="left">Acción</TableCell>
-                  </TableRow>
-                </TableHead>                
-                <TableBody id="transition-modal-description">
-                    {Object.keys(item2).map((key) => (
-                    <TableRow>
-                        <TableCell align="left">{item2[key].File}</TableCell>
-                        <TableCell align="left">{item2[key].Size}MB</TableCell>
-                        <TableCell align="left">{item2[key].Date}</TableCell>
-                        <TableCell align="left">
-                          <button onClick={()=>{getOneFile(item2[key].Key, item2[key].File)}} className="btn btn-secondary btn-sm"><GetAppIcon /></button>
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <div className={classes.root + " text-center"}>
-              <Button variant="contained" color="secondary"
-                onClick={()=>{getFiles(item2)}}
-              >
-                Descargar Todo
-              </Button>
-            </div>
+            <Edit 
+              handleClose2={handleClose2}
+              id={item.ID}
+            />
           </div>
-        </Fade> */}
+        </Fade>
       </Modal>
     </>
    )

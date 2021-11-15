@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const Form = (props) => {
-  const history = useHistory()
-  const { update = null, data, setData } = props
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [estados, setEstados] = useState([])
+  const { update = null, data, setData, handleClose2 } = props
+  const [ errorMessage, setErrorMessage ] = useState(null)
+  const [ estados, setEstados ] = useState([])
+  const [ idUser, setIdUser ] = useState(0)
 
   const onChange = (e) => {
     
@@ -18,14 +17,19 @@ const Form = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    data.ejecutivo=idUser
     try {
       if(update) {
         await axios.put(URL_API + '/adm/prospects/entity_f/', data)
       }
-      history.push('/entity_f')
+      handleClose2()
     }catch(ex){
       setErrorMessage("Error: Query no permitido.  Favor ver Log del Servidor.")
     }    
+  }
+
+  const onCancelar = () => {
+    handleClose2()
   }
 
   useEffect(() => {
@@ -33,10 +37,19 @@ const Form = (props) => {
     .then(estados => setEstados(estados.data))
   },[])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('jwt');
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setIdUser(user.idUser)
+    }
+  },[])
+
   return ( 
     <>
       <form onSubmit={handleSubmit}>
-      <div className="form-group">
+        <div className="form-group">
           <label>Estado</label>
           <select 
             className="form-control"
@@ -52,14 +65,25 @@ const Form = (props) => {
             }
           </select>
         </div>
+        <div className="form-group mt-2">
+          <label>Comentarios:</label>
+          <textarea id="w3review" rows="6" cols="50"
+            className="form-control"
+            name="comentarios"
+            onChange={onChange}
+            value={data.comentarios || ''}
+          >
+          </textarea>
+        </div>
         <div className="mt-3">
           <button
             type="submit"
             className="btn btn-primary font-weight-bold"
           >Actualizar</button>
-          <Link to={"/entity_f/"}
-            className="btn btn-warning font-weight-bold mx-3"
-          >Cancelar</Link>
+          <button
+            onClick={onCancelar}
+            className="btn btn-warning font-weight-bold mx-2"
+          >Cancelar</button>
         </div>
       </form>
       { errorMessage ? 
