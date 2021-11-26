@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,8 +14,6 @@ import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Edit from './Edit'
-
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -48,11 +46,6 @@ const Show = () => {
   const history = useHistory()
   const [prospects, setProspects] = useState([])
   const [id_entity, setId_entity] = useState("0")
-  // const [images, setImages] = useState([])
-  // const [data, setData] = useState('')
-  // const [downloadUrl, setDownloadUrl] = useState(null)
-
-  // const bucket = process.env.REACT_APP_BUCKET;
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('jwt');
@@ -70,40 +63,17 @@ const Show = () => {
     getByEntity_f(id_entity)
   },[id_entity])
 
-
   const getByEntity_f = async (id_entity) => {
-    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + id_entity)
+    const res = await axios.get('/adm/prospects/entity_f/' + id_entity)
     const data = await res.data
     setProspects(data)
   }
-
-  // const getImages = async () => {
-  //   const res = await axios.get(URL_API + '/upload/list/', { 
-  //     params: { bucket: bucket, entity_f: entity_f } 
-  //   })
-  //   const data = await res.data
-  //   setImages(data)
-  // }
-
-  // const getOneFile = async (key, nameFile) => {
-  //   const res = await axios.get(URL_API + '/upload/file/', { 
-  //     params: { bucket: bucket, key: key, name: nameFile } 
-  //   })
-  //   const data = (await res.data)
-  //   console.log(data)
-  // }
-
-  // const getFiles = async () => {
-  //   const res = await axios.get(URL_API + '/upload/files/', { 
-  //     params: { bucket: bucket, entity_f: entity_f } 
-  //   })
-  //   const data = await res.data
-  // }  
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
+  const [estado, setEstado] = useState('')
 
   const handleOpen = (pitem) => {
     setItem(pitem)
@@ -111,6 +81,7 @@ const Show = () => {
   }
   const handleOpen2 = (pitem) => {
     setItem(pitem)
+    setEstado(pitem.Estado)
     setOpen2(true)
   }
 
@@ -121,29 +92,6 @@ const Show = () => {
     setOpen2(false)
     getByEntity_f(id_entity)
   }
-
-  // const handleOpen2 = (pitem) => {
-  //   const id = '7-94-485' //pitem['Cédula Id']
-
-  //   const newD = []
-  //   images.map(item => {
-  //     const x = item.Key.split('/')
-  //     if(x.length > 2) {
-  //       if(x[2] === id) {
-  //         const obj = {
-  //           "Key": item.Key,
-  //           "Date": item.LastModified,
-  //           "Size": Math.floor(item.Size/1000),
-  //           "ETag": item.ETag,
-  //           "File": x[3]
-  //         }
-  //         newD.push(obj)
-  //       }
-  //     }
-  //   })    
-  //   setItem2(newD)
-  //   setOpen2(true);
-  // };
 
   return ( 
     <>
@@ -256,6 +204,7 @@ const Show = () => {
             <Edit 
               handleClose2={handleClose2}
               id={item.ID}
+              estadoAnt={estado}
             />
           </div>
         </Fade>

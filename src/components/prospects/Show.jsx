@@ -109,6 +109,7 @@ const Show = () => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
+  const [estado, setEstado] = useState('')
 
   const handleOpen = (pitem) => {
     setItem(pitem)
@@ -117,6 +118,7 @@ const Show = () => {
 
   const handleOpen2 = (pitem) => {
     setItem(pitem)
+    setEstado(pitem.Estado)
     setOpen2(true);
   };
 
@@ -127,24 +129,6 @@ const Show = () => {
     setOpen2(false);
     getByEntity(entity)
   };
-
-  // const downLoad = id =>{
-  //   let enlace = `${id}`
-  //   console.log(enlace)
-  //   axios.get(enlace,{
-  //     responseType: 'blob',
-  //   }).then(response=>{
-  //     const url = window.URL.createObjectURL(new Blob([response.data]))
-  //     const link = document.createElement('a')
-  //     link.href= url
-  //     link.setAttribute('download','Ticket.pdf')
-  //     document.body.appendChild(link)
-  //     link.click();
-
-  //   }).catch(error=>{
-  //   console.log(error);
-  //   });
-  // }
 
   return ( 
     <>
@@ -174,14 +158,6 @@ const Show = () => {
           </Grid>
         </Grid>
       </div>
-      {/* <div className="row mb-3 d-flex">
-        <div className="col-sm-12 col-md-6">
-
-        </div>
-        <div className="col-sm-12 col-md-6 text-center">
-
-        </div>
-      </div> */}
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
           <tr>
@@ -290,6 +266,7 @@ const Show = () => {
             <Edit 
               handleClose2={handleClose2}
               id={item.ID}
+              estadoAnt={estado}
             />
           </div>
         </Fade>

@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
-
 const Form = (props) => {
-  const { update = null, data, setData, handleClose2 } = props
+  const { update = null, data, setData, handleClose2, estadoAnt } = props
   const [ errorMessage, setErrorMessage ] = useState(null)
   const [ estados, setEstados ] = useState([])
   const [ idUser, setIdUser ] = useState(0)
 
   const onChange = (e) => {
-    
     setData({...data, [e.target.name] : e.target.value})
   }
 
@@ -20,9 +17,29 @@ const Form = (props) => {
     data.ejecutivo=idUser
     try {
       if(update) {
-        await axios.put(URL_API + '/adm/prospects/entity_f/', data)
+        await axios.put('/adm/prospects/entity_f/', data)
+        handleClose2()
+        if(estadoAnt !== data.estado) {
+          const res = await axios.get('/adm/email-estado/' + data.id)
+          const da = await res.data[0]
+          const body = {
+            "id": da.id,
+            "email": da.email,
+            "nombre": da.nombre, 
+            "monto": da.monto, 
+            "celular": da.celular,
+            "fcreate": da.fcreate, 
+            "dias": da.dias,
+            "asunto": `Estatus de la Solicitud No.: ${da.id} << ${da.estado} >>`,
+            "mensaje": "Es nuestro interes manterlo actualizado con el estatus de su trámite.  Cualquier consulta no dude en contactarnos.",
+            "email_banco": da.email_banco,
+            "email_sponsor": da.email_sponsor,
+            "estado": da.estado,
+            "comentarios": da.comentarios,
+          }
+          await axios.post('/adm/send-email/', body)
+        }
       }
-      handleClose2()
     }catch(ex){
       setErrorMessage("Error: Query no permitido.  Favor ver Log del Servidor.")
     }    
@@ -33,7 +50,7 @@ const Form = (props) => {
   }
 
   useEffect(() => {
-    axios.get(URL_API + '/adm/estados_tramite')
+    axios.get('/adm/estados_tramite')
     .then(estados => setEstados(estados.data))
   },[])
 

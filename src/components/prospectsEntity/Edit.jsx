@@ -6,7 +6,7 @@ import Form from './Form'
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const Edit = ({handleClose2, id}) => {
-  const [ data, setData ] = useState({})
+  const [ data, setData, estadoAnt ] = useState({})
   // const { id } = useParams()
 
   const getById = async () => {
@@ -32,6 +32,7 @@ const Edit = ({handleClose2, id}) => {
               data={data} 
               setData={setData}
               handleClose2={handleClose2}
+              estadoAnt={estadoAnt}
             />
           </div>
         </div>
