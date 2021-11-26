@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-
 
 const Header = (props) => {
   const { loggedInStatus } = props
@@ -56,6 +55,9 @@ const Header = (props) => {
             <li className="nav-item">
               <Link to={"/prospects"} className="nav-link">Prospectos</Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/affiliets"} className="nav-link">Red de Afiliados</Link>
+            </li>
             <li className="nav-item dropdown">
               <Link to={""} className="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Parametros
@@ -78,10 +80,10 @@ const Header = (props) => {
                 Admin
               </Link>
               <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><Link to={"/entities_f"} className="dropdown-item">Entidades Financieras</Link></li>
                 <li><Link to={"/sectors"} className="dropdown-item">Sector Laboral</Link></li>
                 <li><Link to={"/profesions"} className="dropdown-item">Profesión</Link></li>
                 <li><Link to={"/sector_profesion"} className="dropdown-item">Rel. Sector - Profesión</Link></li>
-                <li><Link to={"/entities_f"} className="dropdown-item">Entidades Financieras</Link></li>
                 <li><Link to={"/entity_params"} className="dropdown-item">Tarifas para los Cálculos</Link></li>
               </ul>
             </li>            

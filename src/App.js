@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header'
 
 import AllProspects from './components/prospects/Show'
+import ProspectsEntity from './components/prospectsEntity/Show'
+
+import AllAffiliets from './components/affiliets/Show'
 
 import AllSectors from './components/sectors/Show'
 import NewSector from './components/sectors/New'
@@ -54,8 +57,6 @@ import NewTerms_loan from './components/termsLoan/New'
 import EditTerms_loan from './components/termsLoan/Edit'
 
 import AllEntities from './components/entities_f/Show'
-import NewEntities from './components/entities_f/New'
-import EditEntities from './components/entities_f/Edit'
 
 import AllSectorProfesion from './components/sectorProfesion/Show'
 import NewSectorProfesion from './components/sectorProfesion/New'
@@ -72,9 +73,6 @@ import EditUsers from './components/users/Edit'
 import AllRoles from './components/roles/Show'
 import NewRoles from './components/roles/New'
 import EditRoles from './components/roles/Edit'
-
-import ProspectsEntity from './components/prospectsEntity/Show'
-import EditProspectsEntity from './components/prospectsEntity/Edit'
 
 import Login from './components/login/login';
 import Password from './components/login/password';
@@ -122,6 +120,9 @@ function App() {
              />
 
             <Route path="/prospects" exact component={AllProspects} />
+            <Route path="/entity_f" exact component={ProspectsEntity} />
+  
+            <Route path="/affiliets" exact component={AllAffiliets} />
  
             <Route path="/sectors" exact component={AllSectors} />
             <Route path="/sectors/new" exact component={NewSector} />
@@ -172,8 +173,6 @@ function App() {
             <Route path="/terms_loan/edit/:id" exact component={EditTerms_loan} />
 
             <Route path="/entities_f" exact component={AllEntities} />
-            <Route path="/entities_f/new" exact component={NewEntities} />
-            <Route path="/entities_f/edit/:id" exact component={EditEntities} />
 
             <Route path="/sector_profesion" exact component={AllSectorProfesion} />
             <Route path="/sector_profesion/new" exact component={NewSectorProfesion} />
@@ -190,9 +189,6 @@ function App() {
             <Route path="/roles" exact component={AllRoles} />
             <Route path="/roles/new" exact component={NewRoles} />
             <Route path="/roles/edit/:id" exact component={EditRoles} />
-
-            <Route path="/entity_f" exact component={ProspectsEntity} />
-            <Route path="/entity_f/edit/:id" exact component={EditProspectsEntity} />
 
             {/* <Route path="/login" exact component={Login} /> */}
             <Route path="/password" exact component={Password} />

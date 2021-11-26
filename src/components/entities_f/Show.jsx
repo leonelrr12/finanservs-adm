@@ -27,6 +27,7 @@ const Show = () => {
     contact:'',
     phone_number:'',
     cellphone:'',
+    emails:'',
     is_active:''
   })
   const [modalInsertar, setModalInsertar] = useState(false)
@@ -82,6 +83,11 @@ const Show = () => {
       title: "Celular",
       dataIndex: "callphone",
       key: "callphone"
+    },
+    {
+      title: "Emails",
+      dataIndex: "emails",
+      key: "emails"
     },
     {
       title: "Activo",
@@ -185,6 +191,10 @@ const Show = () => {
           <Item label="Celular">
             <Input name="cellphone" onChange={handleChange}/>
           </Item>
+          <Item label="Emails">
+            <textarea name="emails" onChange={handleChange} rows="4" cols="50" placeholder="jperez@gmail.com, tmitre@hotmail.com"></textarea>
+            Emails separados por (,) coma.
+          </Item>
           <Item label="Activo">
             <Radio.Group onChange={onChange} value={value}>
               <Radio value={'Si'}>Si</Radio>
@@ -220,6 +230,10 @@ const Show = () => {
           </Item>
           <Item label="Celular">
             <Input name="cellphone" onChange={handleChange} value={item && item.cellphone}/>
+          </Item>
+          <Item label="Emails">
+            <textarea name="emails" onChange={handleChange} rows="4" cols="50" value={item && item.emails ? item.emails : ""}></textarea>
+            Emails separados por (,) coma.
           </Item>
           <Item label="Activo">
             <Radio.Group onChange={onChange} value={value}>
