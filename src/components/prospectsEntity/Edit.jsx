@@ -5,8 +5,8 @@ import Form from './Form'
 
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
-const Edit = ({handleClose2, id}) => {
-  const [ data, setData, estadoAnt ] = useState({})
+const Edit = ({ handleClose2, id, estadoAnt }) => {
+  const [ data, setData ] = useState({})
   // const { id } = useParams()
 
   const getById = async () => {

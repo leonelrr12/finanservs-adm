@@ -19,6 +19,7 @@ const Form = (props) => {
       if(update) {
         await axios.put('/adm/prospects/entity_f/', data)
         handleClose2()
+        debugger
         if(estadoAnt !== data.estado) {
           const res = await axios.get('/adm/email-estado/' + data.id)
           const da = await res.data[0]
@@ -46,6 +47,7 @@ const Form = (props) => {
   }
 
   const onCancelar = () => {
+    debugger
     handleClose2()
   }
 

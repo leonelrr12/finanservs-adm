@@ -81,7 +81,7 @@ const Show = () => {
   }
   const handleOpen2 = (pitem) => {
     setItem(pitem)
-    setEstado(pitem.Estado)
+    setEstado(pitem.nEstado)
     setOpen2(true)
   }
 
