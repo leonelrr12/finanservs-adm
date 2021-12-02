@@ -1,58 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import NotData from '../NotData'
-import { makeStyles } from '@material-ui/core/styles';
-
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    borderRadius: '2%',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  table: {
-    minWidth: 650,
-  },
-  container: {
-    maxHeight: 500,
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },   
-  root2: {
-    flexGrow: 1,
-  },
-  paper2: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }, 
-}));
 
 
 const Show = () => {
-  const classes = useStyles();
-  const history = useHistory()
-  
   const [affiliets, setAffiliets] = useState([])
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('jwt');
-
-    if (!loggedUserJSON) {
-      history.push("/")
-    }
-  },[])
 
   useEffect(() => {
     getAll()

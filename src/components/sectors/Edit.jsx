@@ -8,6 +8,7 @@ const URL_API = '' // process.env.REACT_APP_URL_SERVER
 const Edit = (props) => {
   const [data, setData] = useState({})
   const { id } = useParams()
+  
   const getById = async () => {
     const res = await axios.get(URL_API + '/adm/sectors/' + id)
     const data = await res.data
@@ -16,6 +17,7 @@ const Edit = (props) => {
 
   useEffect(() => {
     getById()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return ( 

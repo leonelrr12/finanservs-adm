@@ -16,6 +16,7 @@ const Edit = (props) => {
 
   useEffect(() => {
     getById()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return ( 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
 const URL_API = '' // process.env.REACT_APP_URL_SERVER
 
 const Form = (props) => {
-  const history = useHistory()
+  const navigate= useNavigate()
   const { update = null, data, setData, sectors, profesions } = props
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -22,7 +22,7 @@ const Form = (props) => {
       } else {
         await axios.post(URL_API + '/adm/sector_profesion/', data)
       }
-      history.push('/sector_profesion')
+      navigate('/sector_profesion')
     }catch(ex){
       setErrorMessage("Error: Query no permitido.  Favor ver Log del Servidor.")
     }

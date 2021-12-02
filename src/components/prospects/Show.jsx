@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import Button from '@material-ui/core/Button';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Edit from '../prospectsEntity/Edit'
+import { InfoModal } from './InfoModal';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,23 +47,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Show = () => {
+const Show = (props) => {
   const classes = useStyles();
-  const history = useHistory()
-  
+
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
   const [entities, setEntities] = useState([])
   const [entity, setEntity] = useState('0')
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('jwt');
-
-    if (!loggedUserJSON) {
-      history.push("/")
-    }
-  },[])
-
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [item, setItem] = useState({});
 
   useEffect(() => {
     getEntities()
@@ -104,13 +92,13 @@ const Show = () => {
     setEntities(da)
   }
 
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [item, setItem] = useState({});
-
   const handleOpen = (pitem) => {
     setItem(pitem)
     setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleOpen2 = (pitem) => {
@@ -118,9 +106,6 @@ const Show = () => {
     setOpen2(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
   const handleClose2 = () => {
     setOpen2(false);
     getByEntity(entity)
@@ -207,43 +192,7 @@ const Show = () => {
         </tbody>
       </table>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title" className="text-center">Información General</h2>
-            <TableContainer component={Paper} className={classes.container}>
-              <Table className={classes.table} size="small" aria-label="a dense table">
-                <TableBody id="transition-modal-description">
-                    {Object.keys(item).map((key) => (
-                    <TableRow>
-                      <TableCell align="right">{key}:</TableCell>
-                      {key[0] === '_' && item[key] !== "undefined"
-                        ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
-                        : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
-                    </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <div className={classes.root + " text-center"}>
-              <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
-                Cerrar
-              </Button>
-            </div>
-          </div>
-        </Fade>
-      </Modal>
+      <InfoModal item={item} open={open} setOpen={setOpen} handleClose={handleClose}/>
 
       <Modal
         aria-labelledby="transition-modal-title"

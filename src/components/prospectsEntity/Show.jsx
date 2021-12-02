@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import axios from 'axios'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import Button from '@material-ui/core/Button';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Edit from './Edit'
+import { InfoModal } from '../prospects/InfoModal';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -42,25 +37,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Show = () => {
-  const history = useHistory()
+const Show = (props) => {
   const [prospects, setProspects] = useState([])
-  const [id_entity, setId_entity] = useState("0")
+  const user = useSelector((state) => state.user.user);
+
+  let id_entity = ""
+  if(user) {
+    id_entity = user.Ruta
+  }
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('jwt');
-
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setId_entity(user.entity_f)
-    } else {
-      history.push("/")
-    }
-  },[])
-
-
-  useEffect(() => {
-    getByEntity_f(id_entity)
+    if(id_entity) {
+      getByEntity_f(id_entity)
+    } 
   },[id_entity])
 
   const getByEntity_f = async (id_entity) => {
@@ -149,43 +138,7 @@ const Show = () => {
         </tbody>
       </table>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title" className="text-center">Información General</h2>
-            <TableContainer component={Paper} className={classes.container}>
-              <Table className={classes.table} size="small" aria-label="a dense table">
-                <TableBody id="transition-modal-description">
-                    {Object.keys(item).map((key) => (
-                    <TableRow>
-                      <TableCell align="right">{key}:</TableCell>
-                      {key[0] === '_' && item[key] !== "undefined"
-                        ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
-                        : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
-                    </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <div className={classes.root + " text-center"}>
-              <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
-                Cerrar
-              </Button>
-            </div>
-          </div>
-        </Fade>
-      </Modal>
+      <InfoModal item={item} open={open} setOpen={setOpen} handleClose={handleClose}/>
 
       <Modal
         aria-labelledby="transition-modal-title"

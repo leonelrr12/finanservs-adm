@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // import {auth} from '../../config/firebase.js'
 import AlertMessage from '../AlertMessage'
 
 const Login = () => {
-  const history = useHistory()
+  const navigate= useNavigate()
   const [user, setUser] = useState({
     email: 'guasimo01@gmail.com',
     password: '12345678'
@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault()
     try {
       await auth.createUserWithEmailAndPassword(user.email, user.password)
-      history.push("/")
+      navigate("/")
     }catch(e) {
       setErrorMessage(e.message)
     } 
@@ -32,7 +32,7 @@ const Login = () => {
       await auth.signInWithEmailAndPassword(user.email, user.password)
       // setUserId(res.user.uid)
       // localStorage.setItem('uid', res.user.uid)
-      history.push("/")
+      navigate("/")
     }catch(e) {
       setErrorMessage(e.message)    
     } 

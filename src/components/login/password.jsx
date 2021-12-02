@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
 const URL_API = '' //process.env.REACT_APP_URL_SERVER
 
 const Password = () => {
-  const history = useHistory()
+  const navigate= useNavigate()
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -30,7 +30,7 @@ const Password = () => {
     }
     try {
       await axios.put(URL_API + '/api/login/chgpwd', user)
-      history.push("/")
+      navigate("/")
     }catch(e) {
       setErrorMessage(e.message)    
     } 
