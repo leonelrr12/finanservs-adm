@@ -1,8 +1,12 @@
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  Outlet
+} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 import AllProspects from "../components/prospects/Show";
-import ProspectsEntity from "../components/prospectsEntity/Show";
 
 import AllAffiliets from "../components/affiliets/Show";
 
@@ -81,89 +85,88 @@ export const AppRoutes = () => {
   const user = useSelector((state) => state.user.user);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      <Route path="/usuario" element={user ? <Navigate to="/prospects" /> : <Outlet />} >
-        <Route path="login" element={<Login />} />
-        <Route path="password" element={<Password />} />
-      </Route>
+        <Route path="/usuario" element={user ? <Navigate to="/prospects" /> : <Outlet />} >
+          <Route path="login" element={<Login />} />
+          <Route path="password" element={<Password />} />
+        </Route>
 
-      <Route path="" element={user ? <Outlet /> : <Navigate to="/usuario/login" />} >
-    
-        <Route path="/prospects" element={<AllProspects />} />
-        <Route path="/entity_f" element={<ProspectsEntity />} />
+        <Route path="" element={user ? <Outlet /> : <Navigate to="/usuario/login" />} >
+      
+          <Route path="/prospects" element={<AllProspects />} />
+          
+          <Route path="/affiliets" element={<AllAffiliets />} />
 
-        <Route path="/affiliets" element={<AllAffiliets />} />
+          <Route path="/sectors" element={<AllSectors />} />
+          <Route path="/sectors/new" element={<NewSector />} />
+          <Route path="/sectors/edit/:id" element={<EditSector />} />
 
-        <Route path="/sectors" element={<AllSectors />} />
-        <Route path="/sectors/new" element={<NewSector />} />
-        <Route path="/sectors/edit/:id" element={<EditSector />} />
+          <Route path="/civilstatus" element={<AllCivilStatus />} />
+          <Route path="/civilstatus/new" element={<NewCivilStatus />} />
+          <Route path="/civilstatus/edit/:id" element={<EditCivilStatus />} />
 
-        <Route path="/civilstatus" element={<AllCivilStatus />} />
-        <Route path="/civilstatus/new" element={<NewCivilStatus />} />
-        <Route path="/civilstatus/edit/:id" element={<EditCivilStatus />} />
+          <Route path="/profesions" element={<AllProfesions />} />
+          <Route path="/profesions/new" element={<NewProfesions />} />
+          <Route path="/profesions/edit/:id" element={<EditProfesions />} />
 
-        <Route path="/profesions" element={<AllProfesions />} />
-        <Route path="/profesions/new" element={<NewProfesions />} />
-        <Route path="/profesions/edit/:id" element={<EditProfesions />} />
+          <Route path="/profesions_lw" element={<AllProfesionsLw />} />
+          <Route path="/profesions_lw/new" element={<NewProfesionsLw />} />
+          <Route path="/profesions_lw/edit/:id" element={<EditProfesionsLw />} />
 
-        <Route path="/profesions_lw" element={<AllProfesionsLw />} />
-        <Route path="/profesions_lw/new" element={<NewProfesionsLw />} />
-        <Route path="/profesions_lw/edit/:id" element={<EditProfesionsLw />} />
+          <Route path="/institutions" element={<AllInstitutions />} />
+          <Route path="/institutions/new" element={<NewInstitutions />} />
+          <Route path="/institutions/edit/:id" element={<EditInstitutions />} />
 
-        <Route path="/institutions" element={<AllInstitutions />} />
-        <Route path="/institutions/new" element={<NewInstitutions />} />
-        <Route path="/institutions/edit/:id" element={<EditInstitutions />} />
+          <Route path="/planillas_j" element={<AllPlanillasJ />} />
+          <Route path="/planillas_j/new" element={<NewPlanillasJ />} />
+          <Route path="/planillas_j/edit/:id" element={<EditPlanillasJ />} />
 
-        <Route path="/planillas_j" element={<AllPlanillasJ />} />
-        <Route path="/planillas_j/new" element={<NewPlanillasJ />} />
-        <Route path="/planillas_j/edit/:id" element={<EditPlanillasJ />} />
+          <Route path="/housings" element={<AllHousings />} />
+          <Route path="/housings/new" element={<NewHousings />} />
+          <Route path="/housings/edit/:id" element={<EditHousings />} />
 
-        <Route path="/housings" element={<AllHousings />} />
-        <Route path="/housings/new" element={<NewHousings />} />
-        <Route path="/housings/edit/:id" element={<EditHousings />} />
+          <Route path="/purposes" element={<AllPurposes />} />
+          <Route path="/purposes/new" element={<NewPurposes />} />
+          <Route path="/purposes/edit/:id" element={<EditPurposes />} />
 
-        <Route path="/purposes" element={<AllPurposes />} />
-        <Route path="/purposes/new" element={<NewPurposes />} />
-        <Route path="/purposes/edit/:id" element={<EditPurposes />} />
+          <Route path="/payments" element={<AllPayments />} />
+          <Route path="/payments/new" element={<NewPayments />} />
+          <Route path="/payments/edit/:id" element={<EditPayments />} />
 
-        <Route path="/payments" element={<AllPayments />} />
-        <Route path="/payments/new" element={<NewPayments />} />
-        <Route path="/payments/edit/:id" element={<EditPayments />} />
+          <Route path="/estados_tramite" element={<AllEstadosTramite />} />
+          <Route path="/estados_tramite/new" element={<NewEstadosTramite />} />
+          <Route path="/estados_tramite/edit/:id" element={<EditEstadosTramite />} />
 
-        <Route path="/estados_tramite" element={<AllEstadosTramite />} />
-        <Route path="/estados_tramite/new" element={<NewEstadosTramite />} />
-        <Route path="/estados_tramite/edit/:id" element={<EditEstadosTramite />} />
+          <Route path="/type_documents" element={<AllTypeDocuments />} />
+          <Route path="/type_documents/new" element={<NewTypeDocuments />} />
+          <Route path="/type_documents/edit/:id" element={<EditTypeDocuments />} />
 
-        <Route path="/type_documents" element={<AllTypeDocuments />} />
-        <Route path="/type_documents/new" element={<NewTypeDocuments />} />
-        <Route path="/type_documents/edit/:id" element={<EditTypeDocuments />} />
+          <Route path="/terms_loan" element={<AllTermsLoan />} />
+          <Route path="/terms_loan/new" element={<NewTermsLoan />} />
+          <Route path="/terms_loan/edit/:id" element={<EditTermsLoan />} />
 
-        <Route path="/terms_loan" element={<AllTermsLoan />} />
-        <Route path="/terms_loan/new" element={<NewTermsLoan />} />
-        <Route path="/terms_loan/edit/:id" element={<EditTermsLoan />} />
+          <Route path="/entities_f" element={<AllEntities />} />
 
-        <Route path="/entities_f" element={<AllEntities />} />
+          <Route path="/sector_profesion" element={<AllSectorProfesion />} />
+          <Route path="/sector_profesion/new" element={<NewSectorProfesion />} />
+          <Route path="/sector_profesion/edit/:id" element={<EditSectorProfesion />} />
 
-        <Route path="/sector_profesion" element={<AllSectorProfesion />} />
-        <Route path="/sector_profesion/new" element={<NewSectorProfesion />} />
-        <Route path="/sector_profesion/edit/:id" element={<EditSectorProfesion />} />
+          <Route path="/entity_params" element={<AllEntityParams />} />
+          <Route path="/entity_params/new" element={<NewEntityParams />} />
+          <Route path="/entity_params/edit/:id" element={<EditEntityParams />} />
 
-        <Route path="/entity_params" element={<AllEntityParams />} />
-        <Route path="/entity_params/new" element={<NewEntityParams />} />
-        <Route path="/entity_params/edit/:id" element={<EditEntityParams />} />
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/users/new" element={<NewUsers />} />
+          <Route path="/users/edit/:id" element={<EditUsers />} />
 
-        <Route path="/users" element={<AllUsers />} />
-        <Route path="/users/new" element={<NewUsers />} />
-        <Route path="/users/edit/:id" element={<EditUsers />} />
+          <Route path="/roles" element={<AllRoles />} />
+          <Route path="/roles/new" element={<NewRoles />} />
+          <Route path="/roles/edit/:id" element={<EditRoles />} />
 
-        <Route path="/roles" element={<AllRoles />} />
-        <Route path="/roles/new" element={<NewRoles />} />
-        <Route path="/roles/edit/:id" element={<EditRoles />} />
-
-        <Route component={<MissingRoute />} /> 
-      </Route>
-    </Routes>
+          <Route component={<MissingRoute />} /> 
+        </Route>
+      </Routes>
   )
 }

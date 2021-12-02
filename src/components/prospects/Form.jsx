@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react'
+import { useSelector } from "react-redux";
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 
 const Form = (props) => {
-  const { update = null, data, setData, handleClose2, estadoAnt } = props
+  const { update = null, handleClose2, estadoAnt, id } = props
   const [ errorMessage, setErrorMessage ] = useState(null)
   const [ estados, setEstados ] = useState([])
-  const [ idUser, setIdUser ] = useState(0)
+  const [ data, setData ] = useState({})
+
+  const user = useSelector((state) => state.user.user);
+
+  const {id: idUser } = user
+  console.log(idUser)
 
   const onChange = (e) => {
     setData({...data, [e.target.name] : e.target.value})
@@ -14,12 +21,12 @@ const Form = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(data)
     data.ejecutivo=idUser
     try {
       if(update) {
         await axios.put('/adm/prospects/entity_f/', data)
         handleClose2()
-        debugger
         if(estadoAnt !== data.estado) {
           const res = await axios.get('/adm/email-estado/' + data.id)
           const da = await res.data[0]
@@ -47,26 +54,32 @@ const Form = (props) => {
   }
 
   const onCancelar = () => {
-    debugger
     handleClose2()
   }
+
+  const getById = async () => {
+    const res = await axios.get('/adm/prospects/entity_f/entity/' + id)
+    const data = await res.data
+    setData(data)
+  }
+
+  useEffect(() => {
+    getById()
+  },[])
 
   useEffect(() => {
     axios.get('/adm/estados_tramite')
     .then(estados => setEstados(estados.data))
   },[])
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('jwt');
-
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setIdUser(user.idUser)
-    }
-  },[])
-
   return ( 
-    <>
+        <div className="row justify-content-center mt-5">
+      <div className="col-md-8">
+        <div className="card">
+          <div className="card-body">
+            <h2 className="text-center mb-4 font-weight-bold">
+              Modificar Prospecto
+            </h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Estado</label>
@@ -113,7 +126,10 @@ const Form = (props) => {
         />
         : ""
       }    
-    </>  
+                </div>
+        </div>
+      </div>
+    </div>
    )
 }
  

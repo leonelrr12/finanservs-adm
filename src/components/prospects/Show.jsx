@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
+import { useSelector } from "react-redux";
 import axios from 'axios'
 import NotData from '../NotData'
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +9,11 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Edit from '../prospectsEntity/Edit'
+import PrintIcon from '@material-ui/icons/Print';
+import Form from './Form'
 import { InfoModal } from './InfoModal';
+import { Button } from '@material-ui/core';
+import { Typography } from 'antd';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,24 +53,28 @@ const useStyles = makeStyles((theme) => ({
 
 const Show = (props) => {
   const classes = useStyles();
+  const user = useSelector((state) => state.user.user);
 
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
   const [entities, setEntities] = useState([])
-  const [entity, setEntity] = useState('0')
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
-
+  
+  const { Role, Ruta } = user
+  const [entity, setEntity] = useState(Ruta)
+  
   useEffect(() => {
     getEntities()
   },[])
 
   useEffect(() => {
-    getByEntity()
-  },[entity])
+    if(Role === 1) getByEntity(entity)
+    else getByEntity(Ruta)
+  },[entity, Ruta])
 
-  const getByEntity = async () => {
+  const getByEntity = async (entity) => {
     const res = await axios.get('/adm/prospects/entity_f/' + entity)
     const da = await res.data
     setProspects(da)
@@ -112,33 +120,55 @@ const Show = (props) => {
   };
 
   return ( 
-    <>
-      <h2 className="text-center my-2">Prospectos</h2>
- 
-      {/* <Sign /> */}
-      <div className={classes.root2}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.paper2}>
-              <label className="font-weight-lighter">Entidad Financiera: </label>
-              <select className="font-weight-lighter" onChange={handleChange} name='entity'>
-                <option value="0">Seleccione una Entidad</option>
-                {entities.map((item) => (
-                  <option key={item.id} value={item.id_ruta}>{item.name}</option>
-                ))}
-              </select>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.paper2}>
-              <div className="">
-              <input type="checkbox" name="estado" onChange={handleState}/>
-              <label className="font-weight-lighter mx-2">Solo Activos</label>
-            </div>
-            </Paper>
-          </Grid>
+    <div className="my-4">
+      <Grid
+        spacing={4}
+        container  
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12} md={10}>
+          <Typography align="center" component="h1">Prospectos</Typography>
         </Grid>
-      </div>
+        <Grid item xs={12} md={2} alignContent="center">
+            {/* <Printer color="primary" fontSize="large" />  */}
+            <Button
+              onCLick={() => console.log('Clicked')}
+              color="secondary"
+              variant="contained"
+              endIcon={<PrintIcon />}
+            >Imprimir</Button>
+        </Grid>
+      </Grid>
+
+      { Role === 1 ? (
+        <div className={classes.root2}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Paper className={classes.paper2}>
+                <label className="font-weight-lighter">Entidad Financiera: </label>
+                <select className="font-weight-lighter" onChange={handleChange} name='entity'>
+                  <option value="0">Seleccione una Entidad</option>
+                  {entities.map((item) => (
+                    <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta}>{item.name}</option>
+                  ))}
+                </select>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper className={classes.paper2}>
+                <div className="">
+                <input type="checkbox" name="estado" onChange={handleState}/>
+                <label className="font-weight-lighter mx-2">Solo Activos</label>
+              </div>
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
+      )
+      : ""
+      }
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
           <tr>
@@ -177,9 +207,7 @@ const Show = (props) => {
                 <td>
                     <button onClick={()=>{handleOpen(item)}} className="btn btn-secondary btn-sm">Ver +</button>
                     <button onClick={()=>{handleOpen2(item)}} className="btn btn-warning btn-sm">Editar</button>
-                    {/* <Link to={"/entity_f/edit/" + item.ID} className="btn btn-warning btn-sm">Editar</Link> */}
                 </td>
-                {/* <td>{item.dias}</td> */}
               </tr>
             )})
           :
@@ -208,15 +236,16 @@ const Show = (props) => {
       >
         <Fade in={open2}>
           <div className={classes.paper}>
-            <Edit 
+          <Form 
+              id={item.A1ID}
+              update={true} 
               handleClose2={handleClose2}
-              id={item.ID}
               estadoAnt={item.nEstado}
             />
           </div>
         </Fade>
       </Modal>
-    </>
+    </div>
    )
 }
  

@@ -22,7 +22,6 @@ export const Nav = () => {
       logOut()
     )
   }
-
   
   return (
     <LayoutNav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -39,7 +38,7 @@ export const Nav = () => {
             {role !== 1 ? 
             <>
               <li className="nav-item">
-                <Link to={"/entity_f"} className="nav-link">Prospectos</Link>
+                <Link to={"/prospects"} className="nav-link"></Link>
               </li>
             </>
             :
