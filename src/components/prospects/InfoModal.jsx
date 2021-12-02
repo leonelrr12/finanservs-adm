@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
     const { item, open, setOpen, handleClose } = props;
   
+    // console.log(item)
+
     return (
         <Modal
         aria-labelledby="transition-modal-title"
@@ -70,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
                 <TableBody id="transition-modal-description">
                     {Object.keys(item).map((key) => (
                     <TableRow>
-                      <TableCell align="right">{key}:</TableCell>
+                      <TableCell align="right">{key.slice(2)}:</TableCell>
                       {key[0] === '_' && item[key] !== "undefined"
                         ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
                         : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
@@ -82,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
             <div className={classes.root + " text-center"}>
               <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
                 Cerrar
+              </Button>
+              <Button variant="outlined" color="primary" onClick={() => setOpen(false)}>
+                Imprimir
               </Button>
             </div>
           </div>

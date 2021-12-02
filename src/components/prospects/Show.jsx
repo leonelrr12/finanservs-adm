@@ -161,19 +161,19 @@ const Show = (props) => {
           {(typeof(prospectsA) === "object") ? 
             prospectsA.map(item => {
               return (
-              <tr key={item.ID} className={item.dias > 60 ? "bg-danger" : (item.dias > 30 ? "bg-warning" : "")}>
-                <td className="text-center">{item.ID}</td>
-                <td>{item.Nombre}</td>
-                <td>{item['Cédula Id']}</td>
-                <td>{item.Entidad}</td>
-                <td>{item.Email}</td>
-                <td>{item.Celular}</td>
-                <td>{item.Telefono}</td>
-                <td>{item.Sector}</td>
-                <td>{item['Profesión']}</td>
-                <td>{item.Ejecutivo}</td>
-                <td>{new Intl.NumberFormat("en-US", {currency: 'USD', minimumFractionDigits: 2}).format(Number(item['Préstamo Personal']))}</td>
-                <td>{item.Estado}</td>
+              <tr key={item.A1ID} className={item.dias > 60 ? "bg-danger" : (item.dias > 30 ? "bg-warning" : "")}>
+                <td className="text-center">{item.A1ID}</td>
+                <td>{item.A5Nombre}</td>
+                <td>{item['A4Cédula Id']}</td>
+                <td>{item.C8Entidad}</td>
+                <td>{item.C5Email}</td>
+                <td>{item.C6Celular}</td>
+                <td>{item.C7Telefono}</td>
+                <td>{item.B1Sector}</td>
+                <td>{item['B2Profesión']}</td>
+                <td>{item.F6Ejecutivo}</td>
+                <td>{new Intl.NumberFormat("en-US", {currency: 'USD', minimumFractionDigits: 2}).format(Number(item['B6Préstamo Personal']))}</td>
+                <td>{item.A2Estado}</td>
                 <td>
                     <button onClick={()=>{handleOpen(item)}} className="btn btn-secondary btn-sm">Ver +</button>
                     <button onClick={()=>{handleOpen2(item)}} className="btn btn-warning btn-sm">Editar</button>
