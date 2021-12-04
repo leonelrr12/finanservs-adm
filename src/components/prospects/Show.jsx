@@ -62,6 +62,7 @@ const Show = (props) => {
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
   
+  
   const { Role, Ruta } = user
   const [entity, setEntity] = useState(Ruta)
   
@@ -119,6 +120,21 @@ const Show = (props) => {
     getByEntity(entity)
   };
 
+  const crearPdf = (id) => {
+    var oReq = new XMLHttpRequest();
+    var URLToPDF = `/upload/prospectsPDF/${id}`
+   
+    oReq.open("GET", URLToPDF, true);
+   
+    oReq.responseType = "blob";
+    oReq.onload = function() {
+      const pdfFile = new Blob([oReq.response], { type: "application/pdf" });
+      const fileURL = URL.createObjectURL(pdfFile);
+      window.open(fileURL, "_blank");
+    };
+    oReq.send();
+  }
+
   return ( 
     <div className="my-4">
       <Grid
@@ -134,7 +150,7 @@ const Show = (props) => {
         <Grid item xs={12} md={2} alignContent="center">
             {/* <Printer color="primary" fontSize="large" />  */}
             <Button
-              onCLick={() => console.log('Clicked')}
+              onClick={() => { crearPdf( entity) }}
               color="secondary"
               variant="contained"
               endIcon={<PrintIcon />}

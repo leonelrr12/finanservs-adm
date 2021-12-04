@@ -7,6 +7,7 @@ import { UserFormLayout } from "./UserFormLayout";
 import { AppInput } from "../AppInput";
 import { AppButton } from "../../theme";
 
+
 const Login = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
@@ -14,7 +15,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const onFormSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     dispatch(
       signIn(
         { credentials: data }

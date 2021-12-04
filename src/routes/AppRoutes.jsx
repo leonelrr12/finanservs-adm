@@ -79,22 +79,21 @@ import EditRoles from "../components/roles/Edit";
 import Login from "../components/login/login";
 import Password from "../components/login/password";
 import MissingRoute from "../components/AlertMessage";
-import Home from "../components/Home";
 
 export const AppRoutes = () => {
   const user = useSelector((state) => state.user.user);
 
   return (
       <Routes>
-        <Route path="/" element={<Home />} />
-
-        <Route path="/usuario" element={user ? <Navigate to="/prospects" /> : <Outlet />} >
+        <Route path="/" element={user ? <Navigate to="/prospects" /> : <Outlet />} >
+          <Route path="" element={<Login />} />
           <Route path="login" element={<Login />} />
           <Route path="password" element={<Password />} />
         </Route>
 
-        <Route path="" element={user ? <Outlet /> : <Navigate to="/usuario/login" />} >
+        <Route path="" element={user ? <Outlet /> : <Navigate to="/login" />} >
       
+          <Route path="" element={<AllProspects />} />
           <Route path="/prospects" element={<AllProspects />} />
           
           <Route path="/affiliets" element={<AllAffiliets />} />

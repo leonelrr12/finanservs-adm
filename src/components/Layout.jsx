@@ -12,7 +12,8 @@ export const Layout = (props) => {
     return <LayoutContainer>
         <LayoutNav>
             <Routes>
-                <Route path="/usuario/login" element={ <nav></nav> } />
+                <Route path="/login" element={ <nav></nav> } />
+                <Route path="/" element={ <nav></nav> } />
                 <Route path="*" element={ <Header></Header> } />
             </Routes>
         </LayoutNav>

@@ -1,34 +1,32 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { logOut } from '../store/user';
+
 
 const LayoutNav = styled.nav`
   max-height: 50px;
 `
 
 export const Nav = () => {
-  const navigate= useNavigate()
   const { user } = useSelector(state => state.user);
+  let navigate = useNavigate()
   const dispatch = useDispatch()
 
-
-  if(!user) return navigate("/usuario/login") 
+  if(!user) return navigate("/", { replace: true }) 
   const { Role: role } = user
-  
+
   const handleLogout = () => {
     dispatch(
       logOut()
     )
+    navigate("/", { replace: true }) 
   }
   
   return (
     <LayoutNav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid mx-3">
 
-    {user ?  
-      <>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -97,9 +95,6 @@ export const Nav = () => {
             }
           </div>
         </div>
-        </>
-        : ""
-        }
       </div>
     </LayoutNav>
   )
