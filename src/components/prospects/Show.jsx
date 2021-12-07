@@ -257,7 +257,7 @@ const Show = (props) => {
               id={item.A1ID}
               update={true} 
               handleClose2={handleClose2}
-              estadoAnt={item.nEstado}
+              estadoAnt={item.n1Estado}
             />
           </div>
         </Fade>

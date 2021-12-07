@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
                 <TableBody id="transition-modal-description">
                     {Object.keys(item).map((key) => (
                     <TableRow>
-                      <TableCell align="right">{key.slice(2)}:</TableCell>
+                      <TableCell align="right">{key[0] === '_' ? key.slice(3) :key.slice(2)}:</TableCell>
                       {key[0] === '_' && item[key] !== "undefined"
                         ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
                         : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
