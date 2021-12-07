@@ -51,6 +51,23 @@ const useStyles = makeStyles((theme) => ({
   
     // console.log(item)
 
+    const crearPdf = async (id) => {
+      var oReq = new XMLHttpRequest();
+      var URLToPDF = `/upload/prospectPDF/${id}`
+     
+      oReq.open("GET", URLToPDF, true);
+     
+      oReq.responseType = "blob";
+      oReq.onload = await function() {
+        const pdfFile = new Blob([oReq.response], { type: "application/pdf" });
+        const fileURL = URL.createObjectURL(pdfFile);
+        window.open(fileURL, "_blank");
+      };
+      oReq.send();
+
+      setOpen(false)
+    }
+
     return (
         <Modal
         aria-labelledby="transition-modal-title"
@@ -85,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
               <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
                 Cerrar
               </Button>
-              <Button variant="outlined" color="primary" onClick={() => setOpen(false)}>
+              <Button variant="outlined" color="primary" onClick={() => { crearPdf(item['A1ID']) }}>
                 Imprimir
               </Button>
             </div>
