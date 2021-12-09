@@ -7,8 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import NotData from '../NotData'
+import apiConfig from '../../config/api'
 
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
+const URL_API = apiConfig.domain
 
 const useStyles = makeStyles((theme) => ({ 
   root: {

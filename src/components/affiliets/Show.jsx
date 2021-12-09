@@ -2,7 +2,9 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import NotData from '../NotData'
+import apiConfig from '../../config/api'
 
+const URL_API = apiConfig.domain
 
 const Show = () => {
   const [affiliets, setAffiliets] = useState([])
@@ -12,7 +14,7 @@ const Show = () => {
   },[])
 
   const getAll = async () => {
-    const res = await axios.get('/adm/red-sponsor')
+    const res = await axios.get(URL_API + '/adm/red-sponsor')
     const da = await res.data
     setAffiliets(da)
   }

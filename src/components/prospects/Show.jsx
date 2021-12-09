@@ -14,7 +14,9 @@ import Form from './Form'
 import { InfoModal } from './InfoModal';
 import { Button } from '@material-ui/core';
 import { Typography } from 'antd';
+import apiConfig from '../../config/api'
 
+const URL_API = apiConfig.domain
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -76,7 +78,7 @@ const Show = (props) => {
   },[entity, Ruta])
 
   const getByEntity = async (entity) => {
-    const res = await axios.get('/adm/prospects/entity_f/' + entity)
+    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + entity)
     const da = await res.data
     setProspects(da)
     setProspectsA(da)
@@ -96,7 +98,7 @@ const Show = (props) => {
   }
 
   const getEntities = async () => {
-    const res = await axios.get('/adm/entities_f')
+    const res = await axios.get(URL_API + '/adm/entities_f')
     const da = await res.data
     setEntities(da)
   }

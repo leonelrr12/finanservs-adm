@@ -4,6 +4,9 @@ import { Table, Button, Modal, Input, Form, Radio } from 'antd'
 import 'antd/dist/antd.css'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import NotData from '../NotData'
+import apiConfig from '../../config/api'
+
+const URL_API = apiConfig.domain
 
 const { Item } = Form
 
@@ -105,7 +108,7 @@ const Show = () => {
   ]
 
   const getAll = async () => {
-    const res = await axios.get('/adm/entities_f')
+    const res = await axios.get(URL_API + '/adm/entities_f')
     const data = await res.data
     setData(data)
   }
@@ -116,7 +119,7 @@ const Show = () => {
   const saveRecord = async () => {
     item.is_active=value
     delete item.id
-    await axios.post('/adm/entities_f/', item)
+    await axios.post(URL_API + '/adm/entities_f/', item)
     .then(response => {
       item.id=response.data.insertId
       setData(data.concat(item))
@@ -127,7 +130,7 @@ const Show = () => {
   }
   const updateRecord = async () => {
     item.is_active=value
-    await axios.put('/adm/entities_f/', item)
+    await axios.put(URL_API + '/adm/entities_f/', item)
     .then(response => {
       setData(data.map(p=>p.id===item.id?item:p))
       abrirCerrarModalEditar()
@@ -136,7 +139,7 @@ const Show = () => {
     })
   }
   const deleteRecord = async () => {
-    await axios.delete('/adm/entities_f/' + item.id)
+    await axios.delete(URL_API + '/adm/entities_f/' + item.id)
     .then(response => {
       setData(data.filter(p=>p.id!==item.id))
       abrirCerrarModalEliminar()

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Form from "./Form"
+import apiConfig from '../../config/api'
+
+const URL_API = apiConfig.domain
 
 const New = () => {
   const [data, setData] = useState({})
@@ -8,13 +11,12 @@ const New = () => {
   const [profesions, setProfesions] = useState({})
 
   const getSectors = async () => {
-    console.log(URL + '/api/sectors');
-    const res = await axios.get(URL + '/api/sectors')
+    const res = await axios.get(URL_API + '/api/sectors')
     const data = await res.data
     setSectors(data)
   }
   const getProfesions = async () => {
-    const res = await axios.get(URL + '/api/profesions')
+    const res = await axios.get(URL_API + '/api/profesions')
     const data = await res.data
     setProfesions(data)
   }

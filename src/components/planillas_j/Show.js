@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import NotData from '../NotData'
+import apiConfig from '../../config/api'
 
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
+const URL_API = apiConfig.domain
 
 const Show = () => {
   const [planillas_j, setPlanillas_j] = useState([])

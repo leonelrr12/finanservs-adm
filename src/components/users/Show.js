@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import NotData from '../NotData'
+import apiConfig from '../../config/api'
 
+const URL_API = apiConfig.domain
 
 const Show = () => {
   const [data, setData] = useState([])
 
   const getAll = async () => {
-    const res = await axios.get('/adm/users')
+    const res = await axios.get(URL_API + '/adm/users')
     const da = await res.data
     setData(da)
   }
@@ -35,7 +37,7 @@ const Show = () => {
     }).then( async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete('/adm/users/' + id)
+          await axios.delete(URL_API + '/adm/users/' + id)
           swalWithBootstrapButtons.fire(
             'Eliminado!',
             'Registro eliminado.',

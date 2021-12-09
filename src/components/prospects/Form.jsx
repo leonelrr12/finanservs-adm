@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
+import apiConfig from '../../config/api'
+
+const URL_API = apiConfig.domain
 
 const Form = (props) => {
   const { update = null, handleClose2, estadoAnt, id } = props
@@ -25,10 +28,10 @@ const Form = (props) => {
     data.ejecutivo=idUser
     try {
       if(update) {
-        await axios.put('/adm/prospects/entity_f/', data)
+        await axios.put(URL_API + '/adm/prospects/entity_f/', data)
         handleClose2()
         if(estadoAnt !== data.estado) {
-          const res = await axios.get('/adm/email-estado/' + data.id)
+          const res = await axios.get(URL_API + '/adm/email-estado/' + data.id)
           const da = await res.data[0]
           const body = {
             "id": da.id,
@@ -45,7 +48,7 @@ const Form = (props) => {
             "estado": da.estado,
             "comentarios": da.comentarios,
           }
-          await axios.post('/adm/send-email/', body)
+          await axios.post(URL_API + '/adm/send-email/', body)
         }
       }
     }catch(ex){
@@ -58,7 +61,7 @@ const Form = (props) => {
   }
 
   const getById = async () => {
-    const res = await axios.get('/adm/prospects/entity_f/entity/' + id)
+    const res = await axios.get(URL_API + '/adm/prospects/entity_f/entity/' + id)
     const data = await res.data
     setData(data)
   }

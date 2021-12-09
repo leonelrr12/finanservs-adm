@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import apiConfig from '../../config/api'
 
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
+const URL_API = apiConfig.domain
 
 const Sign = () => {
 

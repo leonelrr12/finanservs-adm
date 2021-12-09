@@ -64,5 +64,5 @@
     ]
   },
   "devDependencies": {},
-  "proxy": "http://localhost:4001"
+  "proxy": "https://admon.finanservs.com"
 }

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
+import apiConfig from '../../config/api'
 
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
+const URL_API = apiConfig.domain
 
 const Form = (props) => {
   const navigate= useNavigate()

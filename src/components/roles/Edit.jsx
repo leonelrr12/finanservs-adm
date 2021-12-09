@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Form from './Form'
+import apiConfig from '../../config/api'
 
-const URL_API = '' // process.env.REACT_APP_URL_SERVER
+const URL_API = apiConfig.domain
 
 const Edit = (props) => {
   const [data, setData] = useState({})
