@@ -17,7 +17,7 @@ const Sign = () => {
 
     useEffect(() => {
         // buscarFirma()
-        fetch(`{URL} + /adm/prospects_sign/1`, {
+        fetch(`${URL_API} + /adm/prospects_sign/1`, {
             method: 'GET',
             headers: {
                 "Content-Type": 'application/json, charset=UTF-8',

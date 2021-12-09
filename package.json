@@ -13,7 +13,6 @@
     "antd": "^4.15.0",
     "axios": "^0.21.1",
     "buffer": "^6.0.3",
-    "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "0.0.0-a77dd13ed",
     "fs": "0.0.1-security",
     "pdfmake": "^0.2.4",

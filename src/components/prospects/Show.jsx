@@ -17,6 +17,7 @@ import { Typography } from 'antd';
 import apiConfig from '../../config/api'
 
 const URL_API = apiConfig.domain
+console.log(apiConfig.domain)
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -60,6 +61,7 @@ const Show = (props) => {
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
   const [entities, setEntities] = useState([])
+  const [estado, setEstado] = useState(0);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
@@ -88,12 +90,14 @@ const Show = (props) => {
     setEntity(event.target.value)
   }
 
-  const handleState = (event) => {
+  const handleEstado = (event) => {
     if(event.target.checked){
-      const showActivo = prospects.filter(p => p.Estado !== 'Rechazado')
+      setEstado(1)
+      const showActivo = prospects.filter(p => p.n1Estado !== 4)
       setProspectsA(showActivo)
     }else{
       setProspectsA(prospects)
+      setEstado(0)
     }
   }
 
@@ -124,7 +128,7 @@ const Show = (props) => {
 
   const crearPdf = (id) => {
     var oReq = new XMLHttpRequest();
-    var URLToPDF = `/upload/prospectsPDF/${id}`
+    var URLToPDF = `${URL_API}/upload/prospectsPDF/${id}/${estado}`
    
     oReq.open("GET", URLToPDF, true);
    
@@ -161,33 +165,34 @@ const Show = (props) => {
         </Grid>
       </Grid>
 
-      { Role === 1 ? (
         <div className={classes.root2}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <Paper className={classes.paper2}>
-                <label className="font-weight-lighter">Entidad Financiera: </label>
-                <select className="font-weight-lighter" onChange={handleChange} name='entity'>
-                  <option value="0">Seleccione una Entidad</option>
-                  {entities.map((item) => (
-                    <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta}>{item.name}</option>
-                  ))}
-                </select>
-              </Paper>
-            </Grid>
+            { Role === 1 ? (
+              <Grid item xs={12} md={6}>
+                <Paper className={classes.paper2}>
+                  <label className="font-weight-lighter">Entidad Financiera: </label>
+                  <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
+                    <option value="0">Seleccione una Entidad</option>
+                    {entities.map((item) => (
+                      <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta}>{item.name}</option>
+                    ))}
+                  </select>
+                </Paper>
+              </Grid>
+            )
+            : ""
+            }
             <Grid item xs={12} md={6}>
               <Paper className={classes.paper2}>
                 <div className="">
-                <input type="checkbox" name="estado" onChange={handleState}/>
+                <input type="checkbox" name="estado" onChange={ handleEstado }/>
                 <label className="font-weight-lighter mx-2">Solo Activos</label>
               </div>
               </Paper>
             </Grid>
           </Grid>
         </div>
-      )
-      : ""
-      }
+
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
           <tr>

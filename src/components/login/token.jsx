@@ -1,4 +1,6 @@
-const URL_API = '' //process.env.REACT_APP_URL_SERVER
+import apiConfig from '../../config/api'
+
+const URL_API = apiConfig.domain
 
 const VerifyToken = async () => {
   const loggedUserJSON = window.localStorage.getItem('jwt');
