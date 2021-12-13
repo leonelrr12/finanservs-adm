@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
     const { item, open, setOpen, handleClose } = props;
   
-    // console.log(item)
+    console.log(item)
 
     const crearPdf = async (id) => {
       var oReq = new XMLHttpRequest();
