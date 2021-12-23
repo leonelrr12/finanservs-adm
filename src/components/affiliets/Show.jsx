@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
+import Grid from '@material-ui/core/Grid';
+import { Typography } from 'antd';
 import axios from 'axios'
 import NotData from '../NotData'
 import apiConfig from '../../config/api'
+import DownloadExcel from './Excel';
 
 const URL_API = apiConfig.domain
 
@@ -21,8 +24,22 @@ const Show = () => {
 
   return ( 
     <>
-      <h2 className="text-center my-2">Red de Afiliados</h2>
- 
+      {/* <h2 className="text-center my-2">Red de Afiliados</h2> */}
+      <Grid
+        spacing={4}
+        container  
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12} md={10}>
+          <Typography align="center" component="h1">Red de Afiliados</Typography>
+        </Grid>
+        <Grid item xs={12} md={2} alignContent="center">
+            <DownloadExcel items={affiliets}/>
+        </Grid>
+      </Grid>
+
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
           <tr>
@@ -66,5 +83,4 @@ const Show = () => {
    )
 }
  
-
 export default Show

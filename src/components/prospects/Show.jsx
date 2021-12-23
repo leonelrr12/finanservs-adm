@@ -15,6 +15,7 @@ import { InfoModal } from './InfoModal';
 import { Button } from '@material-ui/core';
 import { Typography } from 'antd';
 import apiConfig from '../../config/api'
+import DownloadExcel from './Excel'
 
 const URL_API = apiConfig.domain
 console.log(apiConfig.domain)
@@ -144,6 +145,7 @@ const Show = (props) => {
   
   return ( 
     <div className="my-4">
+
       <Grid
         spacing={4}
         container  
@@ -162,36 +164,37 @@ const Show = (props) => {
               variant="contained"
               endIcon={<PrintIcon />}
             >Imprimir</Button>
+            <DownloadExcel prospects={prospects}/>
         </Grid>
       </Grid>
 
-        <div className={classes.root2}>
-          <Grid container spacing={3}>
-            { Role === 1 ? (
-              <Grid item xs={12} md={6}>
-                <Paper className={classes.paper2}>
-                  <label className="font-weight-lighter">Entidad Financiera: </label>
-                  <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
-                    <option value="0">Seleccione una Entidad</option>
-                    {entities.map((item) => (
-                      <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta}>{item.name}</option>
-                    ))}
-                  </select>
-                </Paper>
-              </Grid>
-            )
-            : ""
-            }
+      <div className={classes.root2}>
+        <Grid container spacing={3}>
+          { Role === 1 ? (
             <Grid item xs={12} md={6}>
               <Paper className={classes.paper2}>
-                <div className="">
-                <input type="checkbox" name="estado" onChange={ handleEstado }/>
-                <label className="font-weight-lighter mx-2">Solo Activos</label>
-              </div>
+                <label className="font-weight-lighter">Entidad Financiera: </label>
+                <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
+                  <option value="0">Seleccione una Entidad</option>
+                  {entities.map((item) => (
+                    <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta}>{item.name}</option>
+                  ))}
+                </select>
               </Paper>
             </Grid>
+          )
+          : ""
+          }
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paper2}>
+              <div className="">
+              <input type="checkbox" name="estado" onChange={ handleEstado }/>
+              <label className="font-weight-lighter mx-2">Solo Activos</label>
+            </div>
+            </Paper>
           </Grid>
-        </div>
+        </Grid>
+      </div>
 
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
