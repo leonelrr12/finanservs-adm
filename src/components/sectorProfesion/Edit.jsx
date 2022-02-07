@@ -18,12 +18,12 @@ const Edit = (props) => {
     setData(data)
   }
   const getSectors = async () => {
-    const res = await axios.get(URL_API + '/api/sectors')
+    const res = await axios.get(URL_API + '/adm/sectors')
     const data = await res.data
     setSectors(data)
   }
   const getProfesions = async () => {
-    const res = await axios.get(URL_API + '/api/profesions')
+    const res = await axios.get(URL_API + '/adm/profesions')
     const data = await res.data
     setProfesions(data)
   }

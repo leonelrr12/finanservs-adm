@@ -20,12 +20,12 @@ const Edit = (props) => {
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL_API + '/api/entities_f')
+    const res = await axios.get(URL_API + '/adm/entities_f')
     const data = await res.data
     setEntities(data)
   }
   const getSectorProfesion = async () => {
-    const res = await axios.get(URL_API + '/api/sector_profesion')
+    const res = await axios.get(URL_API + '/adm/sector_profesion')
     const data = await res.data
     setSectorProfesion(data)
   }

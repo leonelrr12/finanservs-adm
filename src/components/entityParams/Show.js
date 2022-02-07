@@ -38,7 +38,7 @@ const Show = () => {
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL_API + '/api/entities_f')
+    const res = await axios.get(URL_API + '/adm/entities_f')
     const da = await res.data
     setEntities(da)
   }

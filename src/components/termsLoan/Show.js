@@ -9,11 +9,6 @@ const URL_API = apiConfig.domain
 
 const Show = () => {
   const [data, setData] = useState([])
-
-  // axios.get(URL + '/api/today-is/')
-  // .then(res => res.data)
-  // .then(ok => console.log(ok))
-
   const getAll = async () => {
     const res = await axios.get(URL_API + '/adm/terms_loan')
     const da = await res.data
