@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 import apiConfig from '../../config/api'
@@ -7,18 +7,21 @@ import apiConfig from '../../config/api'
 const URL_API = apiConfig.domain
 
 const Password = () => {
-  const navigate= useNavigate()
+  const navigate = useNavigate()
+  const { search } = useLocation();
+  const query = new URLSearchParams(search)
+  const email = query.get("email")
+
   const [user, setUser] = useState({
-    email: '',
+    email,
     password: '',
     confPassword: ''
   })
-  
-  const [email, setEmail] = useState('')
+
   const [errorMessage, setErrorMessage] = useState(null)
 
   const handleChange = (e) => {
-    setUser({...user, [e.target.name] : e.target.value, email: email})
+    setUser({...user, [e.target.name] : e.target.value})
   }
 
   const handleSubmit = async () => {
@@ -36,11 +39,6 @@ const Password = () => {
       setErrorMessage(e.message)    
     } 
   }  
-
-  useEffect(() => {
-    const email = window.localStorage.getItem('pwd')
-    setEmail(email)
-  },[email])
 
   return ( 
     <div className="row mt-5">
@@ -69,13 +67,13 @@ const Password = () => {
           >Cambiar Contraseña</button>
         </form>
         { errorMessage ? 
-        <AlertMessage 
-          type={"warning"}
-          message={errorMessage} 
-          setMsg={setErrorMessage}
-        />
-        : ""
-      }
+          <AlertMessage 
+            type={"warning"}
+            message={errorMessage} 
+            setMsg={setErrorMessage}
+          />
+          : ""
+        }
       </div>
     </div>
   );

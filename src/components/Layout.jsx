@@ -13,6 +13,7 @@ export const Layout = (props) => {
         <LayoutNav>
             <Routes>
                 <Route path="/login" element={ <nav></nav> } />
+                <Route path="/password" element={ <nav></nav> } />
                 <Route path="/" element={ <nav></nav> } />
                 <Route path="*" element={ <Header></Header> } />
             </Routes>

@@ -85,10 +85,11 @@ export const AppRoutes = () => {
 
   return (
       <Routes>
+     
         <Route path="/" element={user ? <Navigate to="/prospects" /> : <Outlet />} >
           <Route path="" element={<Login />} />
-          <Route path="login" element={<Login />} />
           <Route path="password" element={<Password />} />
+          <Route path="login" element={<Login />} />
         </Route>
 
         <Route path="" element={user ? <Outlet /> : <Navigate to="/login" />} >
