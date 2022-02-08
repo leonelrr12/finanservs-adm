@@ -79,11 +79,10 @@ const Show = () => {
           <tr>
             <th scope="col" className="text-center">ID</th>
             <th scope="col">Email</th>
-            <th scope="col">Role</th>
+            <th scope="col">Entidad</th>
             <th scope="col">Nombre</th>
             <th scope="col">Telefono</th>
             <th scope="col">Celular</th>
-            <th scope="col">Reset</th>
             <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
           </tr>
@@ -95,11 +94,10 @@ const Show = () => {
               <tr key={item.id}>
                 <td className="text-center">{item.id}</td>
                 <td>{item.email}</td>
-                <td>{item.role}</td>
+                <td>{item.Entidad}</td>
                 <td>{item.name}</td>
                 <td>{item.phoneNumber}</td>
                 <td>{item.cellPhone}</td>
-                <td>{item.is_new}</td>
                 <td>{item.is_active}</td>
                 <td>
                   <Link to={"/users/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>

@@ -27,36 +27,36 @@ const Login = () => {
 
   return (
     <UserFormLayout>
-          <form onSubmit={handleSubmit(onFormSubmit, onErrors)}>
-            <AppInput
-              label="Correo eletrónico"
-              name="email"
-              required
-              register={register}
-              type="email"
-            />
-            <AppInput
-              label="Contraseña"
-              name="password"
-              register={register}
-              type="password"
-            />
-            <AppButton
-              type="submit"
-              small
-            >
-            Iniciar sessión
-            </AppButton>
-          </form>
-          {errorMessage ? (
-            <AlertMessage
-              type={"warning"}
-              message={errorMessage}
-              setMsg={setErrorMessage}
-            />
-          ) : (
-            ""
-          )}
+      <form onSubmit={handleSubmit(onFormSubmit, onErrors)}>
+        <AppInput
+          label="Correo eletrónico"
+          name="email"
+          required
+          register={register}
+          type="email"
+        />
+        <AppInput
+          label="Contraseña"
+          name="password"
+          register={register}
+          type="password"
+        />
+        <AppButton
+          type="submit"
+          small
+        >
+        Iniciar sessión
+        </AppButton>
+      </form>
+      {errorMessage ? (
+        <AlertMessage
+          type={"warning"}
+          message={errorMessage}
+          setMsg={setErrorMessage}
+        />
+      ) : (
+        ""
+      )}
     </UserFormLayout>
   );
 };
