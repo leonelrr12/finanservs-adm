@@ -36,6 +36,8 @@ const DownloadExcel = ({prospects}) => {
                 <ExcelColumn label="Salario" value="B5Salario"/>
                 <ExcelColumn label="Estado Civil" value="C5Estado Civil"/>
                 <ExcelColumn label="Fecha Nacimiento" value="D2Fecha Nacimiento"/>
+                <ExcelColumn label="Estado" value="A2Estado"/>
+                <ExcelColumn label="Fecha" value="n2Creado el"/>
 
                 <ExcelColumn label="Tipo Residencia" value="D4Tipo Residencia"/>
                 <ExcelColumn label="Pago Casa o Alquiler" value="D5Pago Casa o Alquiler"/>
@@ -57,11 +59,12 @@ const DownloadExcel = ({prospects}) => {
                 <ExcelColumn label="Profesión" value="B2Profesión"/>
                 <ExcelColumn label="Ejecutivo" value="F6Ejecutivo"/>
                 <ExcelColumn label="Monto solicitado" value="B6Préstamo Personal"/>
-                <ExcelColumn label="Estado" value="A2Estado"/>
-
+    
                 <ExcelColumn label="Salario" value="B5Salario"/>
                 <ExcelColumn label="Estado Civil" value="C5Estado Civil"/>
                 <ExcelColumn label="Fecha Nacimiento" value="D2Fecha Nacimiento"/>
+                <ExcelColumn label="Estado" value="A2Estado"/>
+                <ExcelColumn label="Fecha" value="n2Creado el"/>
 
                 <ExcelColumn label="Tipo Residencia" value="D4Tipo Residencia"/>
                 <ExcelColumn label="Pago Casa o Alquiler" value="D5Pago Casa o Alquiler"/>
@@ -87,6 +90,8 @@ const DownloadExcel = ({prospects}) => {
                 <ExcelColumn label="Salario" value="B5Salario"/>
                 <ExcelColumn label="Estado Civil" value="C5Estado Civil"/>
                 <ExcelColumn label="Fecha Nacimiento" value="D2Fecha Nacimiento"/>
+                <ExcelColumn label="Estado" value="A2Estado"/>
+                <ExcelColumn label="Fecha" value="n2Creado el"/>
 
                 <ExcelColumn label="Tipo Residencia" value="D4Tipo Residencia"/>
                 <ExcelColumn label="Pago Casa o Alquiler" value="D5Pago Casa o Alquiler"/>
