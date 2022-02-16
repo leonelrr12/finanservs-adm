@@ -247,7 +247,7 @@ const Show = (props) => {
         </tbody>
       </table>
 
-      <InfoModal item={item} open={open} setOpen={setOpen} handleClose={handleClose}/>
+      <InfoModal item={item} open={open} setOpen={setOpen} handleClose={handleClose} entity={entity}/>
 
       <Modal
         aria-labelledby="transition-modal-title"

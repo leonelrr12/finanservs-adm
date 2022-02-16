@@ -15,7 +15,7 @@ pdfMake.fonts = {
     bold: 'Roboto-Medium.ttf',
     italics: 'Roboto-Italic.ttf',
     bolditalics: 'Roboto-MediumItalic.ttf'
-}
+  }
 };
 
 // const parseLookAheadData = ({ scheduleData }) => {
@@ -79,36 +79,7 @@ const docDefinitionDefault = {
       text: 'SOLICITUD DE PRÉSTAMO FINANCOMER',
       style: 'header',
       alignment: "center"
-    },
-    {
-      table: {
-        headerRows: 1,
-        widths: [ 500 ],
-        body: [
-          [],
-        ]
-      }
-    },
-    {
-      table: {
-        headerRows: 1,
-        widths: [ 200, 200, '*' ],
-        body: [
-          [],
-          ["", "", ""]
-        ]
-      }
-    },
-    {
-      table: {
-        headerRows: 1,
-        widths: [ 'auto', '*', '*', "*" ],
-        body: [
-          [],
-          ["", "", "", ""]
-        ]
-      }
-    },
+    }
   ],
   defaultStyle: {
     font: "Roboto"
@@ -205,7 +176,7 @@ export default function PruebaPDF() {
 
   const create = () => {
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-    pdfDocGenerator.download();
+    pdfDocGenerator.open();
   };
 
   // const genPdf = () => {

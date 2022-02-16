@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import pdfMake from "pdfmake";
 import vfs from "../fonts/vfs_fonts";
 import axios from "axios";
 import apiConfig from '../config/api'
-import { Button } from "@material-ui/core";
 
 const URL_API = apiConfig.domain
 
@@ -92,7 +90,7 @@ const docDefinitionDefault = {
     {
       table: {
         headerRows: 1,
-        widths: [ 130, 130, 110, "*" ],
+        widths: [ 'auto', '*', '*', "*" ],
         body: [
           [],
           ["", "", "", ""]
@@ -102,7 +100,7 @@ const docDefinitionDefault = {
     {
       table: {
         headerRows: 1,
-        widths: [ 130, 130, 55, 48, '*' ],
+        widths: [ '*', '*', '*', "*", "*" ],
         body: [
           [],
           ["", "", "", "", ""]
@@ -201,7 +199,7 @@ const docDefinitionDefault = {
   ],
   defaultStyle: {
     font: "Roboto",
-    fontSize: 9,
+    fontSize: 10,
   },
   espacioLinas: {
     lineHeight: 1,
@@ -259,9 +257,7 @@ export default function SolicitudFinancomer({ idContact }) {
     const da = await res.data
     
     setData(da.Info)
-    if(Object.keys(da.Refe).length) {
-      setRefe(parseToPdfData(da.Refe))
-    }
+    setRefe(parseToPdfData(da.Refe))
   }
 
   const div1 = [{ text: "A. DATOS CLIENTE (COMPLETAR POR EL CLIENTE)", style: "blueWhite" }]
@@ -297,24 +293,23 @@ export default function SolicitudFinancomer({ idContact }) {
 
 
   const setTableBodyData = () => {
-    let idx = 2
     const template = { ...docDefinitionDefault };
-    template.content[idx].table.body = [header0]; idx+=2
-    template.content[idx].table.body = [div1]; idx+=1
-    template.content[idx].table.body = [header1, ...rowData1]; idx+=1
-    template.content[idx].table.body = [header2, ...rowData2]; idx+=2
-    template.content[idx].table.body = [div2]; idx+=1
-    template.content[idx].table.body = [header3, ...rowData3]; idx+=1
-    template.content[idx].table.body = [header4, ...rowData4]; idx+=2
-    template.content[idx].table.body = [div3]; idx+=1
-    template.content[idx].table.body = [header5, ...rowData5]; idx+=1
-    template.content[idx].table.body = [header6, ...rowData6]; idx+=1
-    template.content[idx].table.body = [rowData7]; idx+=2
-    template.content[idx].table.body = [div4]; idx+=1
-    template.content[idx].table.body = [header8, ...rowData8]; idx+=2
-    template.content[idx].table.body = [div5]; idx+=1
-    template.content[idx].table.body = [rowData9]; idx+=2
-    template.content[idx].table.body = [rowData10]; idx+=1
+    template.content[2].table.body = [header0];
+    template.content[4].table.body = [div1];
+    template.content[5].table.body = [header1, ...rowData1];
+    template.content[6].table.body = [header2, ...rowData2];
+    template.content[8].table.body = [div2];
+    template.content[9].table.body = [header3, ...rowData3];
+    template.content[10].table.body = [header4, ...rowData4];
+    template.content[12].table.body = [div3];
+    template.content[13].table.body = [header5, ...rowData5];
+    template.content[14].table.body = [header6, ...rowData6];
+    template.content[15].table.body = [rowData7];
+    template.content[17].table.body = [div4];
+    template.content[18].table.body = [header8, ...rowData8];
+    template.content[20].table.body = [div5];
+    template.content[21].table.body = [rowData9];
+    template.content[23].table.body = [rowData10];
     
     setDocDefinition(template);
   };
@@ -327,16 +322,13 @@ export default function SolicitudFinancomer({ idContact }) {
 
   useEffect(() => {
     setTableBodyData();
+    Object.keys(data).length && Object.keys(refe).length && create() 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, refe]);
 
   useEffect(() => {
-    getData(idContact)
-  }, [])
+    idContact && getData(idContact)
+  }, [idContact])
 
-  return (
-    <Button variant="outlined" color="primary" onClick={() => { create() }}>
-      Solicitud Prétamo
-    </Button>
-  )
+  return { createPDF: create() }
 }

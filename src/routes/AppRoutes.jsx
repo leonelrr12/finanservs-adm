@@ -167,7 +167,7 @@ export const AppRoutes = () => {
           <Route path="/roles/new" element={<NewRoles />} />
           <Route path="/roles/edit/:id" element={<EditRoles />} />
 
-          <Route path="/solFinancomer" element={<SolFinancomer />} />
+          <Route path="/solFinancomer" element={<SolFinancomer idContact={58}/>} />
 
           <Route component={<MissingRoute />} /> 
         </Route>
