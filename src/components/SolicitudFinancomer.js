@@ -336,7 +336,7 @@ export default function SolicitudFinancomer({ idContact }) {
 
   return (
     <Button variant="outlined" color="primary" onClick={() => { create() }}>
-      Solicitud Prétamo
+      Solicitud de Préstamo
     </Button>
   )
 }
