@@ -83,6 +83,7 @@ export const Nav = () => {
               <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                 <li><Link to={"/roles"} className="dropdown-item">Roles</Link></li>
                 <li><Link to={"/users"} className="dropdown-item">Usuarios</Link></li>
+                <li><Link to={"/solFinancomer"} className="dropdown-item">Financomer</Link></li>
               </ul>
             </li>      
             </>}

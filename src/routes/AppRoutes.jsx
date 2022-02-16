@@ -80,6 +80,8 @@ import Login from "../components/login/login";
 import Password from "../components/login/password";
 import MissingRoute from "../components/AlertMessage";
 
+import SolFinancomer from "../components/SolicitudFinancomer";
+
 export const AppRoutes = () => {
   const user = useSelector((state) => state.user.user);
 
@@ -164,6 +166,8 @@ export const AppRoutes = () => {
           <Route path="/roles" element={<AllRoles />} />
           <Route path="/roles/new" element={<NewRoles />} />
           <Route path="/roles/edit/:id" element={<EditRoles />} />
+
+          <Route path="/solFinancomer" element={<SolFinancomer />} />
 
           <Route component={<MissingRoute />} /> 
         </Route>
