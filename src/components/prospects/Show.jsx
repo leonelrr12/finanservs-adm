@@ -68,7 +68,7 @@ const Show = (props) => {
   const [item, setItem] = useState({});
   
   
-  const { Role, Ruta } = user
+  const { Role, Ruta, Tipo_Agente, Agente } = user
   const [entity, setEntity] = useState(Ruta)
   
   useEffect(() => {
@@ -76,8 +76,8 @@ const Show = (props) => {
   },[])
 
   useEffect(() => {
-    if(Role === 1) getByEntity(entity)
-    else getByEntity(Ruta)
+    if(Role === 1 || Tipo_Agente === 2) getByEntity(Tipo_Agente+","+Agente+","+entity)
+    else getByEntity([Tipo_Agente+","+Agente+","+Ruta])
   },[entity, Ruta])
 
   const getByEntity = async (entity) => {
@@ -170,7 +170,7 @@ const Show = (props) => {
 
       <div className={classes.root2}>
         <Grid container spacing={3}>
-          { Role === 1 ? (
+          { (Role === 1 || Tipo_Agente === 2) ? (
             <Grid item xs={12} md={6}>
               <Paper className={classes.paper2}>
                 <label className="font-weight-lighter">Entidad Financiera: </label>
