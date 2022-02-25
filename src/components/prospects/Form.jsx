@@ -42,7 +42,7 @@ const Form = (props) => {
             "fcreate": da.fcreate, 
             "dias": da.dias,
             "asunto": `Estatus de la Solicitud No.: ${da.id} << ${da.estado} >>`,
-            "mensaje": "Es nuestro interes manterlo actualizado con el estatus de su trámite.  Cualquier consulta no dude en contactarnos.",
+            "mensaje": "Es nuestro interes mantenerlo actualizado con el estatus de su trámite.  Cualquier consulta no dude en contactarnos.",
             "email_banco": da.email_banco,
             "email_sponsor": da.email_sponsor,
             "estado": da.estado,
