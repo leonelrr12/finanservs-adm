@@ -9,13 +9,13 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import PrintIcon from '@material-ui/icons/Print';
+
 import Form from './Form'
 import { InfoModal } from './InfoModal';
-import { Button } from '@material-ui/core';
 import { Typography } from 'antd';
 import apiConfig from '../../config/api'
 import DownloadExcel from './Excel'
+import ListProspects from '../ListProspects';
 
 const URL_API = apiConfig.domain
 console.log(apiConfig.domain)
@@ -70,6 +70,7 @@ const Show = (props) => {
   
   const { Role, Ruta, Tipo_Agente, Agente } = user
   const [entity, setEntity] = useState(Ruta)
+  const [entityName, setEntityName] = useState("")
   
   useEffect(() => {
     getEntities()
@@ -88,7 +89,8 @@ const Show = (props) => {
   }
 
   const handleChange = (event) => {
-    setEntity(event.target.value)
+    setEntity(event.target.value.split('/')[0])
+    setEntityName(event.target.value.split('/')[1])
   }
 
   const handleEstado = (event) => {
@@ -127,22 +129,22 @@ const Show = (props) => {
     getByEntity(entity)
   };
 
-  const crearPdf = (id) => {
-    var oReq = new XMLHttpRequest();
-    var URLToPDF = `${URL_API}/upload/prospectsPDF/${id}/${estado}`
+  // const crearPdf = (id) => {
+  //   var oReq = new XMLHttpRequest();
+  //   var URLToPDF = `${URL_API}/upload/prospectsPDF/${id}/${estado}`
    
-    oReq.open("GET", URLToPDF, true);
+  //   oReq.open("GET", URLToPDF, true);
    
-    oReq.responseType = "blob";
-    oReq.onload = function() {
-      const pdfFile = new Blob([oReq.response], { type: "application/pdf" });
-      const fileURL = URL.createObjectURL(pdfFile);
-      window.open(fileURL, "_blank");
-    };
-    oReq.send();
-  }
+  //   oReq.responseType = "blob";
+  //   oReq.onload = function() {
+  //     const pdfFile = new Blob([oReq.response], { type: "application/pdf" });
+  //     const fileURL = URL.createObjectURL(pdfFile);
+  //     window.open(fileURL, "_blank");
+  //   };
+  //   oReq.send();
+  // }
 
-  
+
   return ( 
     <div className="my-4">
 
@@ -157,13 +159,7 @@ const Show = (props) => {
           <Typography align="center" component="h1">Prospectos</Typography>
         </Grid>
         <Grid item xs={12} md={2} alignContent="center">
-            {/* <Printer color="primary" fontSize="large" />  */}
-            <Button
-              onClick={() => { crearPdf( entity) }}
-              color="secondary"
-              variant="contained"
-              endIcon={<PrintIcon />}
-            >Imprimir</Button>
+            <ListProspects id={entity} estado={estado} nameEntity={entityName}/>
             <DownloadExcel prospects={prospects}/>
         </Grid>
       </Grid>
@@ -177,7 +173,7 @@ const Show = (props) => {
                 <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
                   <option value="0">Seleccione una Entidad</option>
                   {entities.map((item) => (
-                    <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta}>{item.name}</option>
+                    <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta + "/" + item.name}>{item.name}</option>
                   ))}
                 </select>
               </Paper>

@@ -35,21 +35,33 @@ const docDefinitionDefault = {
   pageMargins: [40, 60, 40, 60],
   content: [
     {
-      text: 'SOLICITUD DE PRÉSTAMO FINANCOMER',
+      text: 'Información del Prospecto',
       style: 'header',
       alignment: "center"
     },
     '\n',  
     {
+      text: "",
+      style: 'header20',
+    },
+    '\n',  
+    {
+      layout: 'noBorders', 
       table: {
-        headerRows: 1,
-        widths: [ 120, 120 ],
-        body: [
+        widths: [370, '*'],
+        body: [  
           [],
         ]
       }
     },
-    '\n',  
+    {
+      table: {
+        widths: [ 'auto', 'auto', 'auto', '*' ],
+        body: [
+          []
+        ]
+      }
+    },
     {
       table: {
         headerRows: 1,
@@ -168,36 +180,36 @@ const docDefinitionDefault = {
         ]
       }
     },   
-    '\n',   
-    {
-      table: {
-        headerRows: 1,
-        widths: [ '*' ],
-        body: [
-          [],
-        ]
-      }
-    }, 
-    {
-      table: {
-        headerRows: 1,
-        widths: [ '*' ],
-        body: [
-          [],
-        ]
-      }
-    }, 
-    '\n',   
-    {
-      table: {
-        headerRows: 1,
-        widths: [ '*', '*', '*' ],
-        heights: 80,
-        body: [
-          ["", "", ""]
-        ]
-      }
-    }, 
+    // '\n',   
+    // {
+    //   table: {
+    //     headerRows: 1,
+    //     widths: [ '*' ],
+    //     body: [
+    //       [],
+    //     ]
+    //   }
+    // }, 
+    // {
+    //   table: {
+    //     headerRows: 1,
+    //     widths: [ '*' ],
+    //     body: [
+    //       [],
+    //     ]
+    //   }
+    // }, 
+    // '\n',   
+    // {
+    //   table: {
+    //     headerRows: 1,
+    //     widths: [ '*', '*', '*' ],
+    //     heights: 80,
+    //     body: [
+    //       ["", "", ""]
+    //     ]
+    //   }
+    // }, 
   ],
   defaultStyle: {
     font: "Roboto",
@@ -249,7 +261,7 @@ const docDefinitionDefault = {
   }
 };
 
-export default function SolicitudFinancomer({ idContact }) {
+export default function SolicitudProspect({ idContact }) {
   const [data, setData] = useState({});
   const [refe, setRefe] = useState([]);
   const [docDefinition, setDocDefinition] = useState({});
@@ -264,13 +276,16 @@ export default function SolicitudFinancomer({ idContact }) {
     }
   }
 
+  const hoyes = new Date().toUTCString()
   const div1 = [{ text: "A. DATOS CLIENTE (COMPLETAR POR EL CLIENTE)", style: "blueWhite" }]
   const div2 = [{ text: "B. DOMICILIO DEL CLIENTE (COMPLETAR POR EL CLIENTE)", style: "blueWhite" }]
   const div3 = [{ text: "C. INFORMACIÓN LABORAL (COMPLETAR POR EL CLIENTE)", style: "blueWhite" }]
   const div4 = [{ text: "D. RFERENCIAS PERSONALES (COMPLETAR POR EL CLIENTE)", style: "blueWhite" }]
-  const div5 = [{ text: "AUTORIZACIÓN PARA REFERENCIAS DE LA ASOCIACIÓN PANAMEÑA DE CREDITO (APC)", style: "blueWhite" }]
+  // const div5 = [{ text: "AUTORIZACIÓN PARA REFERENCIAS DE LA ASOCIACIÓN PANAMEÑA DE CREDITO (APC)", style: "blueWhite" }]
 
-  const header0 = ["Fecha de la Solicitud:", data?.fechaSolicitud]
+  const headerf = [{ style: 'small1', alignment: 'right', text: 'Fecha: ' }, 
+            { style: 'small1', text: hoyes }]
+  const header0 = [{ text: ['ID: ',  data.id], style: 'blueWhite' }, { text: ['Alta: ', data.fechaSolicitud] }, { text: 'Estado: ' }, { text:  data.estado, alignment: 'center', fontSize: 18 }]            
   const header1 = [{ text: "Nombres", style: "alignCenter" }, { text: "Apellidos", style: "alignCenter" }, { text: "Cédula", style: "alignCenter" }]
   const rowData1 = [[data?.fname + " " + data?.fname_2, data?.lname+ " " + data?.lname_2, data?.cedula]]
   const header2 = [{ text: "Fecha de Nacimiento", style: "alignCenter" }, { text: "Sexo", style: "alignCenter" }, { text: "Estado Civíl", style: "alignCenter" }, { text: "Edad", style: "alignCenter" }]
@@ -290,16 +305,18 @@ export default function SolicitudFinancomer({ idContact }) {
   const header8 = [ "", { text: "Nombre Completo", style: "alignCenter" }, { text: "Teléfono", style: "alignCenter" }, { text: "Parentesco", style: "alignCenter" }]
   const rowData8 = refe
 
-  const APC = "Por este medio autorizo(amos) expresamente a FINANCOMER S.A., sus subsidiarias y/o afiliadas, cesionarios o sucesoras, así como cualquier compañía que por una operación de cesión, administración o compra de cartera adquiera los derechos de mi crédito, a que de conformidad con lo expresado en el artículo 24 y demás disposiciones aplicables de la Ley 24 de 22 mayo de 2002, solicite, consulte, recopile, intercambie y transmita a cualquier agencia de información de datos, bancos o agentes económicos informaciones relacionadas con obligaciones o transacciones crediticias, que mantengo o pudiera mantener con dichos agentes económicos de la localidad o del exterior, sobre mi(nuestros) historial de crédito y relaciones con acreedores. También queda facultado FINANCOMER S.A., sus subsidiarias y/o afiliadas, cesionarios o sucesoras, así como cualquier compañía que, por una operación de cesión, administración o compra de cartera adquiera los derechos de mi crédito, a que solicite y obtenga información de instituciones gubernamentales relacionadas con las obligaciones o transacciones crediticias arriba referidas. Asimismo, exonero (amos) de cualquier consecuencia o responsabilidad resultante del ejercicio de solicitar o suministrar información, o por razón de cualesquiera autorizaciones contenidas en la presente carta, a FINANCOMER S.A., a sus compañías afiliadas, subsidiarias, cesionarios y/o sucesoras, a sus empleados, ejecutivos, directores, dignatarios o apoderados, así como cualquier compañía que por una operación de cesión, administración o compra de cartera adquiera los derechos de mi crédito."
-  const rowData9 = [{ text: APC, style: "small", alignment: "justify" }]
-  const rowData10 = 
-    [{ text: "Firma del Cliente", style: "alignCenter" }, { text: "Nombre del CLiente", style: "alignCenter"}, { text: "Cédula", style: "alignCenter" }]
+  // const APC = "Por este medio autorizo(amos) expresamente a FINANCOMER S.A., sus subsidiarias y/o afiliadas, cesionarios o sucesoras, así como cualquier compañía que por una operación de cesión, administración o compra de cartera adquiera los derechos de mi crédito, a que de conformidad con lo expresado en el artículo 24 y demás disposiciones aplicables de la Ley 24 de 22 mayo de 2002, solicite, consulte, recopile, intercambie y transmita a cualquier agencia de información de datos, bancos o agentes económicos informaciones relacionadas con obligaciones o transacciones crediticias, que mantengo o pudiera mantener con dichos agentes económicos de la localidad o del exterior, sobre mi(nuestros) historial de crédito y relaciones con acreedores. También queda facultado FINANCOMER S.A., sus subsidiarias y/o afiliadas, cesionarios o sucesoras, así como cualquier compañía que, por una operación de cesión, administración o compra de cartera adquiera los derechos de mi crédito, a que solicite y obtenga información de instituciones gubernamentales relacionadas con las obligaciones o transacciones crediticias arriba referidas. Asimismo, exonero (amos) de cualquier consecuencia o responsabilidad resultante del ejercicio de solicitar o suministrar información, o por razón de cualesquiera autorizaciones contenidas en la presente carta, a FINANCOMER S.A., a sus compañías afiliadas, subsidiarias, cesionarios y/o sucesoras, a sus empleados, ejecutivos, directores, dignatarios o apoderados, así como cualquier compañía que por una operación de cesión, administración o compra de cartera adquiera los derechos de mi crédito."
+  // const rowData9 = [{ text: APC, style: "small", alignment: "justify" }]
+  // const rowData10 = 
+  //   [{ text: "Firma del Cliente", style: "alignCenter" }, { text: "Nombre del CLiente", style: "alignCenter"}, { text: "Cédula", style: "alignCenter" }]
 
 
   const setTableBodyData = () => {
-    let idx = 2
+    let idx = 4
     const template = { ...docDefinitionDefault };
-    template.content[idx].table.body = [header0]; idx+=2
+    template.content[2].text = data?.lname+ " " + data?.fname
+    template.content[idx].table.body = [headerf]; idx+=1
+    template.content[idx].table.body = [header0]; idx+=1
     template.content[idx].table.body = [div1]; idx+=1
     template.content[idx].table.body = [header1, ...rowData1]; idx+=1
     template.content[idx].table.body = [header2, ...rowData2]; idx+=2
@@ -312,9 +329,9 @@ export default function SolicitudFinancomer({ idContact }) {
     template.content[idx].table.body = [rowData7]; idx+=2
     template.content[idx].table.body = [div4]; idx+=1
     template.content[idx].table.body = [header8, ...rowData8]; idx+=2
-    template.content[idx].table.body = [div5]; idx+=1
-    template.content[idx].table.body = [rowData9]; idx+=2
-    template.content[idx].table.body = [rowData10]; idx+=1
+    // template.content[idx].table.body = [div5]; idx+=1
+    // template.content[idx].table.body = [rowData9]; idx+=2
+    // template.content[idx].table.body = [rowData10]; idx+=1
     
     setDocDefinition(template);
   };

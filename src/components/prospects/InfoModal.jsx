@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import SolicitudFinancomer from '../SolicitudFinancomer';
+import SolicitudProspect from '../SolicitudProspect';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,22 +51,22 @@ export const InfoModal = (props) => {
   const classes = useStyles();
   const { item, open, setOpen, handleClose, entity } = props;
 
-  const crearPdf = async (id) => {
-    var oReq = new XMLHttpRequest();
-    var URLToPDF = `/upload/prospectPDF/${id}`
+  // const crearPdf = async (id) => {
+  //   var oReq = new XMLHttpRequest();
+  //   var URLToPDF = `/upload/prospectPDF/${id}`
     
-    oReq.open("GET", URLToPDF, true);
+  //   oReq.open("GET", URLToPDF, true);
     
-    oReq.responseType = "blob";
-    oReq.onload = await function() {
-      const pdfFile = new Blob([oReq.response], { type: "application/pdf" });
-      const fileURL = URL.createObjectURL(pdfFile);
-      window.open(fileURL, "_blank");
-    };
-    oReq.send();
+  //   oReq.responseType = "blob";
+  //   oReq.onload = await function() {
+  //     const pdfFile = new Blob([oReq.response], { type: "application/pdf" });
+  //     const fileURL = URL.createObjectURL(pdfFile);
+  //     window.open(fileURL, "_blank");
+  //   };
+  //   oReq.send();
   
-    setOpen(false)
-  }
+  //   setOpen(false)
+  // }
 
 
   return (
@@ -102,10 +103,12 @@ export const InfoModal = (props) => {
             <Button variant="contained" color="primary" onClick={() => setOpen(false)}>
               Cerrar
             </Button>
-            <Button variant="outlined" color="primary" onClick={() => { crearPdf(item['A1ID']) }}>
+            {/* <Button variant="outlined" color="primary" onClick={() => { crearPdf(item['A1ID']) }}>
               Imprimir
-            </Button>
+            </Button> */}
+            { entity !== '600' && <SolicitudProspect idContact={item['A1ID']} /> }
             { entity === '600' && <SolicitudFinancomer idContact={item['A1ID']} /> }
+
           </div>
         </div>
       </Fade>
