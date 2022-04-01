@@ -1,23 +1,47 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Table, Button, Modal, Input, Form, Radio } from 'antd'
-import 'antd/dist/antd.css'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { 
+  Button, 
+  FormControl, 
+  InputLabel, 
+  Modal, 
+  OutlinedInput, 
+  Radio, 
+  Table, 
+  Box, 
+  TableContainer, 
+  Paper, 
+  TableHead, 
+  TableRow, 
+  TableBody, 
+} from '@mui/material'
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { DeleteOutlined, EditOutlined } from '@mui/icons-material'
+import { styled } from '@mui/material/styles';
 import NotData from '../NotData'
 import apiConfig from '../../config/api'
 
 const URL_API = apiConfig.domain
 
-const { Item } = Form
-
-const layout={
-  labelCol:{
-    span: 6
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  wrapperCol:{
-    span: 16
-  }
-}
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 const Show = () => {
   const [data, setData] = useState([])
@@ -116,6 +140,7 @@ const Show = () => {
   const recordSelected = (caso) => {
     (caso === 'Editar') ? abrirCerrarModalEditar() : abrirCerrarModalEliminar()
   }
+
   const saveRecord = async () => {
     item.is_active=value
     delete item.id
@@ -128,6 +153,7 @@ const Show = () => {
       console.log(error)
     })
   }
+
   const updateRecord = async () => {
     item.is_active=value
     await axios.put(URL_API + '/adm/entities_f/', item)
@@ -138,6 +164,7 @@ const Show = () => {
       console.log(error)
     })
   }
+
   const deleteRecord = async () => {
     await axios.delete(URL_API + '/adm/entities_f/' + item.id)
     .then(response => {
@@ -156,7 +183,8 @@ const Show = () => {
     <div className="m-auto">
       <h2 className="text-center mt-5">Entidades Financieras</h2>
       <Button type="primary" onClick={abrirCerrarModalInsertar}>Nuevo</Button>
-      {(typeof(data) === "object") ?
+
+      {/* {(typeof(data) === "object") ? 
         <Table columns={columns} dataSource={data} />
       :
         <tr>
@@ -164,9 +192,49 @@ const Show = () => {
           <NotData />
           </td>
         </tr>
-      }
+      } */}
 
-      <Modal
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>ID</StyledTableCell>
+            <StyledTableCell align="left">Nombre</StyledTableCell>
+            <StyledTableCell align="left">Ruta</StyledTableCell>
+            <StyledTableCell align="left">Contacto</StyledTableCell>
+            <StyledTableCell align="left">Teléfono</StyledTableCell>
+            <StyledTableCell align="left">Celular</StyledTableCell>
+            <StyledTableCell align="left">Emails</StyledTableCell>
+            <StyledTableCell align="left">Activo</StyledTableCell>
+            <StyledTableCell align="left">Acciones</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((row) => (
+            <StyledTableRow key={row.name}>
+              <StyledTableCell component="th" scope="row">
+                {row.id}
+              </StyledTableCell>
+              <StyledTableCell width={50} align="left">{row.name}</StyledTableCell>
+              <StyledTableCell align="left">{row.id_ruta}</StyledTableCell>
+              <StyledTableCell align="left">{row.contact}</StyledTableCell>
+              <StyledTableCell align="left">{row.phone_number}</StyledTableCell>
+              <StyledTableCell align="left">{row.cellphone}</StyledTableCell>
+              <StyledTableCell width={50} align="left">{row.emails}</StyledTableCell>
+              <StyledTableCell align="left">{row.is_active}</StyledTableCell>
+              <StyledTableCell width={50} align="left">
+              <>
+                <Button type="primary" onClick={()=>{setItem(row.is_active); setValue(row.is_active); recordSelected('Editar')}}><EditOutlined /></Button>{"   "}
+                <Button type="primary" onClick={()=>{setItem(row.is_active); recordSelected('')}} danger><DeleteOutlined /></Button>
+              </>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+      {/* <Modal
         visible={modalInsertar}
         title="Nueva Entidad Financiera"
         destroyOnClose={true}
@@ -177,8 +245,18 @@ const Show = () => {
           <Button type="primary" onClick={saveRecord}>{"Guardar"}</Button>,
         ]}
       >
-        <Form {...layout}>
-          <Item label="Nombre">
+        <Box>
+        <FormControl>
+        <InputLabel htmlFor="name">Nombre</InputLabel>
+        <OutlinedInput
+          id="name"
+          name="name"
+          onChange={handleChange}
+          label="Name"
+        />
+      </FormControl> */}
+
+          {/* <Item label="Nombre">
             <Input name="name" onChange={handleChange}/>
           </Item>
           <Item label="Ruta">
@@ -202,11 +280,11 @@ const Show = () => {
               <Radio value={'Si'}>Si</Radio>
               <Radio value={'No'}>No</Radio>
             </Radio.Group>
-          </Item>
-        </Form>
-      </Modal>
+          </Item> 
+         </Box>
+      </Modal> */}
 
-      <Modal
+      {/* <Modal
         visible={modalEditar}
         title="Actualizar Entidad Financiera"
         onCancel={abrirCerrarModalEditar}
@@ -216,8 +294,15 @@ const Show = () => {
           <Button type="primary" onClick={updateRecord}>Actualizar</Button>
         ]}
       >
-        <Form {...layout}>
-          <Item label="ID">{item.id}</Item>
+        <Box 
+          component="form"
+          sx={{
+            '& > :not(style)': { m: 1 },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          {/* <Item label="ID">{item.id}</Item>
           <Item label="Nombre">
             <Input name="name" onChange={handleChange} value={item && item.name}/>
           </Item>
@@ -242,21 +327,21 @@ const Show = () => {
               <Radio value='Si'>Si</Radio>
               <Radio value='No'>No</Radio>
             </Radio.Group>
-          </Item>
-        </Form>
-      </Modal>
-
+          </Item> 
+        </Box>
+      </Modal> */}
+{/* 
       <Modal
-        visible={modalEliminar}
-        onCancel={abrirCerrarModalEliminar}
-        centered
-        footer={[
-          <Button onClick={abrirCerrarModalEliminar}>No</Button>,
-          <Button type="primary" danger onClick={deleteRecord}>Si</Button>
-        ]}
+         visible={modalEliminar}
+         onCancel={abrirCerrarModalEliminar}
+         centered
+         footer={[
+           <Button onClick={abrirCerrarModalEliminar}>No</Button>,
+           <Button type="primary" danger onClick={deleteRecord}>Si</Button>
+         ]}
       >
-        Esta seguro que desea elimnar el registro con <b><br />ID: {item.id} - {item.name}</b>
-      </Modal>
+         Esta seguro que desea elimnar el registro con <b><br />ID: {item.id} - {item.name}</b>
+      </Modal> */}
     </div>
    )
 }

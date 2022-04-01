@@ -3,7 +3,7 @@ import { FinanservsHorizontalLogoWhiteImg } from './images'
 import { Nav } from './Nav'
 
 const Div = styled.div`
-    background-color: ${ ({ theme }) => theme.colors.blue };
+    background-color: ${ ({ theme }) => theme };
     padding-left: 15px;
 `
 

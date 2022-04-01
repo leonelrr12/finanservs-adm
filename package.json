@@ -3,26 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ant-design/icons": "^4.6.2",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.5.3",
+    "@mui/styles": "^5.5.3",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
-    "antd": "^4.15.0",
     "axios": "^0.21.1",
     "buffer": "^6.0.3",
     "eslint-plugin-react-hooks": "0.0.0-a77dd13ed",
     "fs": "0.0.1-security",
-    "html2canvas": "^1.4.1",
     "pdfmake": "^0.2.4",
     "react": "^17.0.1",
     "react-bootstrap-4-pagination": "^1.0.4",
     "react-dom": "^17.0.1",
     "react-export-excel": "^0.5.3",
     "react-hook-form": "^7.20.4",
-    "react-pdfmake": "^0.3.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
@@ -35,7 +34,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "PORT=4000 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -65,6 +64,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {},
   "proxy": "http://localhost:4001"
 }

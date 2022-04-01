@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import Grid from '@material-ui/core/Grid';
-import { Typography } from 'antd';
 import axios from 'axios'
 import NotData from '../NotData'
 import apiConfig from '../../config/api'
 import DownloadExcel from './Excel';
+import { Grid, Typography } from '@mui/material';
 
 const URL_API = apiConfig.domain
 

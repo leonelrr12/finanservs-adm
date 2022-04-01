@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import NotData from '../NotData'
 import apiConfig from '../../config/api'
+import { Grid, Paper } from '@mui/material'
+import { makeStyles } from '@mui/styles';
+
 
 const URL_API = apiConfig.domain
 
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: 2, //theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }, 

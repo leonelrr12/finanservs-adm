@@ -1,6 +1,6 @@
 import ReactExport from "react-export-excel";
-import GridOnIcon from '@material-ui/icons/GridOn';
-import { Button } from '@material-ui/core';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import { Button } from "@mui/material";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;

@@ -4,8 +4,8 @@ import pdfMake from "pdfmake";
 import vfs from "../fonts/vfs_fonts";
 import axios from "axios";
 import apiConfig from '../config/api'
-import { Button } from "@material-ui/core";
-import PrintIcon from '@material-ui/icons/Print';
+import { Button } from "@mui/material";
+import PrintIcon from '@mui/icons-material/LocalPrintshop';
 
 const URL_API = apiConfig.domain
 
@@ -16,7 +16,7 @@ pdfMake.fonts = {
     bold: 'Roboto-Medium.ttf',
     italics: 'Roboto-Italic.ttf',
     bolditalics: 'Roboto-MediumItalic.ttf'
-}
+  }
 };
 
 const separator = (numb) => {

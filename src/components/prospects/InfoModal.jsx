@@ -1,30 +1,32 @@
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import Button from '@material-ui/core/Button';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { 
+  Backdrop,
+  Button, 
+  Fade,  
+  Modal, 
+  Paper, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableRow 
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import SolicitudFinancomer from '../SolicitudFinancomer';
 import SolicitudProspect from '../SolicitudProspect';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles( (theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     borderRadius: '2%',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    // boxShadow: theme.shadows[5],
+    padding: 2, //theme.spacing(2, 4, 3),
   },
   table: {
     minWidth: 650,
@@ -34,14 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: 2, //theme.spacing(1),
     },
   },   
   root2: {
     flexGrow: 1,
   },
   paper2: {
-    padding: theme.spacing(2),
+    padding: 2, //theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }, 
