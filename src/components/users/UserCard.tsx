@@ -14,10 +14,12 @@ interface IEntidadProps {
     user: {
         id: number;
         email: string;
-        entity: string;
+        Role: string;
+        Entidad: string;
         name: string;
-        cellphone: string;
-        phone_number: string;
+        cellPhone: string;
+        phoneNumber: string;
+        address: string;
         is_active: string;
     };
     onClick: (is_active: string) => void;
@@ -39,10 +41,11 @@ export const UserCard: FC<IEntidadProps> = ({ user, onClick }) => {
             />
             <CardActionArea>
                 <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">{ user.entity }</Typography>
-                    <Typography gutterBottom variant="h6" component="div">{ user.cellphone } / { user.phone_number }</Typography>
-                    <Typography gutterBottom variant="h6" component="div">Email:</Typography>
-                    <Typography gutterBottom component="div">{ user.email }</Typography>
+                    <Typography gutterBottom component="div">Usuario: <b>{ user.email }</b></Typography>
+                    <Typography gutterBottom component="div">Role: <b>{ user.Role }</b></Typography>
+                    <Typography gutterBottom component="div">Entidad: <b>{ user.Entidad }</b></Typography>
+                    <Typography gutterBottom component="div">Teléfonos: <b>{ user.cellPhone } / { user.phoneNumber }</b></Typography>
+                    <Typography gutterBottom component="div">Dirección: <b>{ user.address }</b></Typography>
                 </CardContent>
 
                 <CardActions sx={{ display: 'flex', justifyContent: 'end', padding: 2 }}>

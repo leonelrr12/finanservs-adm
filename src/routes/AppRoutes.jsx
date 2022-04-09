@@ -69,8 +69,6 @@ import NewEntityParams from "../components/entityParams/New";
 import EditEntityParams from "../components/entityParams/Edit";
 
 import AllUsers from "../components/users/Show";
-import NewUsers from "../components/users/New";
-import EditUsers from "../components/users/Edit";
 
 import AllRoles from "../components/roles/Show";
 import NewRoles from "../components/roles/New";
@@ -160,8 +158,6 @@ export const AppRoutes = () => {
           <Route path="/entity_params/edit/:id" element={<EditEntityParams />} />
 
           <Route path="/users" element={<AllUsers />} />
-          <Route path="/users/new" element={<NewUsers />} />
-          <Route path="/users/edit/:id" element={<EditUsers />} />
 
           <Route path="/roles" element={<AllRoles />} />
           <Route path="/roles/new" element={<NewRoles />} />
