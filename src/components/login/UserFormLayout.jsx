@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { CenteredContainer, SmallContainer as SmallContainerTemplate, Title as TitleTemplate } from '../../theme'
+import { CenteredContainer, SmallContainer as SmallContainerTemplate, theme, Title as TitleTemplate } from '../../theme'
 import { FinanservesVerticalLogoImg } from '../images'
 
 const SmallContainer = styled(SmallContainerTemplate)`
@@ -8,8 +8,9 @@ const SmallContainer = styled(SmallContainerTemplate)`
 
 const Header = styled.header`
     text-align: center;
-    margin-bottom: ${ ({ theme }) => theme.dims.margin.normal };
+    margin-bottom: ${ theme.dims.margin.normal };
 `
+
 
 const Title = styled(TitleTemplate)`
     font-weight: bold;

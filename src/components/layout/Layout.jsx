@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import styled from 'styled-components';
-import { LayoutContainer } from '../theme';
-import { Footer } from './Footer';
-import Header from './Header';
+import { LayoutContainer } from '../../theme';
+import { Footer } from '../ui/Footer';
+import Header from '../ui/Header';
 
 const LayoutNav = styled.nav`
   max-height: 50px;

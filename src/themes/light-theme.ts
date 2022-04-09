@@ -1,15 +1,15 @@
 import { createTheme } from "@mui/material";
-import { grey, red } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 
 
 export const lightTheme = createTheme({
     palette: {
         mode: 'light',
         background: {
-            default: grey[300]
+            default: '#fff'
         },
         primary: {
-            main: '#4a148c'
+            main: '#0a58ca'
         },
         secondary: {
             main: '#19857b'
@@ -35,5 +35,6 @@ export const lightTheme = createTheme({
             },
             styleOverrides: {}
         }
-    }
+    },
+    
 })

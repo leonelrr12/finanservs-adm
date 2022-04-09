@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logOut } from '../store/user';
+import { logOut } from '../../store/user';
 
 
 const LayoutNav = styled.nav`

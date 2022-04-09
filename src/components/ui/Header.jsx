@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { FinanservsHorizontalLogoWhiteImg } from './images'
+
+import { FinanservsHorizontalLogoWhiteImg } from '../images'
 import { Nav } from './Nav'
 
 const Div = styled.div`
-    background-color: ${ ({ theme }) => theme };
+    background-color: rgb(13, 110, 253);
     padding-left: 15px;
 `
 
@@ -12,11 +13,8 @@ const LayoutHeader = styled.header`
     min-width: 100vh;
     max-height: 50px;
     grid-template-columns: auto minmax(1, 1fr) auto;
-
     grid-template-areas: 'logo menu menu';
-
     & .logo { grid-area: logo; }
-
     & .menu { grid-area: menu; }
 `
 

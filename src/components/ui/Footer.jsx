@@ -1,11 +1,12 @@
 import { Link, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 import styled from 'styled-components'
 
 
 const SimpleFooterContainer = styled.footer`
-    background-color: ${({ theme}) => theme.colors.white };
-    padding: ${ ({ theme }) => theme.dims.padding.largePadding };
+    background-color: 'white';
+    padding: '0.8em 1.2em';
     text-align: center;
 `
 

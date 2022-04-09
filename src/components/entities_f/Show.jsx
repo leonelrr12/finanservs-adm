@@ -3,70 +3,63 @@ import axios from 'axios'
 import { 
   Button, 
   FormControl, 
-  InputLabel, 
   Modal, 
-  OutlinedInput, 
   Radio, 
-  Table, 
   Box, 
-  TableContainer, 
   Paper, 
-  TableHead, 
-  TableRow, 
-  TableBody, 
+  Grid,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
+  TextField,
+  Divider,
 } from '@mui/material'
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { DeleteOutlined, EditOutlined } from '@mui/icons-material'
-import { styled } from '@mui/material/styles';
-import NotData from '../NotData'
 import apiConfig from '../../config/api'
+import { EntityCard } from './EntityCard';
 
 const URL_API = apiConfig.domain
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
 const Show = () => {
   const [data, setData] = useState([])
-  const [value, setValue] = useState('Si')
   const [item, setItem] = useState({
-    id:'',
-    name:'',
-    id_ruta:'',
-    contact:'',
-    phone_number:'',
-    cellphone:'',
-    emails:'',
-    is_active:''
+    id: '',
+    name: '',
+    id_ruta: '',
+    contact: '',
+    phone_number: '',
+    cellphone: '',
+    emails: '',
+    is_active: ''
+  })
+  const [itemValid, setItemValid] = useState({
+    name: true,
+    id_ruta: true,
+    contact: true,
+    phone_number: true,
+    cellphone: true,
   })
   const [modalInsertar, setModalInsertar] = useState(false)
   const [modalEditar, setModalEditar] = useState(false)
-  const [modalEliminar, setModalEliminar] = useState(false)
+  // const [modalEliminar, setModalEliminar] = useState(false)
 
-  const handleChange = e => {
-    const {name, value} = e.target
-    setItem({...item,
-    [name]: value})
-  }
-  const onChange = e => {
-    setValue(e.target.value)
+  const handleChange = ({ target: { name, value }}, maxLeng) => {
+    setItem({
+      ...item,
+      [name]: value
+    });
+    if(maxLeng <= 0) return
+
+    if(value.length > maxLeng) {
+      setItemValid({
+        ...itemValid,
+        [name]: false
+      })
+    } else {
+      setItemValid({
+        ...itemValid,
+        [name]: true
+      })
+    }
   }
 
   const abrirCerrarModalInsertar = () => {
@@ -75,61 +68,9 @@ const Show = () => {
   const abrirCerrarModalEditar = () => {
     setModalEditar(!modalEditar)
   }
-  const abrirCerrarModalEliminar = () => {
-    setModalEliminar(!modalEliminar)
-  }
-
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id"
-    },
-    {
-      title: "Nombre",
-      dataIndex: "name",
-      key: "name"
-    },
-    {
-      title: "Ruta",
-      dataIndex: "id_ruta",
-      key: "id_ruta"
-    },
-    {
-      title: "Contacto",
-      dataIndex: "contact",
-      key: "contact"
-    },
-    {
-      title: "Teléfono",
-      dataIndex: "phone_number",
-      key: "phone_number"
-    },
-    {
-      title: "Celular",
-      dataIndex: "callphone",
-      key: "callphone"
-    },
-    {
-      title: "Emails",
-      dataIndex: "emails",
-      key: "emails"
-    },
-    {
-      title: "Activo",
-      dataIndex: "is_active",
-      key: "is_active"
-    },    
-    {
-      title: "Acciones",
-      key: "acciones",
-      render: fila => 
-      <>
-         <Button type="primary" onClick={()=>{setItem(fila); setValue(fila.is_active); recordSelected('Editar')}}><EditOutlined /></Button>{"   "}
-         <Button type="primary" onClick={()=>{setItem(fila); recordSelected('')}} danger><DeleteOutlined /></Button>
-      </>
-    },    
-  ]
+  // const abrirCerrarModalEliminar = () => {
+  //   setModalEliminar(!modalEliminar)
+  // }
 
   const getAll = async () => {
     const res = await axios.get(URL_API + '/adm/entities_f')
@@ -137,13 +78,10 @@ const Show = () => {
     setData(data)
   }
 
-  const recordSelected = (caso) => {
-    (caso === 'Editar') ? abrirCerrarModalEditar() : abrirCerrarModalEliminar()
-  }
-
   const saveRecord = async () => {
-    item.is_active=value
+
     delete item.id
+    console.log(item)
     await axios.post(URL_API + '/adm/entities_f/', item)
     .then(response => {
       item.id=response.data.insertId
@@ -155,7 +93,6 @@ const Show = () => {
   }
 
   const updateRecord = async () => {
-    item.is_active=value
     await axios.put(URL_API + '/adm/entities_f/', item)
     .then(response => {
       setData(data.map(p=>p.id===item.id?item:p))
@@ -165,14 +102,41 @@ const Show = () => {
     })
   }
 
-  const deleteRecord = async () => {
-    await axios.delete(URL_API + '/adm/entities_f/' + item.id)
-    .then(response => {
-      setData(data.filter(p=>p.id!==item.id))
-      abrirCerrarModalEliminar()
-    }).catch(error => {
-      console.log(error)
-    })
+  // const deleteRecord = async () => {
+  //   await axios.delete(URL_API + '/adm/entities_f/' + item.id)
+  //   .then(response => {
+  //     setData(data.filter(p=>p.id!==item.id))
+  //     abrirCerrarModalEliminar()
+  //   }).catch(error => {
+  //     console.log(error)
+  //   })
+  // }
+
+  const onClickNew = () => {
+    setItem({
+      id:'',
+      name:'',
+      id_ruta:'',
+      contact:'',
+      phone_number:'',
+      cellphone:'',
+      emails:'',
+      type: 1,
+      is_active: 'No'
+    }); 
+    setItemValid({
+      name: false,
+      id_ruta: false,
+      contact: false,
+      phone_number: false,
+      cellphone: false,
+    });
+    abrirCerrarModalInsertar();
+  }
+
+  const onClickUpdate = (row) => {
+    setItem(row); 
+    abrirCerrarModalEditar();
   }
 
   useEffect(() => {
@@ -180,169 +144,322 @@ const Show = () => {
   },[])
 
   return ( 
-    <div className="m-auto">
-      <h2 className="text-center mt-5">Entidades Financieras</h2>
-      <Button type="primary" onClick={abrirCerrarModalInsertar}>Nuevo</Button>
+    <Box sx={{ marginBottom: 2, paddingX: 5, paddingY: 2 }}>
+      <Paper
+        sx={{ 
+          p: 4,
+          height: '100%',
+          width: '100%',
+          backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#1A2027' : '#d3d3d3',
+        }}
+      >
 
-      {/* {(typeof(data) === "object") ? 
-        <Table columns={columns} dataSource={data} />
-      :
-        <tr>
-          <td colSpan="8">
-          <NotData />
-          </td>
-        </tr>
-      } */}
+        <h2 className="text-center ">Entidades Financieras</h2>
+        <Button sx={{ marginBottom: 2 }} color="primary" fullWidth variant="contained" onClick={onClickNew}>Nuevo</Button>
 
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell align="left">Nombre</StyledTableCell>
-            <StyledTableCell align="left">Ruta</StyledTableCell>
-            <StyledTableCell align="left">Contacto</StyledTableCell>
-            <StyledTableCell align="left">Teléfono</StyledTableCell>
-            <StyledTableCell align="left">Celular</StyledTableCell>
-            <StyledTableCell align="left">Emails</StyledTableCell>
-            <StyledTableCell align="left">Activo</StyledTableCell>
-            <StyledTableCell align="left">Acciones</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.id}
-              </StyledTableCell>
-              <StyledTableCell width={50} align="left">{row.name}</StyledTableCell>
-              <StyledTableCell align="left">{row.id_ruta}</StyledTableCell>
-              <StyledTableCell align="left">{row.contact}</StyledTableCell>
-              <StyledTableCell align="left">{row.phone_number}</StyledTableCell>
-              <StyledTableCell align="left">{row.cellphone}</StyledTableCell>
-              <StyledTableCell width={50} align="left">{row.emails}</StyledTableCell>
-              <StyledTableCell align="left">{row.is_active}</StyledTableCell>
-              <StyledTableCell width={50} align="left">
-              <>
-                <Button type="primary" onClick={()=>{setItem(row.is_active); setValue(row.is_active); recordSelected('Editar')}}><EditOutlined /></Button>{"   "}
-                <Button type="primary" onClick={()=>{setItem(row.is_active); recordSelected('')}} danger><DeleteOutlined /></Button>
-              </>
-              </StyledTableCell>
-            </StyledTableRow>
+        <Grid container justifyContent="center" spacing={2}>
+          {data.map( row => (
+            <Grid item xs={12} sm={6} md={4}>
+              <EntityCard key={row.id} entity={row} onClick={ ()=>onClickUpdate(row) } />
+            </Grid>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </Grid>
 
-      {/* <Modal
-        visible={modalInsertar}
-        title="Nueva Entidad Financiera"
-        destroyOnClose={true}
-        onCancel={abrirCerrarModalInsertar}
-        centered
-        footer={[
-          <Button onClick={abrirCerrarModalInsertar}>Cancelar</Button>,
-          <Button type="primary" onClick={saveRecord}>{"Guardar"}</Button>,
-        ]}
-      >
-        <Box>
-        <FormControl>
-        <InputLabel htmlFor="name">Nombre</InputLabel>
-        <OutlinedInput
-          id="name"
-          name="name"
-          onChange={handleChange}
-          label="Name"
-        />
-      </FormControl> */}
-
-          {/* <Item label="Nombre">
-            <Input name="name" onChange={handleChange}/>
-          </Item>
-          <Item label="Ruta">
-            <Input name="id_ruta" onChange={handleChange}/>
-          </Item>
-          <Item label="Contacto">
-            <Input name="contact" onChange={handleChange}/>
-          </Item>
-          <Item label="Teléfono">
-            <Input name="phone_number" onChange={handleChange}/>
-          </Item>
-          <Item label="Celular">
-            <Input name="cellphone" onChange={handleChange}/>
-          </Item>
-          <Item label="Emails">
-            <textarea name="emails" onChange={handleChange} rows="4" cols="50" placeholder="jperez@gmail.com, tmitre@hotmail.com"></textarea>
-            Emails separados por (,) coma.
-          </Item>
-          <Item label="Activo">
-            <Radio.Group onChange={onChange} value={value}>
-              <Radio value={'Si'}>Si</Radio>
-              <Radio value={'No'}>No</Radio>
-            </Radio.Group>
-          </Item> 
-         </Box>
-      </Modal> */}
-
-      {/* <Modal
-        visible={modalEditar}
-        title="Actualizar Entidad Financiera"
-        onCancel={abrirCerrarModalEditar}
-        centered
-        footer={[
-          <Button onClick={abrirCerrarModalEditar}>Cancelar</Button>,
-          <Button type="primary" onClick={updateRecord}>Actualizar</Button>
-        ]}
-      >
-        <Box 
-          component="form"
+        <Modal
+          open={modalInsertar}
+          title="Nueva Entidad Financiera"
+          destroyOnClose={true}
+          onCancel={abrirCerrarModalInsertar}
+          centered
           sx={{
-            '& > :not(style)': { m: 1 },
+            display: 'flex',
+            p: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-          noValidate
-          autoComplete="off"
         >
-          {/* <Item label="ID">{item.id}</Item>
-          <Item label="Nombre">
-            <Input name="name" onChange={handleChange} value={item && item.name}/>
-          </Item>
-          <Item label="Ruta">
-            <Input name="id_ruta" onChange={handleChange} value={item && item.id_ruta}/>
-          </Item>
-          <Item label="Contacto">
-            <Input name="contact" onChange={handleChange} value={item && item.contact}/>
-          </Item>
-          <Item label="Teléfono">
-            <Input name="phone_number" onChange={handleChange} value={item && item.phone_number}/>
-          </Item>
-          <Item label="Celular">
-            <Input name="cellphone" onChange={handleChange} value={item && item.cellphone}/>
-          </Item>
-          <Item label="Emails">
-            <textarea name="emails" onChange={handleChange} rows="4" cols="50" value={item && item.emails ? item.emails : ""}></textarea>
-            Emails separados por (,) coma.
-          </Item>
-          <Item label="Activo">
-            <Radio.Group onChange={onChange} value={value}>
-              <Radio value='Si'>Si</Radio>
-              <Radio value='No'>No</Radio>
-            </Radio.Group>
-          </Item> 
-        </Box>
-      </Modal> */}
-{/* 
-      <Modal
-         visible={modalEliminar}
-         onCancel={abrirCerrarModalEliminar}
-         centered
-         footer={[
-           <Button onClick={abrirCerrarModalEliminar}>No</Button>,
-           <Button type="primary" danger onClick={deleteRecord}>Si</Button>
-         ]}
-      >
-         Esta seguro que desea elimnar el registro con <b><br />ID: {item.id} - {item.name}</b>
-      </Modal> */}
-    </div>
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '95%' },
+              position: 'relative',
+              alignContent: 'center',
+              width: 400,
+              borderRadius: '7px',
+              bgcolor: 'background.paper',
+              border: '1px solid #000',
+              boxShadow: (theme) => theme.shadows[5],
+              p: 2,
+            }}
+          >
+
+            <TextField
+              fullWidth
+              required
+              id="name"
+              name="name"
+              onChange={(e) => handleChange(e, 60)}
+              label="Nombre"
+              value={item.name}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.name.length > 60}
+              helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              required
+              id="id_ruta"
+              name="id_ruta"
+              onChange={(e) => handleChange(e, 10)}
+              label="Ruta"
+              value={item.id_ruta}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.id_ruta.length > 10}
+              helperText={item.id_ruta.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              required
+              id="contact"
+              name="contact"
+              onChange={(e) => handleChange(e, 60)}
+              label="Contacto"
+              value={item.contact}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.contact.length > 60}
+              helperText={item.contact.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              required
+              id="cellphone"
+              name="cellphone"
+              onChange={(e) => handleChange(e, 10)}
+              label="Celular"
+              value={item.cellphone}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.cellphone.length > 10}
+              helperText={item.cellphone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              required
+              id="phone_number"
+              name="phone_number"
+              onChange={(e) => handleChange(e, 10)}
+              label="Teléfono"
+              value={item.phone_number}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.phone_number.length > 10}
+              helperText={item.phone_number.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              label="Emails"
+              type="email"
+              id="emails"
+              name="emails"
+              onChange={(e) => handleChange(e, 0)}
+              multiline
+              rows={3}
+              helperText="Emails separados por (,) coma."
+              value={item.emails}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+
+            <FormControl>
+              <FormLabel id="is_active">Activo</FormLabel>
+              <RadioGroup
+                aria-labelledby="is_active"
+                defaultValue="No"
+                name="is_active"
+                value={item.is_active}
+                onChange={handleChange} 
+                row
+              >
+                <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                <FormControlLabel value="No" control={<Radio />} label="No" />
+              </RadioGroup>
+            </FormControl>
+
+            <Divider sx={{ mb: 2 }}/>
+              <Box textAlign="end">
+                  <Button variant="outlined" color="warning" onClick={abrirCerrarModalInsertar}>Cancelar</Button>
+                  <Button 
+                    sx={{ ml: 2 }} 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={saveRecord}
+                    disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
+                  >Guardar</Button>
+              </Box>       
+          </Box>
+        </Modal>
+
+        <Modal
+          open={modalEditar}
+          title="Actualizar Entidad Financiera"
+          onCancel={abrirCerrarModalEditar}
+          centered
+          sx={{
+            display: 'flex',
+            p: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '95%' },
+              position: 'relative',
+              alignContent: 'center',
+              width: 400,
+              borderRadius: '7px',
+              bgcolor: 'background.paper',
+              border: '1px solid #000',
+              boxShadow: (theme) => theme.shadows[5],
+              p: 2,
+            }}
+          >
+            <TextField
+              fullWidth
+              id="name"
+              name="name"
+              onChange={(e) => handleChange(e, 60)}
+              label="Nombre"
+              value={item.name}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.name.length > 60}
+              helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              id="id_ruta"
+              name="id_ruta"
+              onChange={(e) => handleChange(e, 10)}
+              label="Ruta"
+              value={item.id_ruta}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.id_ruta.length > 10}
+              helperText={item.id_ruta.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              id="contact"
+              name="contact"
+              onChange={(e) => handleChange(e, 60)}
+              label="Contacto"
+              value={item.contact}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.contact.length > 60}
+              helperText={item.contact.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              id="cellphone"
+              name="cellphone"
+              onChange={(e) => handleChange(e, 10)}
+              label="Celular"
+              value={item.cellphone}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.cellphone.length > 10}
+              helperText={item.cellphone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              id="phone_number"
+              name="phone_number"
+              label="Teléfono"
+              value={item.phone_number}
+              onChange={(e) => handleChange(e, 10)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              error={item.phone_number.length > 10}
+              helperText={item.phone_number.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+            />
+
+            <TextField
+              fullWidth
+              label="Emails"
+              type="email"
+              id="emails"
+              name="emails"
+              onChange={(e) => handleChange(e, 0)}
+              multiline
+              maxRows={4}
+              rows={3}
+              helperText="Emails separados por (,) coma."
+              value={item.emails}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+
+            <FormControl>
+              <FormLabel id="is_active">Activo</FormLabel>
+              <RadioGroup
+                aria-labelledby="is_active"
+                defaultValue="No"
+                name="is_active"
+                value={item.is_active}
+                onChange={handleChange} 
+                row
+              >
+                <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                <FormControlLabel value="No" control={<Radio />} label="No" />
+              </RadioGroup>
+            </FormControl>
+
+            <Divider sx={{ mb: 2 }}/>
+              <Box textAlign="end">
+                  <Button variant="outlined" color="warning" onClick={abrirCerrarModalEditar}>Cancelar</Button>
+                  <Button 
+                    sx={{ ml: 2 }} 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={updateRecord}
+                    disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
+                  >Actualizar</Button>
+              </Box>
+          </Box>
+        </Modal>
+      </Paper>
+    </Box>
    )
 }
  
