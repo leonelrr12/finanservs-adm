@@ -8,7 +8,7 @@ const LayoutNav = styled.nav`
   max-height: 50px;
 `
 
-export const Layout = (props) => {
+export const Layout = ({ children }) => {
     return <LayoutContainer>
         <LayoutNav>
             <Routes>
@@ -19,7 +19,7 @@ export const Layout = (props) => {
             </Routes>
         </LayoutNav>
         <main>
-            { props.children }
+            { children }
         </main>
         <Footer></Footer>
     </LayoutContainer>

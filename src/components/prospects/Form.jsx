@@ -47,7 +47,7 @@ const Form = (props) => {
             "estado": da.estado,
             "comentarios": da.comentarios,
           }
-          // await axios.post(URL_API + '/adm/send-email/', body)
+          await axios.post(URL_API + '/adm/send-email/', body)
         }
       }
     } catch (ex) {
