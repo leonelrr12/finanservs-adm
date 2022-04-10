@@ -1,3 +1,4 @@
+import { AppBar, Toolbar } from '@mui/material'
 import styled from 'styled-components'
 
 import { FinanservsHorizontalLogoWhiteImg } from '../images'
@@ -20,14 +21,19 @@ const LayoutHeader = styled.header`
 
 const Header = (props) => {
     return (
-        <LayoutHeader>
-            <Div className="logo">
-                <FinanservsHorizontalLogoWhiteImg />
-            </Div>
-            <div className="menu">
-                <Nav />
-            </div>
-        </LayoutHeader>
+        <AppBar position='' elevation={ 0 }>
+            <Toolbar>
+                <LayoutHeader>
+                    <Div className="logo">
+                        <FinanservsHorizontalLogoWhiteImg />
+                    </Div>
+                    <div style={{ flex: 1 }} />
+                    <div className="menu">
+                        <Nav />
+                    </div>
+                </LayoutHeader>
+            </Toolbar>
+        </AppBar>
     )
 }
 

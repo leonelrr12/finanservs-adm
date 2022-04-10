@@ -26,7 +26,6 @@ export const Nav = () => {
   return (
     <LayoutNav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid mx-3">
-
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -96,6 +95,7 @@ export const Nav = () => {
             }
           </div>
         </div>
+
       </div>
     </LayoutNav>
   )

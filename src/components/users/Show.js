@@ -249,173 +249,176 @@ const Show = () => {
             justifyContent: 'center',
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '95%' },
-              position: 'relative',
-              alignContent: 'center',
-              width: 500,
-              borderRadius: '7px',
-              bgcolor: 'background.paper',
-              border: '1px solid #000',
-              boxShadow: (theme) => theme.shadows[5],
-              p: 2,
-            }}
-          >
-
-            <TextField
-              fullWidth
-              label="Email"
-              type="email"
-              id="email"
-              name="email"
-              onChange={(e) => handleChange(e, 50)}
-              value={item.email}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.email.length > 50 || !itemValid.email}
-              helperText={item.email.length > 50 ? 'Lasgo máximo de 50 caracteres' : ''}
-            />
-
-            <Autocomplete
-              
-              id="Role"
-              options={roles}
-              value={item.Role}
-              onInputChange={(event, newInputValue) => {
-                setItem({
-                  ...item,
-                  Role: newInputValue
-                });
-                setItemValid({
-                  ...itemValid,
-                  Role: true
-                });
-              }}
-              sx={{ width: '100%' }}
-              renderInput={(params) => <TextField {...params} label="Role" />}
-            />
-
-            <Autocomplete
-              disablePortal
-              id="Entidad"
-              options={entities}
-              value={item.Entidad}
-              onInputChange={(event, newInputValue) => {
-                setItem({
-                  ...item,
-                  Entidad: newInputValue
-                });
-                setItemValid({
-                  ...itemValid,
-                  Entidad: true
-                });
-              }}
-              sx={{ width: '100%' }}
-              renderInput={(params) => <TextField {...params} label="Entidad" />}
-            />
-
-            <TextField
-              fullWidth
-              id="name"
-              name="name"
-              onChange={(e) => handleChange(e, 60)}
-              label="Nombre"
-              value={item.name}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.name.length > 60}
-              helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="cellPhone"
-              name="cellPhone"
-              onChange={(e) => handleChange(e, 10)}
-              label="Celular"
-              value={item.cellPhone}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.cellPhone.length > 10}
-              helperText={item.cellPhone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="phoneNumber"
-              name="phoneNumber"
-              label="Teléfono"
-              value={item.phoneNumber}
-              onChange={(e) => handleChange(e, 10)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.phoneNumber.length > 10}
-              helperText={item.phoneNumber.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="address"
-              name="address"
-              onChange={(e) => handleChange(e, 100)}
-              label="Dirección"
-              value={item.address}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.address.length > 100}
-              helperText={item.address.length > 100 ? 'Lasgo máximo de 100 caracteres' : ''}
-            />
-
-            <FormControl>
-              <FormLabel id="is_active">Activo</FormLabel>
-              <RadioGroup
-                aria-labelledby="is_active"
-                defaultValue="No"
-                name="is_active"
-                value={item.is_active}
-                onChange={handleChange} 
-                row
+          <Grid container justifyContent="center">
+            <Grid item xs={11} md={3.5}>
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+                sx={{
+                  '& .MuiTextField-root': { m: 1, width: '95%' },
+                  position: 'relative',
+                  alignContent: 'center',
+                  borderRadius: '7px',
+                  bgcolor: 'background.paper',
+                  border: '1px solid #000',
+                  boxShadow: (theme) => theme.shadows[5],
+                  p: 2,
+                }}
               >
-                <FormControlLabel value="Si" control={<Radio />} label="Si" />
-                <FormControlLabel value="No" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel id="is_new">Resetear contraseña</FormLabel>
-              <RadioGroup
-                aria-labelledby="is_new"
-                defaultValue="No"
-                name="is_new"
-                value={item.is_new}
-                onChange={handleChange} 
-                row
-              >
-                <FormControlLabel value="Si" control={<Radio />} label="Si" />
-                <FormControlLabel value="No" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
 
-            <Divider sx={{ mb: 2 }}/>
-              <Box textAlign="end">
-                  <Button variant="outlined" color="warning" onClick={abrirCerrarModalInsertar}>Cancelar</Button>
-                  <Button 
-                    sx={{ ml: 2 }} 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={saveRecord}
-                    disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
-                  >Actualizar</Button>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  type="email"
+                  id="email"
+                  name="email"
+                  onChange={(e) => handleChange(e, 50)}
+                  value={item.email}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.email.length > 50 || !itemValid.email}
+                  helperText={item.email.length > 50 ? 'Lasgo máximo de 50 caracteres' : ''}
+                />
+
+                <Autocomplete
+                  
+                  id="Role"
+                  options={roles}
+                  value={item.Role}
+                  onInputChange={(event, newInputValue) => {
+                    setItem({
+                      ...item,
+                      Role: newInputValue
+                    });
+                    setItemValid({
+                      ...itemValid,
+                      Role: true
+                    });
+                  }}
+                  sx={{ width: '100%' }}
+                  renderInput={(params) => <TextField {...params} label="Role" />}
+                />
+
+                <Autocomplete
+                  disablePortal
+                  id="Entidad"
+                  options={entities}
+                  value={item.Entidad}
+                  onInputChange={(event, newInputValue) => {
+                    setItem({
+                      ...item,
+                      Entidad: newInputValue
+                    });
+                    setItemValid({
+                      ...itemValid,
+                      Entidad: true
+                    });
+                  }}
+                  sx={{ width: '100%' }}
+                  renderInput={(params) => <TextField {...params} label="Entidad" />}
+                />
+
+                <TextField
+                  fullWidth
+                  id="name"
+                  name="name"
+                  onChange={(e) => handleChange(e, 60)}
+                  label="Nombre"
+                  value={item.name}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.name.length > 60}
+                  helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="cellPhone"
+                  name="cellPhone"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Celular"
+                  value={item.cellPhone}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.cellPhone.length > 10}
+                  helperText={item.cellPhone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  label="Teléfono"
+                  value={item.phoneNumber}
+                  onChange={(e) => handleChange(e, 10)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.phoneNumber.length > 10}
+                  helperText={item.phoneNumber.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="address"
+                  name="address"
+                  onChange={(e) => handleChange(e, 100)}
+                  label="Dirección"
+                  value={item.address}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.address.length > 100}
+                  helperText={item.address.length > 100 ? 'Lasgo máximo de 100 caracteres' : ''}
+                />
+
+                <FormControl>
+                  <FormLabel id="is_active">Activo</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="is_active"
+                    defaultValue="No"
+                    name="is_active"
+                    value={item.is_active}
+                    onChange={handleChange} 
+                    row
+                  >
+                    <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
+                <FormControl>
+                  <FormLabel id="is_new">Resetear contraseña</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="is_new"
+                    defaultValue="No"
+                    name="is_new"
+                    value={item.is_new}
+                    onChange={handleChange} 
+                    row
+                  >
+                    <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
+
+                <Divider sx={{ mb: 2 }}/>
+                  <Box textAlign="end">
+                      <Button variant="outlined" color="warning" onClick={abrirCerrarModalInsertar}>Cancelar</Button>
+                      <Button 
+                        sx={{ ml: 2 }} 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={saveRecord}
+                        disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
+                      >Actualizar</Button>
+                  </Box>
               </Box>
-          </Box>
+            </Grid>
+          </Grid>
         </Modal>
 
         <Modal
@@ -430,172 +433,171 @@ const Show = () => {
             justifyContent: 'center',
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '95%' },
-              position: 'relative',
-              alignContent: 'center',
-              width: 500,
-              borderRadius: '7px',
-              bgcolor: 'background.paper',
-              border: '1px solid #000',
-              boxShadow: (theme) => theme.shadows[5],
-              p: 2,
-            }}
-          >
-
-            <TextField
-              fullWidth
-              label="Email"
-              type="email"
-              id="email"
-              name="email"
-              onChange={(e) => handleChange(e, 50)}
-              value={item.email}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.email.length > 50 || !itemValid.email}
-              helperText={item.email.length > 50 ? 'Lasgo máximo de 50 caracteres' : ''}
-            />
-
-            <Autocomplete
-              
-              id="Role"
-              options={roles}
-              value={item.Role}
-              onInputChange={(event, newInputValue) => {
-                setItem({
-                  ...item,
-                  Role: newInputValue
-                });
-              }}
-              sx={{ width: '100%' }}
-              renderInput={(params) => <TextField {...params} label="Role" />}
-            />
-
-            <Autocomplete
-              disablePortal
-              id="Entidad"
-              options={entities}
-              value={item.Entidad}
-              onInputChange={(event, newInputValue) => {
-                setItem({
-                  ...item,
-                  Entidad: newInputValue
-                });
-              }}
-              sx={{ width: '100%' }}
-              renderInput={(params) => <TextField {...params} label="Entidad" />}
-            />
-
-            <TextField
-              fullWidth
-              id="name"
-              name="name"
-              onChange={(e) => handleChange(e, 60)}
-              label="Nombre"
-              value={item.name}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.name.length > 60}
-              helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="cellPhone"
-              name="cellPhone"
-              onChange={(e) => handleChange(e, 10)}
-              label="Celular"
-              value={item.cellPhone}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.cellPhone.length > 10}
-              helperText={item.cellPhone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="phoneNumber"
-              name="phoneNumber"
-              label="Teléfono"
-              value={item.phoneNumber}
-              onChange={(e) => handleChange(e, 10)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.phoneNumber.length > 10}
-              helperText={item.phoneNumber.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="address"
-              name="address"
-              onChange={(e) => handleChange(e, 100)}
-              label="Dirección"
-              value={item.address}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.address.length > 100}
-              helperText={item.address.length > 100 ? 'Lasgo máximo de 100 caracteres' : ''}
-            />
-
-            <FormControl>
-              <FormLabel id="is_active">Activo</FormLabel>
-              <RadioGroup
-                aria-labelledby="is_active"
-                defaultValue="No"
-                name="is_active"
-                value={item.is_active}
-                onChange={handleChange} 
-                row
+          <Grid container justifyContent="center">
+            <Grid item xs={11} md={3.5}>
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+                sx={{
+                  '& .MuiTextField-root': { m: 1, width: '95%' },
+                  position: 'relative',
+                  alignContent: 'center',
+                  borderRadius: '7px',
+                  bgcolor: 'background.paper',
+                  border: '1px solid #000',
+                  boxShadow: (theme) => theme.shadows[5],
+                  p: 2,
+                }}
               >
-                <FormControlLabel value="Si" control={<Radio />} label="Si" />
-                <FormControlLabel value="No" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel id="is_new">Resetear contraseña</FormLabel>
-              <RadioGroup
-                aria-labelledby="is_new"
-                defaultValue="No"
-                name="is_new"
-                value={item.is_new}
-                onChange={handleChange} 
-                row
-              >
-                <FormControlLabel value="Si" control={<Radio />} label="Si" />
-                <FormControlLabel value="No" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
 
-            <Divider sx={{ mb: 2 }}/>
-              <Box textAlign="end">
-                  <Button variant="outlined" color="warning" onClick={abrirCerrarModalEditar}>Cancelar</Button>
-                  <Button 
-                    sx={{ ml: 2 }} 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={updateRecord}
-                    disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
-                  >Actualizar</Button>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  type="email"
+                  id="email"
+                  name="email"
+                  onChange={(e) => handleChange(e, 50)}
+                  value={item.email}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.email.length > 50 || !itemValid.email}
+                  helperText={item.email.length > 50 ? 'Lasgo máximo de 50 caracteres' : ''}
+                />
+
+                <Autocomplete
+                  
+                  id="Role"
+                  options={roles}
+                  value={item.Role}
+                  onInputChange={(event, newInputValue) => {
+                    setItem({
+                      ...item,
+                      Role: newInputValue
+                    });
+                  }}
+                  sx={{ width: '100%' }}
+                  renderInput={(params) => <TextField {...params} label="Role" />}
+                />
+
+                <Autocomplete
+                  disablePortal
+                  id="Entidad"
+                  options={entities}
+                  value={item.Entidad}
+                  onInputChange={(event, newInputValue) => {
+                    setItem({
+                      ...item,
+                      Entidad: newInputValue
+                    });
+                  }}
+                  sx={{ width: '100%' }}
+                  renderInput={(params) => <TextField {...params} label="Entidad" />}
+                />
+
+                <TextField
+                  fullWidth
+                  id="name"
+                  name="name"
+                  onChange={(e) => handleChange(e, 60)}
+                  label="Nombre"
+                  value={item.name}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.name.length > 60}
+                  helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="cellPhone"
+                  name="cellPhone"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Celular"
+                  value={item.cellPhone}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.cellPhone.length > 10}
+                  helperText={item.cellPhone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  label="Teléfono"
+                  value={item.phoneNumber}
+                  onChange={(e) => handleChange(e, 10)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.phoneNumber.length > 10}
+                  helperText={item.phoneNumber.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="address"
+                  name="address"
+                  onChange={(e) => handleChange(e, 100)}
+                  label="Dirección"
+                  value={item.address}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.address.length > 100}
+                  helperText={item.address.length > 100 ? 'Lasgo máximo de 100 caracteres' : ''}
+                />
+
+                <FormControl>
+                  <FormLabel id="is_active">Activo</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="is_active"
+                    defaultValue="No"
+                    name="is_active"
+                    value={item.is_active}
+                    onChange={handleChange} 
+                    row
+                  >
+                    <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
+                <FormControl>
+                  <FormLabel id="is_new">Resetear contraseña</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="is_new"
+                    defaultValue="No"
+                    name="is_new"
+                    value={item.is_new}
+                    onChange={handleChange} 
+                    row
+                  >
+                    <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
+
+                <Divider sx={{ mb: 2 }}/>
+                  <Box textAlign="end">
+                      <Button variant="outlined" color="warning" onClick={abrirCerrarModalEditar}>Cancelar</Button>
+                      <Button 
+                        sx={{ ml: 2 }} 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={updateRecord}
+                        disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
+                      >Actualizar</Button>
+                  </Box>
               </Box>
-          </Box>
+            </Grid>
+          </Grid>
         </Modal>
       </Paper>
     </Box>
-
-      //             <Link to={"/users/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
-      //             <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2">Borrar</button>
-
    )
 }
  

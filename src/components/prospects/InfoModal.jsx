@@ -1,6 +1,7 @@
 import { 
   Box,
   Button,  
+  Grid,  
   Modal, 
   Paper, 
   Table, 
@@ -71,55 +72,58 @@ export const InfoModal = (props) => {
 
 
   return (
-      <Modal
-        open={open}
-        title="Nuevo Usuario"
-        onCancel={handleClose}
-        centered
-        sx={{
-          display: 'flex',
-          p: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '95%' },
-            position: 'relative',
-            alignContent: 'center',
-            width: 700,
-            borderRadius: '7px',
-            bgcolor: 'background.paper',
-            border: '1px solid #000',
-            boxShadow: (theme) => theme.shadows[5],
-            p: 2,
-          }}
-        >
-        <h2 id="transition-modal-title" className="text-center">Información General</h2>
-        <TableContainer component={Paper} className={classes.container}>
-          <Table className={classes.table} size="small" aria-label="a dense table">
-            <TableBody id="transition-modal-description">
-                {Object.keys(item).map((key) => (
-                <TableRow>
-                  <TableCell align="right">{key[0] === '_' ? key.slice(3) :key.slice(2)}:</TableCell>
-                  {key[0] === '_' && item[key] !== "undefined"
-                    ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
-                    : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
-                </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+    <Modal
+      open={open}
+      title="Nuevo Usuario"
+      onCancel={handleClose}
+      centered
+      sx={{
+        display: 'flex',
+        p: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Grid container justifyContent="center">
+        <Grid item xs={11} md={6}>
+          <Box
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '95%' },
+              position: 'relative',
+              alignContent: 'center',
+              borderRadius: '7px',
+              bgcolor: 'background.paper',
+              border: '1px solid #000',
+              boxShadow: (theme) => theme.shadows[5],
+              p: 2,
+            }}
+          >
+            <h2 id="transition-modal-title" className="text-center">Información General</h2>
+            <TableContainer component={Paper} className={classes.container}>
+              <Table className={classes.table} size="small" aria-label="a dense table">
+                <TableBody id="transition-modal-description">
+                    {Object.keys(item).map((key) => (
+                    <TableRow>
+                      <TableCell align="right">{key[0] === '_' ? key.slice(3) :key.slice(2)}:</TableCell>
+                      {key[0] === '_' && item[key] !== "undefined"
+                        ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
+                        : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
+                    </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
-        <Box textAlign="center" sx={{ mt: 1.5 }}>
-          <Button sx={{ mr: 2 }} variant="contained" color="primary" onClick={() => setOpen(false)}>
-            Cerrar
-          </Button>
-          { entity !== '600' && <SolicitudProspect idContact={item['A1ID']} /> }
-          { entity === '600' && <SolicitudFinancomer idContact={item['A1ID']} /> }
-        </Box>
-      </Box>
+            <Box textAlign="center" sx={{ mt: 1.5 }}>
+              <Button sx={{ mr: 2 }} variant="contained" color="primary" onClick={() => setOpen(false)}>
+                Cerrar
+              </Button>
+              { entity !== '600' && <SolicitudProspect idContact={item['A1ID']} /> }
+              { entity === '600' && <SolicitudFinancomer idContact={item['A1ID']} /> }
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
     </Modal>
   )
 }

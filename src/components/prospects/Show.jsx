@@ -287,30 +287,32 @@ const Show = (props) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-
       >
-        <Box
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '95%' },
-            position: 'relative',
-            alignContent: 'center',
-            width: 400,
-            borderRadius: '7px',
-            bgcolor: 'background.paper',
-            border: '1px solid #000',
-            boxShadow: (theme) => theme.shadows[5],
-            p: 2,
-          }}
-        >
-          <Form 
-            id={item.A1ID}
-            data={item}
-            setData={setItem}
-            update={true} 
-            handleClose2={handleClose2}
-            estadoAnt={item.n1Estado}
-          />
-        </Box>
+        <Grid container justifyContent="center">
+          <Grid item xs={11} md={3.5}>
+            <Box
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '95%' },
+                position: 'relative',
+                alignContent: 'center',
+                borderRadius: '7px',
+                bgcolor: 'background.paper',
+                border: '1px solid #000',
+                boxShadow: (theme) => theme.shadows[5],
+                p: 2,
+              }}
+            >
+              <Form 
+                id={item.A1ID}
+                data={item}
+                setData={setItem}
+                update={true} 
+                handleClose2={handleClose2}
+                estadoAnt={item.n1Estado}
+              />
+            </Box>
+          </Grid>
+        </Grid>
       </Modal>
     </div>
    )

@@ -178,141 +178,144 @@ const Show = () => {
             justifyContent: 'center',
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '95%' },
-              position: 'relative',
-              alignContent: 'center',
-              width: 400,
-              borderRadius: '7px',
-              bgcolor: 'background.paper',
-              border: '1px solid #000',
-              boxShadow: (theme) => theme.shadows[5],
-              p: 2,
-            }}
-          >
-
-            <TextField
-              fullWidth
-              required
-              id="name"
-              name="name"
-              onChange={(e) => handleChange(e, 60)}
-              label="Nombre"
-              value={item.name}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.name.length > 60}
-              helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              required
-              id="id_ruta"
-              name="id_ruta"
-              onChange={(e) => handleChange(e, 10)}
-              label="Ruta"
-              value={item.id_ruta}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.id_ruta.length > 10}
-              helperText={item.id_ruta.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              required
-              id="contact"
-              name="contact"
-              onChange={(e) => handleChange(e, 60)}
-              label="Contacto"
-              value={item.contact}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.contact.length > 60}
-              helperText={item.contact.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              required
-              id="cellphone"
-              name="cellphone"
-              onChange={(e) => handleChange(e, 10)}
-              label="Celular"
-              value={item.cellphone}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.cellphone.length > 10}
-              helperText={item.cellphone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              required
-              id="phone_number"
-              name="phone_number"
-              onChange={(e) => handleChange(e, 10)}
-              label="Teléfono"
-              value={item.phone_number}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.phone_number.length > 10}
-              helperText={item.phone_number.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              label="Emails"
-              type="email"
-              id="emails"
-              name="emails"
-              onChange={(e) => handleChange(e, 0)}
-              multiline
-              rows={3}
-              helperText="Emails separados por (,) coma."
-              value={item.emails}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-
-            <FormControl>
-              <FormLabel id="is_active">Activo</FormLabel>
-              <RadioGroup
-                aria-labelledby="is_active"
-                defaultValue="No"
-                name="is_active"
-                value={item.is_active}
-                onChange={handleChange} 
-                row
+          <Grid container justifyContent="center">
+            <Grid item xs={11} md={3.5}>
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+                sx={{
+                  '& .MuiTextField-root': { m: 1, width: '95%' },
+                  position: 'relative',
+                  alignContent: 'center',
+                  borderRadius: '7px',
+                  bgcolor: 'background.paper',
+                  border: '1px solid #000',
+                  boxShadow: (theme) => theme.shadows[5],
+                  p: 2,
+                }}
               >
-                <FormControlLabel value="Si" control={<Radio />} label="Si" />
-                <FormControlLabel value="No" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
 
-            <Divider sx={{ mb: 2 }}/>
-              <Box textAlign="end">
-                  <Button variant="outlined" color="warning" onClick={abrirCerrarModalInsertar}>Cancelar</Button>
-                  <Button 
-                    sx={{ ml: 2 }} 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={saveRecord}
-                    disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
-                  >Guardar</Button>
-              </Box>       
-          </Box>
+                <TextField
+                  fullWidth
+                  required
+                  id="name"
+                  name="name"
+                  onChange={(e) => handleChange(e, 60)}
+                  label="Nombre"
+                  value={item.name}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.name.length > 60}
+                  helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  required
+                  id="id_ruta"
+                  name="id_ruta"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Ruta"
+                  value={item.id_ruta}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.id_ruta.length > 10}
+                  helperText={item.id_ruta.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  required
+                  id="contact"
+                  name="contact"
+                  onChange={(e) => handleChange(e, 60)}
+                  label="Contacto"
+                  value={item.contact}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.contact.length > 60}
+                  helperText={item.contact.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  required
+                  id="cellphone"
+                  name="cellphone"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Celular"
+                  value={item.cellphone}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.cellphone.length > 10}
+                  helperText={item.cellphone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  required
+                  id="phone_number"
+                  name="phone_number"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Teléfono"
+                  value={item.phone_number}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.phone_number.length > 10}
+                  helperText={item.phone_number.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  label="Emails"
+                  type="email"
+                  id="emails"
+                  name="emails"
+                  onChange={(e) => handleChange(e, 0)}
+                  multiline
+                  rows={3}
+                  helperText="Emails separados por (,) coma."
+                  value={item.emails}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+
+                <FormControl>
+                  <FormLabel id="is_active">Activo</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="is_active"
+                    defaultValue="No"
+                    name="is_active"
+                    value={item.is_active}
+                    onChange={handleChange} 
+                    row
+                  >
+                    <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
+
+                <Divider sx={{ mb: 2 }}/>
+                  <Box textAlign="end">
+                      <Button variant="outlined" color="warning" onClick={abrirCerrarModalInsertar}>Cancelar</Button>
+                      <Button 
+                        sx={{ ml: 2 }} 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={saveRecord}
+                        disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
+                      >Guardar</Button>
+                  </Box>       
+              </Box>
+            </Grid>
+          </Grid>
         </Modal>
 
         <Modal
@@ -327,136 +330,139 @@ const Show = () => {
             justifyContent: 'center',
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '95%' },
-              position: 'relative',
-              alignContent: 'center',
-              width: 400,
-              borderRadius: '7px',
-              bgcolor: 'background.paper',
-              border: '1px solid #000',
-              boxShadow: (theme) => theme.shadows[5],
-              p: 2,
-            }}
-          >
-            <TextField
-              fullWidth
-              id="name"
-              name="name"
-              onChange={(e) => handleChange(e, 60)}
-              label="Nombre"
-              value={item.name}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.name.length > 60}
-              helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="id_ruta"
-              name="id_ruta"
-              onChange={(e) => handleChange(e, 10)}
-              label="Ruta"
-              value={item.id_ruta}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.id_ruta.length > 10}
-              helperText={item.id_ruta.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="contact"
-              name="contact"
-              onChange={(e) => handleChange(e, 60)}
-              label="Contacto"
-              value={item.contact}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.contact.length > 60}
-              helperText={item.contact.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="cellphone"
-              name="cellphone"
-              onChange={(e) => handleChange(e, 10)}
-              label="Celular"
-              value={item.cellphone}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.cellphone.length > 10}
-              helperText={item.cellphone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              id="phone_number"
-              name="phone_number"
-              label="Teléfono"
-              value={item.phone_number}
-              onChange={(e) => handleChange(e, 10)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              error={item.phone_number.length > 10}
-              helperText={item.phone_number.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
-            />
-
-            <TextField
-              fullWidth
-              label="Emails"
-              type="email"
-              id="emails"
-              name="emails"
-              onChange={(e) => handleChange(e, 0)}
-              multiline
-              maxRows={4}
-              rows={3}
-              helperText="Emails separados por (,) coma."
-              value={item.emails}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-
-            <FormControl>
-              <FormLabel id="is_active">Activo</FormLabel>
-              <RadioGroup
-                aria-labelledby="is_active"
-                defaultValue="No"
-                name="is_active"
-                value={item.is_active}
-                onChange={handleChange} 
-                row
+          <Grid container justifyContent="center">
+            <Grid item xs={11} md={3.5}>
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+                sx={{
+                  '& .MuiTextField-root': { m: 1, width: '95%' },
+                  position: 'relative',
+                  alignContent: 'center',
+                  borderRadius: '7px',
+                  bgcolor: 'background.paper',
+                  border: '1px solid #000',
+                  boxShadow: (theme) => theme.shadows[5],
+                  p: 2,
+                }}
               >
-                <FormControlLabel value="Si" control={<Radio />} label="Si" />
-                <FormControlLabel value="No" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
+                <TextField
+                  fullWidth
+                  id="name"
+                  name="name"
+                  onChange={(e) => handleChange(e, 60)}
+                  label="Nombre"
+                  value={item.name}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.name.length > 60}
+                  helperText={item.name.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+                />
 
-            <Divider sx={{ mb: 2 }}/>
-              <Box textAlign="end">
-                  <Button variant="outlined" color="warning" onClick={abrirCerrarModalEditar}>Cancelar</Button>
-                  <Button 
-                    sx={{ ml: 2 }} 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={updateRecord}
-                    disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
-                  >Actualizar</Button>
+                <TextField
+                  fullWidth
+                  id="id_ruta"
+                  name="id_ruta"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Ruta"
+                  value={item.id_ruta}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.id_ruta.length > 10}
+                  helperText={item.id_ruta.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="contact"
+                  name="contact"
+                  onChange={(e) => handleChange(e, 60)}
+                  label="Contacto"
+                  value={item.contact}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.contact.length > 60}
+                  helperText={item.contact.length > 60 ? 'Lasgo máximo de 60 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="cellphone"
+                  name="cellphone"
+                  onChange={(e) => handleChange(e, 10)}
+                  label="Celular"
+                  value={item.cellphone}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.cellphone.length > 10}
+                  helperText={item.cellphone.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  id="phone_number"
+                  name="phone_number"
+                  label="Teléfono"
+                  value={item.phone_number}
+                  onChange={(e) => handleChange(e, 10)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  error={item.phone_number.length > 10}
+                  helperText={item.phone_number.length > 10 ? 'Lasgo máximo de 10 caracteres' : ''}
+                />
+
+                <TextField
+                  fullWidth
+                  label="Emails"
+                  type="email"
+                  id="emails"
+                  name="emails"
+                  onChange={(e) => handleChange(e, 0)}
+                  multiline
+                  maxRows={4}
+                  rows={3}
+                  helperText="Emails separados por (,) coma."
+                  value={item.emails}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+
+                <FormControl>
+                  <FormLabel id="is_active">Activo</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="is_active"
+                    defaultValue="No"
+                    name="is_active"
+                    value={item.is_active}
+                    onChange={handleChange} 
+                    row
+                  >
+                    <FormControlLabel value="Si" control={<Radio />} label="Si" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
+
+                <Divider sx={{ mb: 2 }}/>
+                  <Box textAlign="end">
+                      <Button variant="outlined" color="warning" onClick={abrirCerrarModalEditar}>Cancelar</Button>
+                      <Button 
+                        sx={{ ml: 2 }} 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={updateRecord}
+                        disabled={!Object.values(itemValid).reduce((p,c) => p = p && c, true)}
+                      >Actualizar</Button>
+                  </Box>
               </Box>
-          </Box>
+            </Grid>
+          </Grid>
         </Modal>
       </Paper>
     </Box>
