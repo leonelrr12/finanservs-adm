@@ -1,12 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { logOut } from '../../store/user';
 
-
-const LayoutNav = styled.nav`
-  max-height: 50px;
-`
 
 export const Nav = () => {
   const { user } = useSelector(state => state.user);
@@ -24,7 +19,7 @@ export const Nav = () => {
   }
 
   return (
-    <LayoutNav className="navbar navbar-expand-lg navbar-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="collapse navbar-collapse" id="navbarScroll">
         <div>
           <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
@@ -84,7 +79,6 @@ export const Nav = () => {
               </>}
           </ul>
         </div>
-        <div style={{ flex: 1 }} />
         <div>
           {user ?
             <button onClick={handleLogout} className="btn btn-info" type="button">Log Out</button>
@@ -93,6 +87,6 @@ export const Nav = () => {
           }
         </div>
       </div>
-    </LayoutNav>
+    </nav>
   )
 }
