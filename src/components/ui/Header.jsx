@@ -1,38 +1,42 @@
-import { AppBar, Toolbar } from '@mui/material'
+import { AppBar, Container, Toolbar, Box, Typography } from '@mui/material'
 import styled from 'styled-components'
 
 import { FinanservsHorizontalLogoWhiteImg } from '../images'
-import { Nav } from './Nav'
+import { Nav, NavMobile } from './'
 
-const Div = styled.div`
-    background-color: rgb(13, 110, 253);
-    padding-left: 15px;
-`
-
-const LayoutHeader = styled.header`
-    display: grid;
-    min-width: 100vh;
-    max-height: 50px;
-    grid-template-columns: auto minmax(1, 1fr) auto;
-    grid-template-areas: 'logo menu menu';
-    & .logo { grid-area: logo; }
-    & .menu { grid-area: menu; }
-`
 
 const Header = (props) => {
+
     return (
-        <AppBar position='' elevation={ 0 }>
-            <Toolbar>
-                <LayoutHeader>
-                    <Div className="logo">
+        <AppBar position='static' elevation={0}>
+            <Container maxWidth="xll">
+                <Toolbar>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ mr: 10, display: { xs: 'none', md: 'flex' } }}
+                    >
                         <FinanservsHorizontalLogoWhiteImg />
-                    </Div>
-                    <div style={{ flex: 1 }} />
-                    <div className="menu">
+                    </Typography>
+
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <NavMobile />
+                    </Box>
+
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                    >
+                        <FinanservsHorizontalLogoWhiteImg />
+                    </Typography>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Nav />
-                    </div>
-                </LayoutHeader>
-            </Toolbar>
+                    </Box>
+                </Toolbar>
+            </Container>
         </AppBar>
     )
 }
