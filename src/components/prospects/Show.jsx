@@ -92,7 +92,7 @@ const Show = (props) => {
   const handleEstado = (event) => {
     if(event.target.checked){
       setEstado(1)
-      const showActivo = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado !== 4)
+      const showActivo = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado !== 4 && p.n1Estado !== 6)
       setProspectsA(showActivo)
     }else{
       const showActivo = prospects.filter(p => p.zzzEntity_No === entity)
@@ -196,7 +196,7 @@ const Show = (props) => {
         </Grid>
         <Grid item xs={12} md={2} alignContent="center">
             <ListProspects id={entity} estado={estado} nameEntity={entityName}/>
-            <DownloadExcel prospects={prospects}/>
+            <DownloadExcel entity={entity} prospects={prospects}/>
         </Grid>
       </Grid>
 
