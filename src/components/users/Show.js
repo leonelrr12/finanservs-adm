@@ -67,7 +67,6 @@ const Show = () => {
       [name]: value
     });
     if(maxLeng <= 0) return
-    console.log(type)
 
     if(type === 'email') {
       const prueba = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -121,7 +120,6 @@ const Show = () => {
   }
 
   const updateRecord = async () => {
-    console.log(item)
     await axios.put(URL_API + '/adm/users/', item)
     .then(response => {
       setData(data.map(p=>p.id===item.id?item:p))

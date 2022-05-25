@@ -22,6 +22,7 @@ const Login = () => {
   const onFormSubmit = async (data) => {
     const res = await axios.get(URL_API + '/api/login/new-user/' + data.email)
     const isNew = res.data
+    console.log(res.data)
     if(isNew === 1) {
       navigate("/password/?email=" + data.email)
       return
@@ -53,7 +54,7 @@ const Login = () => {
         />
         <AppButton
           type="submit"
-          small
+          large
         >
         Iniciar sessión
         </AppButton>

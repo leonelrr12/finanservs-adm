@@ -82,7 +82,7 @@ const Show = (props) => {
 
     let showActivo=[]
     if(estado === 1) {
-      showActivo = prospects.filter(p => p.zzzEntity_No === entity2 && p.n1Estado !== 4)
+      showActivo = prospects.filter(p => p.zzzEntity_No === entity2 && p.n1Estado !== 4 && p.n1Estado !== 6)
     } else {
       showActivo = prospects.filter(p => p.zzzEntity_No === entity2)
     }
@@ -137,6 +137,9 @@ const Show = (props) => {
         break;
       case "5":
         item.A2Estado = 'En Comité'
+        break;
+      case "6":
+        item.A2Estado = 'Liquidado'
         break;
       default:
         break;
