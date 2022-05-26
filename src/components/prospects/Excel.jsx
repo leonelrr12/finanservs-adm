@@ -12,9 +12,6 @@ const DownloadExcel = ({ entity, prospects }) => {
     let prospDecline = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado === 4)
     let prospResto = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado !== 1 && p.n1Estado !== 4)
     
-    console.log(entity)
-    console.log(prospResto)
-
     return (
         <ExcelFile element={            
             <Button

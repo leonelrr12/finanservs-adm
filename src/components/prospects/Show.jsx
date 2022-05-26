@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
 import axios from 'axios'
-import { Checkbox, FormControlLabel, Grid, Modal, Paper, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Box, Checkbox, FormControlLabel, Grid, Modal, TextField, Typography } from '@mui/material';
 
 import NotData from '../NotData'
 import Form from './Form'
@@ -11,49 +10,10 @@ import { InfoModal } from './InfoModal';
 import apiConfig from '../../config/api'
 import DownloadExcel from './Excel'
 import ListProspects from '../ListProspects';
-import { Box } from '@mui/system';
-
 
 const URL_API = apiConfig.domain
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    // backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    borderRadius: '2%',
-    // boxShadow: theme.shadows[5],
-    padding: 2, //theme.spacing(2, 4, 3),
-  },
-  table: {
-    minWidth: 650,
-  },
-  container: {
-    maxHeight: 500,
-  },
-  root: {
-    '& > *': {
-      margin: 2, //theme.spacing(1),
-    },
-  },   
-  root2: {
-    flexGrow: 1,
-  },
-  paper2: {
-    padding: 2, //theme.spacing(2),
-    textAlign: 'center',
-    backgroundColor: '#e5dddd', //theme.palette.text.secondary,
-    height: 40,
-  }, 
-}));
-
-
 const Show = (props) => {
-  const classes = useStyles();
   const user = useSelector((state) => state.user.user);
 
   const [prospects, setProspects] = useState([])
@@ -67,12 +27,24 @@ const Show = (props) => {
   const { Role, Ruta, Tipo_Agente, Agente } = user
   const [entity, setEntity] = useState(Role === 1 ? '0' : Ruta)
   const [entityName, setEntityName] = useState("")
-  
 
-  const getByEntity = async (entity) => {
-    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + entity)
+
+  const ee = new Date()
+  let d0 = 9//ee.getDate().toString()
+  if(d0 > '27') d0 = '28'
+  const dd = ('0'+d0).slice(-2)
+  const mm0 = ('0'+ee.getMonth().toString()).slice(-2)
+  const mm1 = ('0'+(ee.getMonth()+1).toString()).slice(-2)
+  const yy = ee.getFullYear()
+  
+  const [fdesde, setFDesde] = useState(`${yy}-${mm0}-${dd}`);
+  const [fhasta, setFHasta] = useState(`${yy}-${mm1}-${dd}`);
+
+  const getByEntity = async (info) => {
+    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + info)
     const da = await res.data
     setProspects(da)
+    setProspectsA(da)
   }
 
   const handleChange = (event) => {
@@ -174,12 +146,11 @@ const Show = (props) => {
 
   useEffect(() => {
     if(Role === 1 || Tipo_Agente === 2) {
-      getByEntity(Role+","+Tipo_Agente+","+Agente+","+entity)
+      getByEntity(Role+","+Tipo_Agente+","+Agente+","+entity+","+fdesde+","+fhasta)
     } else {
-      getByEntity(Role+","+Tipo_Agente+","+Agente+","+Ruta)
+      getByEntity(Role+","+Tipo_Agente+","+Agente+","+Ruta+","+fdesde+","+fhasta)
     }
-  },[])
-
+  },[entity, fdesde, fhasta])
 
   return ( 
     <div className="my-4">
@@ -195,36 +166,61 @@ const Show = (props) => {
           <Typography align="center" variant="h3" component="h1">Prospectos</Typography>
         </Grid>
         <Grid item xs={12} md={2} alignContent="center">
-            <ListProspects id={entity} estado={estado} nameEntity={entityName}/>
-            <DownloadExcel entity={entity} prospects={prospects}/>
+            <ListProspects id={entity} estado={estado} nameEntity={entityName} fdesde={fdesde} fhasta={fhasta} />
+            <DownloadExcel entity={entity} prospects={prospects} fdesde={fdesde} fhasta={fhasta}/>
         </Grid>
       </Grid>
 
-      <div className={classes.root2}>
-        <Grid container spacing={3}>
+      <Grid container>
+        <Grid item xs={12} md={4} sx={{ pt: 1.3, mb: 1 }}>
           { (Role === 1 || Tipo_Agente === 2) ? (
-            <Grid item xs={12} md={6}>
-              <Paper className={classes.paper2} elevation={9} sx={{ pt: 1.3, mb: 1 }}>
-                <label className="font-weight-lighter">Entidad Financiera: </label>
-                <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
-                  <option value="0">Seleccione una Entidad</option>
-                  {entities.map((item) => (
-                    // selected={item.id_ruta === entity}
-                    <option key={item.id} value={item.id_ruta + "/" + item.name}>{item.name}</option>
-                  ))}
-                </select>
-              </Paper>
-            </Grid>
+            <Box sx={{ ml: 4 }}>
+              <label className="font-weight-lighter">Entidad Financiera: </label>
+              <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
+                <option value="0">Seleccione una Entidad</option>
+                {entities.map((item) => (
+                  <option key={item.id} value={item.id_ruta + "/" + item.name}>{item.name}</option>
+                ))}
+              </select>
+            </Box>
           )
           : ""
           }
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.paper2} elevation={9}>
-              <FormControlLabel onChange={ handleEstado } control={<Checkbox defaultChecked />} label="Solo Activos" />
-            </Paper>
-          </Grid>
         </Grid>
-      </div>
+        <Grid item xs={12} md={4}>
+          <Box>
+            <FormControlLabel onChange={ handleEstado } control={<Checkbox />} label="Solo Activos" />
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} md={4} sx={{ pt: 1.3, mb: 1 }}>
+          <Box>
+            <TextField
+              id="date"
+              label="Desde"
+              type="date"
+              defaultValue={ fdesde }
+              value={ fdesde }
+              onChange={ (e) => setFDesde(e.target.value) }
+              sx={{ width: 220, mr: 2 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              id="date"
+              label="Hasta"
+              type="date"
+              value={ fhasta }
+              onChange={ (e) => setFHasta(e.target.value) }
+              sx={{ width: 220 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Box>
+        </Grid>
+      </Grid>
 
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
