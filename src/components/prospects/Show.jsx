@@ -30,7 +30,7 @@ const Show = (props) => {
 
 
   const ee = new Date()
-  let d0 = 9//ee.getDate().toString()
+  let d0 = ee.getDate().toString()
   if(d0 > '27') d0 = '28'
   const dd = ('0'+d0).slice(-2)
   const mm0 = ('0'+ee.getMonth().toString()).slice(-2)
