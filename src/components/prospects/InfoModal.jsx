@@ -106,7 +106,23 @@ export const InfoModal = (props) => {
                     <TableRow>
                       <TableCell align="right">{key[0] === '_' ? key.slice(3) :key.slice(2)}:</TableCell>
                       {key[0] === '_' && item[key] !== "undefined"
-                        ? <TableCell align="left"><a href={item[key]} target="_blank" rel="noreferrer"><img src={item[key]} width="200" alt={key}/></a></TableCell>
+                        ? (
+                            <TableCell align="left">
+                              {item[key] !== '' 
+                              ? (
+                                <a href={item[key]} target="_blank" rel="noreferrer">
+                                  {item[key].slice(-3) === 'pdf'
+                                    ? (
+                                    <>
+                                      <img src={item[key]} width="200" alt={key}/> 
+                                      <p>{item[key].slice(-3)}</p>
+                                    </>)
+                                    : <img src={item[key]} width="200" alt={key}/>
+                                  }
+                                </a>
+                              ) : "No hay datos"}
+                            </TableCell>
+                          )
                         : <TableCell align="left">{item[key] !== "undefined" ? item[key] : "?"}</TableCell>}
                     </TableRow>
                     ))}
