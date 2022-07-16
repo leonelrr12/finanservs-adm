@@ -308,6 +308,7 @@ const Show = (props) => {
                 update={true} 
                 handleClose2={handleClose2}
                 estadoAnt={item.n1Estado}
+                Role={Role}
               />
             </Box>
           </Grid>

@@ -10,6 +10,7 @@ const LayoutNav = styled.nav`
 
 export const NavMobile = () => {
   const { user } = useSelector(state => state.user);
+
   let navigate = useNavigate()
   const dispatch = useDispatch()
 

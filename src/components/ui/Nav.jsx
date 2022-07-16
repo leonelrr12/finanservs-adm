@@ -5,6 +5,7 @@ import { logOut } from '../../store/user';
 
 export const Nav = () => {
   const { user } = useSelector(state => state.user);
+
   let navigate = useNavigate()
   const dispatch = useDispatch()
 

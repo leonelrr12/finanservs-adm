@@ -2,6 +2,7 @@ import React from "react";
 import FINANSERVS_HORIZONTAL from "./logo-horizontal.png";
 import FINANSERVS_HORIZONTAL_WHITE from "./logo-horizontal-white.png";
 import FINANSERVS_VERTICAL from "./logo-vertical.jpg";
+import ROLANDO_SANCHEZ from "./Firma_Rolando_Sanchez.jpg"
 
 export const FinanservsHorizontalLogoImg = () => {
   return (
@@ -29,6 +30,16 @@ export const FinanservesVerticalLogoImg = () => {
       src={FINANSERVS_VERTICAL} 
       alt="Finanservs logo vertical"  
       width="180px"
+    />
+  );
+};
+
+export const FirmaRS = () => {
+  return (
+    <img 
+      src={ROLANDO_SANCHEZ} 
+      alt="Rolando_Sanchez"  
+      width="300px"
     />
   );
 };

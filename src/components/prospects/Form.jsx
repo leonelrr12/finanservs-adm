@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 import apiConfig from '../../config/api'
+import { Input } from '@mui/material';
 
 const URL_API = apiConfig.domain
 
 const Form = (props) => {
-  const { update = null, handleClose2, estadoAnt, data, setData } = props
+  const { update = null, handleClose2, estadoAnt, data, setData, Role = 2 } = props
   const [errorMessage, setErrorMessage] = useState(null)
   const [estados, setEstados] = useState([])
 
@@ -89,6 +90,38 @@ const Form = (props) => {
                   }
                 </select>
               </div>
+              {Role === 1 ? (
+                <>
+                  <div className="form-group">
+                    <label>Monto Aprobado</label>
+                    <Input
+                      className="form-control"
+                      name="n1Estado"
+                      onChange={onChange}
+                      value={data.n1Estado}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Letrao Aprobado</label>
+                    <Input
+                      className="form-control"
+                      name="n1Estado"
+                      onChange={onChange}
+                      value={data.n1Estado}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Plazo Aprobado</label>
+                    <Input
+                      className="form-control"
+                      name="n1Estado"
+                      onChange={onChange}
+                      value={data.n1Estado}
+                    />
+                  </div>
+                </>
+              ) : null}
+
               <div className="form-group mt-2">
                 <label>Comentarios:</label>
                 <textarea id="w3review" rows="6" cols="50"
