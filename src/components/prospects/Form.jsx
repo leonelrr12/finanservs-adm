@@ -28,7 +28,16 @@ const Form = (props) => {
     data.ejecutivo = idUser
     try {
       if (update) {
-        await axios.put(URL_API + '/adm/prospects/entity_f/', { estado: data.n1Estado, comentarios: data.F7Comentarios, ejecutivo: data.ejecutivo, id: data.A1ID })
+        const wrkDdata = { 
+          estado: data.n1Estado, 
+          comentarios: data.F7Comentarios, 
+          ejecutivo: data.ejecutivo, 
+          id: data.A1ID, 
+          monto: data["B6Préstamo Personal"],
+          plazo: data.B8Plazo,
+          letra: data.B9Letra
+        }
+        await axios.put(URL_API + '/adm/prospects/entity_f/', wrkDdata)
         handleClose2()
         if (estadoAnt !== data.estado) {
           const res = await axios.get(URL_API + '/adm/email-estado/' + data.A1ID)
@@ -52,7 +61,7 @@ const Form = (props) => {
         }
       }
     } catch (ex) {
-      setErrorMessage("Error: Query no permitido.  Favor ver Log del Servidor.")
+      setErrorMessage("Error: Query no permitido.  Favor ver Log del Servidor." + ex)
     }
   }
 
@@ -96,27 +105,27 @@ const Form = (props) => {
                     <label>Monto Aprobado</label>
                     <Input
                       className="form-control"
-                      name="n1Estado"
+                      name="B6Préstamo Personal"
                       onChange={onChange}
-                      value={data.n1Estado}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Letrao Aprobado</label>
-                    <Input
-                      className="form-control"
-                      name="n1Estado"
-                      onChange={onChange}
-                      value={data.n1Estado}
+                      value={data["B6Préstamo Personal"]}
                     />
                   </div>
                   <div className="form-group">
                     <label>Plazo Aprobado</label>
                     <Input
                       className="form-control"
-                      name="n1Estado"
+                      name="B8Plazo"
                       onChange={onChange}
-                      value={data.n1Estado}
+                      value={data.B8Plazo}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Letra Aprobada</label>
+                    <Input
+                      className="form-control"
+                      name="B9Letra"
+                      onChange={onChange}
+                      value={data.B9Letra}
                     />
                   </div>
                 </>
