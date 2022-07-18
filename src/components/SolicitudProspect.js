@@ -43,7 +43,8 @@ const parseToPdfData = (data) => {
       { text: idx + 1, alignment: "center" },
       d.nombreCompleto,
       { text: d.celular, alignment: "center" },
-      { text: d.parentesco, alignment: "center" }
+      { text: d.parentesco, alignment: "center" },
+      { text: d.trabajo }
     ];
   });
 };
@@ -204,10 +205,10 @@ const docDefinitionDefault = {
     {
       table: {
         headerRows: 1,
-        widths: [50, '*', '*', '*'],
+        widths: [50, '*', '*', '*', '*'],
         body: [
           [],
-          ["", "", "", ""]
+          ["", "", "", "", ""]
         ]
       }
     },
@@ -317,9 +318,9 @@ export default function SolicitudProspect({ idContact }) {
   const rowData6 = [["", { text: data?.salario, style: "alignCenter" }, { text: data?.trabTelefono, style: "alignCenter" }, { text: data?.trabTelExt, style: "alignCenter" }]]
   const rowData7 = ["Dirección Detallada del Empleo:", data?.trabDirección]
 
-  const header8 = ["", { text: "Nombre Completo", style: "alignCenter" }, { text: "Teléfono", style: "alignCenter" }, { text: "Parentesco", style: "alignCenter" }]
+  const header8 = ["", { text: "Nombre Completo", style: "alignCenter" }, { text: "Teléfono", style: "alignCenter" }, { text: "Parentesco", style: "alignCenter" }, { text: "Lugar de Trabajo", style: "alignCenter" }]
   const rowData8 = refe
-  
+
   // const headerH = [
   //   {
   //     image: "LogoFina",
