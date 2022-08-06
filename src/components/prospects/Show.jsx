@@ -76,10 +76,12 @@ const Show = (props) => {
   const getEntities = async () => {
     const res = await axios.get(URL_API + '/adm/entities_f')
     const da = await res.data
+    console.log(da)
     setEntities(da)
   }
 
   const handleOpen = (pitem) => {
+    console.log(pitem)
     setItem(pitem)
     setOpen(true);
   };

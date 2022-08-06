@@ -16,7 +16,7 @@ const Form = (props) => {
   const user = useSelector((state) => state.user.user);
 
   const { id: idUser } = user
-  // console.log(idUser)
+  // console.log(user)
 
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -71,7 +71,13 @@ const Form = (props) => {
 
   useEffect(() => {
     axios.get('/adm/estados_tramite')
-      .then(estados => setEstados(estados.data))
+      .then(estados => {
+        if(Role !== 1) {
+          setEstados(estados.data.filter(e => e.id !== 7))
+        } else {
+          setEstados(estados.data)
+        }
+      })
   }, [])
 
   return (

@@ -108,10 +108,11 @@ export const InfoModal = (props) => {
                       {key[0] === '_' && item[key] !== "undefined"
                         ? (
                             <TableCell align="left">
-                              {item[key] !== '' 
+                              {item[key] !== '' && item[key] !== null
                               ? (
                                 <a href={item[key]} target="_blank" rel="noreferrer">
-                                  {item[key].slice(-3) === 'pdf'
+                                  {
+                                    item[key].slice(-3) === 'pdf'
                                     ? (
                                     <>
                                       <img src={item[key]} width="200" alt={key}/> 
