@@ -58,6 +58,7 @@ import AllTermsLoan from "../components/termsLoan/Show";
 import NewTermsLoan from "../components/termsLoan/New";
 import EditTermsLoan from "../components/termsLoan/Edit";
 
+import FormikBasicPage from '../pages/FormikYupPage';
 import AllEntities from "../components/entities_f/Show";
 
 import AllSectorProfesion from "../components/sectorProfesion/Show";
@@ -147,6 +148,7 @@ export const AppRoutes = () => {
           <Route path="/terms_loan/new" element={<NewTermsLoan />} />
           <Route path="/terms_loan/edit/:id" element={<EditTermsLoan />} />
 
+          <Route path="/udtProspect" element={<FormikBasicPage />} />
           <Route path="/entities_f" element={<AllEntities />} />
 
           <Route path="/sector_profesion" element={<AllSectorProfesion />} />

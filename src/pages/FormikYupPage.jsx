@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 
 import '../styles/styles.css'
 
-const FormikBasicPage = () => {
+const FormikYupPage = () => {
 
   const validate = ({ 
     fname,
@@ -401,4 +401,4 @@ const FormikBasicPage = () => {
   )
 }
 
-export default FormikBasicPage
+export default FormikYupPage
