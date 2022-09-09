@@ -4,7 +4,7 @@ import pdfMake from "pdfmake";
 import vfs from "../fonts/vfs_fonts";
 import axios from "axios";
 import apiConfig from '../config/api'
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 const URL_API = apiConfig.domain
 

@@ -1,6 +1,4 @@
 import { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 // import { signIn } from '../../store/user'
@@ -10,8 +8,6 @@ import apiConfig from '../../config/api'
 const URL_API = apiConfig.domain
 
 const Form = (props) => {
-  // const dispatch = useDispatch()
-  // const { handleSubmit } = useForm() 
   const navigate = useNavigate()
   const { update = null, data, setData, roles, entities } = props
   const [errorMessage, setErrorMessage] = useState(null)
@@ -33,12 +29,6 @@ const Form = (props) => {
       setErrorMessage("Error: Query no permitido.  Favor ver Log del Servidor.")
     }
   }
-
-  // const onFormSubmit = (data) => {
-  //   // dispatch(signIn({ credentials: data }))
-  // }
-
-  // const onErrors = (errors) => console.error(errors);
 
   return ( 
     <>

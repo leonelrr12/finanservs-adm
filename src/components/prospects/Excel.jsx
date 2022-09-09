@@ -1,17 +1,17 @@
 import ReactExport from "react-export-excel";
-import GridOnIcon from '@material-ui/icons/GridOn';
-import { Button } from '@material-ui/core';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import { Button } from "@mui/material";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-const DownloadExcel = ({prospects}) => {
+const DownloadExcel = ({ entity, prospects }) => {
 
-    let prospAproved = prospects.filter(p => p.n1Estado === 1)
-    let prospDecline = prospects.filter(p => p.n1Estado === 4)
-    let prospResto = prospects.filter(p => p.n1Estado !== 1 && p.n1Estado !== 4)
-
+    let prospAproved = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado === 1)
+    let prospDecline = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado === 4)
+    let prospResto = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado !== 1 && p.n1Estado !== 4)
+    
     return (
         <ExcelFile element={            
             <Button
@@ -74,7 +74,7 @@ const DownloadExcel = ({prospects}) => {
                 <ExcelColumn label="Corregimiento" value="F4Corregimiento"/>
                 <ExcelColumn label="Barrio casa calle" value="F5Barrio casa calle"/>
             </ExcelSheet>
-            <ExcelSheet data={prospAproved} name="Aprobados">
+            <ExcelSheet data={prospAproved} name="Nuevos">
                 <ExcelColumn label="ID" value="A1ID"/>
                 <ExcelColumn label="Nombre" value="A5Nombre"/>
                 <ExcelColumn label="Cédula" value="A4Cédula Id"/>

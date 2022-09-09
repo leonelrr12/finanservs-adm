@@ -1,7 +1,9 @@
+import { createTheme } from "@mui/material";
 import styled, { createGlobalStyle } from 'styled-components'
 import { ReactSVG } from 'react-svg'
 
-const theme = {
+
+export const theme = createTheme({
     colors: {
         white: "#ffffff",
         dark: "#27212e",
@@ -48,9 +50,8 @@ const theme = {
         depth3: '0 20px 25px -5 rgba(0, 0, 0, 0.1), 0 20px 25px -5 rgba(0, 0, 0, 0.04)',
 
     }
-}
+})
 
-export default theme
 
 export let GlobalStyles = createGlobalStyle`
   * { box-sizing: border-box }
@@ -63,7 +64,8 @@ export const LayoutContainer = styled.div`
 `
 
 export const SmallContainer = styled.div`
-    width: ${ ({theme}) => theme.dims.widths.small };
+    width: ${ theme.dims.widths.small };
+    
     max-width: 100vw;
     margin: 0 auto;
 `
@@ -86,55 +88,50 @@ export const ClearButton = styled.button`
 
 export const SvgButton = styled(ReactSVG)`
     & svg {
-        width: ${ ({ theme }) => theme.dims.circle.small };
-        height: ${ ({ theme }) => theme.dims.circle.small };
+        width: ${ theme.dims.circle.small };
+        height: ${ theme.dims.circle.small };
         display: inline-block;
         vertical-align: bottom;
     }
     background-color: ${ ({ theme, active }) => active ? theme.colors.accent : theme.colors.dark };
     cursor: pointer;
     border-radius: 50%;
-    width: ${ ({ theme }) => theme.dims.circle.medium };
-    height: ${ ({ theme }) => theme.dims.circle.medium };
+    width: ${ theme.dims.circle.medium };
+    height: ${ theme.dims.circle.medium };
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: ${ ({ theme }) => theme.dims.margin.intersection };
+    margin-bottom: ${ theme.dims.margin.intersection };
 
     & path {
-        fill: ${ ({ theme }) => theme.colors.white } !important
+        fill: ${ theme.colors.white } !important
     }
 `
 
 export const Title = styled.h1`
-    font-size: ${ ({ theme }) => theme.dims.fonts.medium };
+    font-size: ${ theme.dims.fonts.medium };
     font-weight: bold;
     display: inline-block;
     margin-block-start: 0;
     margin-block-end: 0;
-    margin-left: ${ ({ theme }) => theme.dims.margin.intersection };
+    margin-left: ${ theme.dims.margin.intersection };
     vertical-align: middle;
 `
 
 export const AppButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.blue};
-  border-radius: ${({ theme }) => theme.dims.borderRadius.normal};
-  padding: ${({ theme }) => theme.dims.padding.largePadding};
-  box-shadow: ${({ theme }) => theme.shadows.depth1};
-  margin-top: ${({theme}) => theme.dims.margin.normal };
+  background-color: ${ theme.colors.blue};
+  border-radius: ${ theme.dims.borderRadius.normal};
+  padding: ${ theme.dims.padding.largePadding};
+  box-shadow: ${ theme.shadows.depth1};
+  margin-top: ${ theme.dims.margin.normal };
   font-size: 1em;
-  color: ${({ theme }) => theme.colors.white};
-  width: ${({ fullWidth, small, theme }) => {
-    if (fullWidth) return '100%';
-    if (small) return theme.dims.widths.forms
-    return 'auto'
-  }};
+  color: ${ theme.colors.white};
   cursor: pointer;
   border: none;
 
   &:hover{
     opacity:0.8;
-    box-shadow: ${({ theme }) => theme.shadows.depth2};
+    box-shadow: ${ theme.shadows.depth2};
   }
 `;
 
@@ -142,7 +139,7 @@ export const FooterContainer = styled.footer`
     display: grid;
     grid-template-columns: minmax(auto, 1fr) auto minmax(auto, 1fr);
     border: 1px solid;
-    border-color: ${ ({ theme }) => theme.colors.gray };
+    border-color: ${ theme.colors.gray };
     height: 3em;
     text-align: center;
     justify-content: space-around;

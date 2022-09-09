@@ -2,87 +2,46 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
 import axios from 'axios'
-import NotData from '../NotData'
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Box, Checkbox, FormControlLabel, Grid, Modal, TextField, Typography } from '@mui/material';
 
+import NotData from '../NotData'
 import Form from './Form'
 import { InfoModal } from './InfoModal';
-import { Typography } from 'antd';
 import apiConfig from '../../config/api'
 import DownloadExcel from './Excel'
 import ListProspects from '../ListProspects';
 
 const URL_API = apiConfig.domain
-console.log(apiConfig.domain)
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    borderRadius: '2%',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  table: {
-    minWidth: 650,
-  },
-  container: {
-    maxHeight: 500,
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },   
-  root2: {
-    flexGrow: 1,
-  },
-  paper2: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }, 
-}));
-
 
 const Show = (props) => {
-  const classes = useStyles();
   const user = useSelector((state) => state.user.user);
 
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
   const [entities, setEntities] = useState([])
-  const [estado, setEstado] = useState(0);
+  const [estado, setEstado] = useState(1);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [item, setItem] = useState({});
   
-  
   const { Role, Ruta, Tipo_Agente, Agente } = user
-  const [entity, setEntity] = useState(Ruta)
+  const [entity, setEntity] = useState(Role === 1 ? '0' : Ruta)
   const [entityName, setEntityName] = useState("")
+
+
+  const ee = new Date()
+  let d0 = ee.getDate().toString()
+  if(d0 > '27') d0 = '28'
+  const dd = ('0'+d0).slice(-2)
+  const mm0 = ('0'+ee.getMonth().toString()).slice(-2)
+  const mm1 = ('0'+(ee.getMonth()+1).toString()).slice(-2)
+  const yy = ee.getFullYear()
   
-  useEffect(() => {
-    getEntities()
-  },[])
+  const [fdesde, setFDesde] = useState(`${yy}-${mm0}-${dd}`);
+  const [fhasta, setFHasta] = useState(`${yy}-${mm1}-${dd}`);
 
-  useEffect(() => {
-    if(Role === 1 || Tipo_Agente === 2) getByEntity(Tipo_Agente+","+Agente+","+entity)
-    else getByEntity([Tipo_Agente+","+Agente+","+Ruta])
-  },[entity, Ruta])
-
-  const getByEntity = async (entity) => {
-    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + entity)
+  const getByEntity = async (info) => {
+    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + info)
     const da = await res.data
     setProspects(da)
     setProspectsA(da)
@@ -91,15 +50,25 @@ const Show = (props) => {
   const handleChange = (event) => {
     setEntity(event.target.value.split('/')[0])
     setEntityName(event.target.value.split('/')[1])
+    const entity2 = event.target.value.split('/')[0]
+
+    let showActivo=[]
+    if(estado === 1) {
+      showActivo = prospects.filter(p => p.zzzEntity_No === entity2 && p.n1Estado !== 4 && p.n1Estado !== 6)
+    } else {
+      showActivo = prospects.filter(p => p.zzzEntity_No === entity2)
+    }
+    setProspectsA(showActivo)
   }
 
   const handleEstado = (event) => {
     if(event.target.checked){
       setEstado(1)
-      const showActivo = prospects.filter(p => p.n1Estado !== 4)
+      const showActivo = prospects.filter(p => p.zzzEntity_No === entity && p.n1Estado !== 4 && p.n1Estado !== 6)
       setProspectsA(showActivo)
     }else{
-      setProspectsA(prospects)
+      const showActivo = prospects.filter(p => p.zzzEntity_No === entity)
+      setProspectsA(showActivo)
       setEstado(0)
     }
   }
@@ -125,8 +94,34 @@ const Show = (props) => {
   };
 
   const handleClose2 = () => {
+    switch (item.n1Estado) {
+      case "1":
+        item.A2Estado = 'Nuevo'
+        break;
+      case "2":
+        item.A2Estado = 'Proceso'
+        break;
+      case "3":
+        item.A2Estado = 'Aprobado'
+        break;
+      case "4":
+        item.A2Estado = 'Rechazado'
+        break;
+      case "5":
+        item.A2Estado = 'En Comité'
+        break;
+      case "6":
+        item.A2Estado = 'Liquidado'
+        break;
+      default:
+        break;
+    }
     setOpen2(false);
-    getByEntity(entity)
+    let uptData = prospects.map(p => p.A1ID === item.A1ID ? item : p)
+    setProspects(uptData)
+
+    uptData = prospectsA.map(p => p.A1ID === item.A1ID ? item : p)
+    setProspectsA(uptData)
   };
 
   // const crearPdf = (id) => {
@@ -145,6 +140,18 @@ const Show = (props) => {
   // }
 
 
+  useEffect(() => {
+    getEntities()
+  },[])
+
+  useEffect(() => {
+    if(Role === 1 || Tipo_Agente === 2) {
+      getByEntity(Role+","+Tipo_Agente+","+Agente+","+entity+","+fdesde+","+fhasta)
+    } else {
+      getByEntity(Role+","+Tipo_Agente+","+Agente+","+Ruta+","+fdesde+","+fhasta)
+    }
+  },[entity, fdesde, fhasta])
+
   return ( 
     <div className="my-4">
 
@@ -156,41 +163,64 @@ const Show = (props) => {
         alignItems="center"
       >
         <Grid item xs={12} md={10}>
-          <Typography align="center" component="h1">Prospectos</Typography>
+          <Typography align="center" variant="h3" component="h1">Prospectos</Typography>
         </Grid>
         <Grid item xs={12} md={2} alignContent="center">
-            <ListProspects id={entity} estado={estado} nameEntity={entityName}/>
-            <DownloadExcel prospects={prospects}/>
+            <ListProspects id={entity} estado={estado} nameEntity={entityName} fdesde={fdesde} fhasta={fhasta} />
+            <DownloadExcel entity={entity} prospects={prospects} fdesde={fdesde} fhasta={fhasta}/>
         </Grid>
       </Grid>
 
-      <div className={classes.root2}>
-        <Grid container spacing={3}>
+      <Grid container>
+        <Grid item xs={12} md={4} sx={{ pt: 1.3, mb: 1 }}>
           { (Role === 1 || Tipo_Agente === 2) ? (
-            <Grid item xs={12} md={6}>
-              <Paper className={classes.paper2}>
-                <label className="font-weight-lighter">Entidad Financiera: </label>
-                <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
-                  <option value="0">Seleccione una Entidad</option>
-                  {entities.map((item) => (
-                    <option key={item.id} selected={item.id_ruta === entity} value={item.id_ruta + "/" + item.name}>{item.name}</option>
-                  ))}
-                </select>
-              </Paper>
-            </Grid>
+            <Box sx={{ ml: 4 }}>
+              <label className="font-weight-lighter">Entidad Financiera: </label>
+              <select className="font-weight-lighter" onChange={ handleChange } name='entity'>
+                <option value="0">Seleccione una Entidad</option>
+                {entities.map((item) => (
+                  <option key={item.id} value={item.id_ruta + "/" + item.name}>{item.name}</option>
+                ))}
+              </select>
+            </Box>
           )
           : ""
           }
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.paper2}>
-              <div className="">
-              <input type="checkbox" name="estado" onChange={ handleEstado }/>
-              <label className="font-weight-lighter mx-2">Solo Activos</label>
-            </div>
-            </Paper>
-          </Grid>
         </Grid>
-      </div>
+        <Grid item xs={12} md={4}>
+          <Box>
+            <FormControlLabel onChange={ handleEstado } control={<Checkbox />} label="Solo Activos" />
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} md={4} sx={{ pt: 1.3, mb: 1 }}>
+          <Box>
+            <TextField
+              id="date"
+              label="Desde"
+              type="date"
+              defaultValue={ fdesde }
+              value={ fdesde }
+              onChange={ (e) => setFDesde(e.target.value) }
+              sx={{ width: 220, mr: 2 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              id="date"
+              label="Hasta"
+              type="date"
+              value={ fhasta }
+              onChange={ (e) => setFHasta(e.target.value) }
+              sx={{ width: 220 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Box>
+        </Grid>
+      </Grid>
 
       <table className="table table-striped table-md">
         <thead className="bg-primary text-white">
@@ -246,27 +276,43 @@ const Show = (props) => {
       <InfoModal item={item} open={open} setOpen={setOpen} handleClose={handleClose} entity={entity}/>
 
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
         open={open2}
-        onClose={handleClose2}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
+        title="Nuevo Usuario"
+        onCancel={handleClose2}
+        centered
+        sx={{
+          display: 'flex',
+          p: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <Fade in={open2}>
-          <div className={classes.paper}>
-          <Form 
-              id={item.A1ID}
-              update={true} 
-              handleClose2={handleClose2}
-              estadoAnt={item.n1Estado}
-            />
-          </div>
-        </Fade>
+        <Grid container justifyContent="center">
+          <Grid item xs={11} md={3.5}>
+            <Box
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '95%' },
+                position: 'relative',
+                alignContent: 'center',
+                borderRadius: '7px',
+                bgcolor: 'background.paper',
+                border: '1px solid #000',
+                boxShadow: (theme) => theme.shadows[5],
+                p: 2,
+              }}
+            >
+              <Form 
+                id={item.A1ID}
+                data={item}
+                setData={setItem}
+                update={true} 
+                handleClose2={handleClose2}
+                estadoAnt={item.n1Estado}
+                Role={Role}
+              />
+            </Box>
+          </Grid>
+        </Grid>
       </Modal>
     </div>
    )

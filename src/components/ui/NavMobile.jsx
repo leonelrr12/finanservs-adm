@@ -1,15 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logOut } from '../store/user';
+import { logOut } from '../../store/user';
 
 
 const LayoutNav = styled.nav`
   max-height: 50px;
 `
 
-export const Nav = () => {
+export const NavMobile = () => {
   const { user } = useSelector(state => state.user);
+
   let navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -24,9 +25,8 @@ export const Nav = () => {
   }
   
   return (
-    <LayoutNav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <LayoutNav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid mx-3">
-
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -69,7 +69,6 @@ export const Nav = () => {
                 Admin
               </Link>
               <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><Link to={"/udtProspect"} className="dropdown-item">Actualizar Datos Prospecto</Link></li>
                 <li><Link to={"/entities_f"} className="dropdown-item">Entidades Financieras</Link></li>
                 <li><Link to={"/sectors"} className="dropdown-item">Sector Laboral</Link></li>
                 <li><Link to={"/profesions"} className="dropdown-item">Profesión</Link></li>
@@ -97,6 +96,7 @@ export const Nav = () => {
             }
           </div>
         </div>
+
       </div>
     </LayoutNav>
   )

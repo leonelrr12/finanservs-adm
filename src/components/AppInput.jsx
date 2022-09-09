@@ -1,14 +1,15 @@
-import React from 'react'
 import styled from 'styled-components'
+import { theme } from '../theme';
+
 
 export const Fieldset = styled.fieldset`
     border: 0;
-    max-width: ${ ({ theme }) => theme.dims.widths.forms };
+    max-width: ${ theme.dims.widths.forms };
     display: block;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
-    margin-top: ${ ({ theme }) => theme.dims.margin.intersection };
+    margin-top: ${ theme.dims.margin.intersection };
     padding: 0;
     & label {
         opacity: 0.56;
@@ -16,17 +17,17 @@ export const Fieldset = styled.fieldset`
 `
 
 const Input = styled.input`
-  padding: ${({ theme }) => theme.dims.padding.largePadding};
+  padding: ${ theme.dims.padding.largePadding};
   display: block;
   width: 100%;
   box-sizing: border-box;
-  margin-top: ${({ theme }) => theme.dims.margin.small};
+  margin-top: ${ theme.dims.margin.small};
   outline: none;
   border: none;
-  border-radius: ${({ theme }) => theme.dims.borderRadius.normal};
-  background-color: ${({ theme }) => theme.colors.gray};
+  border-radius: ${ theme.dims.borderRadius.normal};
+  background-color: ${ theme.colors.gray};
   border: solid 1px;
-  border-color: ${({ theme }) => theme.colors.silver};
+  border-color: ${ theme.colors.silver};
 `;
 
 export const AppInput = (props) => {

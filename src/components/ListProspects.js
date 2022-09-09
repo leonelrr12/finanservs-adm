@@ -4,8 +4,8 @@ import pdfMake from "pdfmake";
 import vfs from "../fonts/vfs_fonts";
 import axios from "axios";
 import apiConfig from '../config/api'
-import { Button } from "@material-ui/core";
-import PrintIcon from '@material-ui/icons/Print';
+import { Button } from "@mui/material";
+import PrintIcon from '@mui/icons-material/LocalPrintshop';
 
 const URL_API = apiConfig.domain
 
@@ -16,7 +16,7 @@ pdfMake.fonts = {
     bold: 'Roboto-Medium.ttf',
     italics: 'Roboto-Italic.ttf',
     bolditalics: 'Roboto-MediumItalic.ttf'
-}
+  }
 };
 
 const separator = (numb) => {
@@ -208,7 +208,7 @@ export default function ListProspects({ id, estado, nameEntity }) {
     setDocDefinition(template);
   };
 
-  const create = () => {
+  const create = async() => {
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
     pdfDocGenerator.open();
     // pdfDocGenerator.download();
@@ -219,10 +219,10 @@ export default function ListProspects({ id, estado, nameEntity }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+
   useEffect(async () => {
     await getData(id, estado)
-    // console.log(cnt, cna, cnr, cnp)
-
+ 
     const res = []
     res.push({ style: 'blueWhite', text: 'Total prospectos:' }, { text: cnt, style: 'small1' })
     res.push({ style: 'blueWhite', text: 'Aprobadoss:' }, { text: cna, style: 'small1' })
@@ -231,6 +231,7 @@ export default function ListProspects({ id, estado, nameEntity }) {
 
     setResumen([res])
   }, [id, estado])
+
 
   return (
     <Button

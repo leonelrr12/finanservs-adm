@@ -26,7 +26,8 @@ export const signIn = createAsyncThunk('user/signIn', async ({
     })
     console.log(result)
 
-    return result.data.user
+    const { user, error } = result.data
+    return user ? user : error
 })
 
 
