@@ -1,13 +1,50 @@
- form {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
+
+#divFormik {
+  width: 500px;
+  margin: 0 auto;
 }
 
-span, .error-message {
-    color: red;
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 576px) {
+  #divFormik {
+    padding: 30px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 820px) {
+  #divFormik {
+    padding: 30px;
+  }
+}
+
+@media (min-width: 820) {
+  #divFormik {
+    padding: 30px;
+  }
+}
+
+input,
+select {
+  margin-top: 5px;
+  outline: none;
+  padding: 10px;
+}
+
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+span,
+.error-message {
+  color: red;
 }
 
 .has-error {
-    border: 1px solid red;
+  border: 1px solid red;
 }

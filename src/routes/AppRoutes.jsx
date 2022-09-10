@@ -58,7 +58,7 @@ import AllTermsLoan from "../components/termsLoan/Show";
 import NewTermsLoan from "../components/termsLoan/New";
 import EditTermsLoan from "../components/termsLoan/Edit";
 
-import FormikBasicPage from '../pages/FormikYupPage';
+import FormikBasicPage from '../pages/FormikComponents';
 import AllEntities from "../components/entities_f/Show";
 
 import AllSectorProfesion from "../components/sectorProfesion/Show";
