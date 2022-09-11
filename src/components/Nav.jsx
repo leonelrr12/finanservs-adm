@@ -1,15 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logOut } from '../store/user';
-
+// import { logOut } from '../store/user';
+import { userData, logOut } from "../../redux/selectors"
 
 const LayoutNav = styled.nav`
   max-height: 50px;
 `
 
 export const Nav = () => {
-  const { user } = useSelector(state => state.user);
+  const user = useSelector(userData)
+  console.log(user)
+
   let navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -90,7 +92,7 @@ export const Nav = () => {
             </>}
           </ul>
           <div className="d-flex">
-            {user ? 
+            {user && Object.keys(user).length ? 
               <button onClick={handleLogout} className="btn btn-info" type="button">Log Out</button>
               :  
               ""

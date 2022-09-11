@@ -12,7 +12,7 @@ const FormikComponents = () => {
       <Formik
         initialValues={{
           fname: "",
-          lname: "",
+          fname_2: "",
           lname: "",
           lname_2: "",
           email: "",

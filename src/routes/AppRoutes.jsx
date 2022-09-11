@@ -80,9 +80,10 @@ import Password from "../components/login/password";
 import MissingRoute from "../components/AlertMessage";
 
 import SolFinancomer from "../components/SolicitudFinancomer";
+import { userData } from '../redux/slices/user';
 
 export const AppRoutes = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(userData);
 
   return (
       <Routes>

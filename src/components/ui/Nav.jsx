@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logOut } from '../../store/user';
-
+// import { logOut } from '../../store/user';
+import { logOut, userData } from '../../redux/slices/user';
 
 export const Nav = () => {
-  const { user } = useSelector(state => state.user);
+  const user = useSelector(userData);
 
   let navigate = useNavigate()
   const dispatch = useDispatch()
@@ -13,9 +13,7 @@ export const Nav = () => {
   const { Role: role } = user
 
   const handleLogout = () => {
-    dispatch(
-      logOut()
-    )
+    dispatch(logOut())
     navigate("/", { replace: true })
   }
 
@@ -82,7 +80,7 @@ export const Nav = () => {
           </ul>
         </div>
         <div>
-          {user ?
+        {user && Object.keys(user).length ?
             <button onClick={handleLogout} className="btn btn-info" type="button">Log Out</button>
             :
             ""

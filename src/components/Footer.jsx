@@ -1,6 +1,7 @@
 import { Link, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { userData } from '../redux/slices/user'
 
 
 const SimpleFooterContainer = styled.footer`
@@ -17,7 +18,7 @@ const LoggedOutFooter = () =>
     </SimpleFooterContainer>
 
 export const Footer = () => {
-    const user = useSelector( state => state.user.user )
+    const user = useSelector(userData)
 
     return (
         user ? null : <LoggedOutFooter />

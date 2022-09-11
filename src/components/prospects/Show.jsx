@@ -10,11 +10,12 @@ import { InfoModal } from './InfoModal';
 import apiConfig from '../../config/api'
 import DownloadExcel from './Excel'
 import ListProspects from '../ListProspects';
+import { userData } from '../../redux/slices/user';
 
 const URL_API = apiConfig.domain
 
 const Show = (props) => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(userData);
 
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { signIn } from "../../store/user";
 import AlertMessage from "../AlertMessage";
 import { UserFormLayout } from "./UserFormLayout";
 import { AppInput } from "../AppInput";
@@ -9,30 +8,44 @@ import { AppButton } from "../../theme";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import apiConfig from '../../config/api'
+// import { signIn } from "../../store/user";
+
+import { singIn } from "../../redux/slices/user";
 
 const URL_API = apiConfig.domain
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
   const { register, handleSubmit } = useForm();
 
   const [errorMessage, setErrorMessage] = useState(null);
 
   const onFormSubmit = async (data) => {
-    const res = await axios.get(URL_API + '/api/login/new-user/' + data.email)
+    const res = await axios.get(URL_API + '/api/login/new-user/' + data.email )
     const isNew = res.data
-    console.log(res.data)
     if(isNew === 1) {
       navigate("/password/?email=" + data.email)
       return
     }
-    dispatch(
-      signIn(
-        { credentials: data }
-      )
-    );
+    dispatch(singIn(data))
   };
+
+  // const onFormSubmit = async (data) => {
+  //   const res = await axios.get(URL_API + '/api/login/new-user/' + data.email)
+  //   const isNew = res.data
+  //   console.log(res.data)
+  //   if (isNew === 1) {
+  //     navigate("/password/?email=" + data.email)
+  //     return
+  //   }
+  //   dispatch(
+  //     signIn(
+  //       { credentials: data }
+  //     )
+  //   );
+  // };
 
   const onErrors = (errors) => setErrorMessage(errors)
 
@@ -56,7 +69,7 @@ const Login = () => {
           type="submit"
           large
         >
-        Iniciar sessión
+          Iniciar sessión
         </AppButton>
       </form>
       {errorMessage ? (

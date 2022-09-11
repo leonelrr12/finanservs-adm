@@ -5,6 +5,7 @@ import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 import apiConfig from '../../config/api'
 import { Input } from '@mui/material';
+import { userData } from '../../redux/slices/user';
 
 const URL_API = apiConfig.domain
 
@@ -12,8 +13,7 @@ const Form = (props) => {
   const { update = null, handleClose2, estadoAnt, data, setData, Role = 2 } = props
   const [errorMessage, setErrorMessage] = useState(null)
   const [estados, setEstados] = useState([])
-
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(userData);
 
   const { id: idUser } = user
   // console.log(idUser)

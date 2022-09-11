@@ -92,7 +92,7 @@ const Show = () => {
                 <td>{sector.short_name}</td>
                 <td>
                   <Link to={"/sectors/edit/" + sector.id} className="btn btn-warning btn-sm">Editar</Link>
-                  <button onClick={() => {delRecord(sector.id)}} className="btn btn-danger btn-sm mx-2">Borrar</button>
+                  <button onClick={() => {delRecord(sector.id)}} className="state.userbtn btn-danger btn-sm mx-2 mt-0">Borrar</button>
                 </td>
               </tr>
               )})
