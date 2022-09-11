@@ -10,12 +10,14 @@ const LayoutNav = styled.nav`
 
 export const Nav = () => {
   const user = useSelector(userData)
-  console.log(user)
-
+ 
   let navigate = useNavigate()
   const dispatch = useDispatch()
 
-  if(!user) return navigate("/", { replace: true }) 
+  if (user) {
+    if(!Object.keys(user).length)
+      return navigate("/", { replace: true })
+  } else return navigate("/", { replace: true })
   const { Role: role } = user
 
   const handleLogout = () => {

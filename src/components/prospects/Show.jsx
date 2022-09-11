@@ -12,7 +12,6 @@ import DownloadExcel from './Excel'
 import ListProspects from '../ListProspects';
 import { userData } from '../../redux/slices/user';
 
-const URL_API = apiConfig.domain
 
 const Show = (props) => {
   const user = useSelector(userData);
@@ -42,7 +41,7 @@ const Show = (props) => {
   const [fhasta, setFHasta] = useState(`${yy}-${mm1}-${dd}`);
 
   const getByEntity = async (info) => {
-    const res = await axios.get(URL_API + '/adm/prospects/entity_f/' + info)
+    const res = await axios.get(apiConfig.domain + '/adm/prospects/entity_f/' + info)
     const da = await res.data
     setProspects(da)
     setProspectsA(da)
@@ -75,7 +74,7 @@ const Show = (props) => {
   }
 
   const getEntities = async () => {
-    const res = await axios.get(URL_API + '/adm/entities_f')
+    const res = await axios.get(apiConfig.domain + '/adm/entities_f')
     const da = await res.data
     setEntities(da)
   }
@@ -127,7 +126,7 @@ const Show = (props) => {
 
   // const crearPdf = (id) => {
   //   var oReq = new XMLHttpRequest();
-  //   var URLToPDF = `${URL_API}/upload/prospectsPDF/${id}/${estado}`
+  //   var URLToPDF = `${apiConfig.domain}/upload/prospectsPDF/${id}/${estado}`
    
   //   oReq.open("GET", URLToPDF, true);
    
@@ -155,7 +154,6 @@ const Show = (props) => {
 
   return ( 
     <div className="my-4">
-
       <Grid
         spacing={4}
         container  

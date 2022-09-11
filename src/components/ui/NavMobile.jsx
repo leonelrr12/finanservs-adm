@@ -15,7 +15,10 @@ export const NavMobile = () => {
   let navigate = useNavigate()
   const dispatch = useDispatch()
 
-  if (!user) return navigate("/", { replace: true })
+  if (user) {
+    if(!Object.keys(user).length)
+      return navigate("/", { replace: true })
+  } else return navigate("/", { replace: true })
   const { Role: role } = user
 
   const handleLogout = () => {

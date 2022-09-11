@@ -8,8 +8,6 @@ const initialState = {
   data: "",
 }
 
-const URL_API = apiConfig.domain
-
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -36,7 +34,7 @@ export const { signInStart, signInSuccess, signInError, logOut } = userSlice.act
 export const singIn = (data) => async (dispatch) => {
   try {
     dispatch(signInStart())
-    const res = await axios.post(URL_API + '/api/login/', data)
+    const res = await axios.post(apiConfig.domain + '/api/login/signIn', { user: data })
     dispatch(signInSuccess(res.data))
   } catch (error) {
     dispatch(signInError(error))

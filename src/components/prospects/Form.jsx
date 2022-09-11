@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useSelector } from "react-redux";
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 import apiConfig from '../../config/api'
 import { Input } from '@mui/material';
 import { userData } from '../../redux/slices/user';
+import { LoginContext } from '../../context/loginContext';
 
 const URL_API = apiConfig.domain
 
@@ -13,7 +14,7 @@ const Form = (props) => {
   const { update = null, handleClose2, estadoAnt, data, setData, Role = 2 } = props
   const [errorMessage, setErrorMessage] = useState(null)
   const [estados, setEstados] = useState([])
-  const user = useSelector(userData);
+  const user = useContext(LoginContext)
 
   const { id: idUser } = user
   // console.log(idUser)
