@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 import apiConfig from '../../config/api'
 import { Input } from '@mui/material';
 import { userData } from '../../redux/slices/user';
-import { LoginContext } from '../../context/loginContext';
 
 const URL_API = apiConfig.domain
 
@@ -14,7 +13,7 @@ const Form = (props) => {
   const { update = null, handleClose2, estadoAnt, data, setData, Role = 2 } = props
   const [errorMessage, setErrorMessage] = useState(null)
   const [estados, setEstados] = useState([])
-  const user = useContext(LoginContext)
+  const user = useSelector(userData);
 
   const { id: idUser } = user
   // console.log(idUser)
@@ -38,7 +37,7 @@ const Form = (props) => {
           plazo: data.B8Plazo,
           letra: data.B9Letra
         }
-        await axios.put(URL_API + '/adm/prospects/entity_f/', wrkDdata)
+        await axios.put(URL_API + '/adm/prospects/estado/', wrkDdata)
         handleClose2()
         if (estadoAnt !== data.estado) {
           const res = await axios.get(URL_API + '/adm/email-estado/' + data.A1ID)

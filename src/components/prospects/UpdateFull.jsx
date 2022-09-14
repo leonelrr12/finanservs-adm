@@ -1,9 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useEffect, useState } from 'react';
 
 function Prospect() {
 
+  const [loading, setLoading] = useState(true);
+  const [prospects, setProspects] = useState([]);
+
   const handleSubmit = (values) => {
-    alert('ffff')
     console.log(values)
   }
 
@@ -14,8 +17,28 @@ function Prospect() {
     return errors
   }
 
+  const getProspects = async () => {
+    const res = await axios.get(apiConfig.domain + '/adm/prospects/update/')
+    const da = await res.data
+    setProspects(da)
+  }
+
+  useEffect(() => {
+    getProspects()
+    setLoading(false)
+  }, []);
+ 
+  if(loading) {
+    rerurn (
+      <div>
+        <h1>Cargando ...</h1>
+      </div>
+    )
+  }
+
   return (
     <div>
+      <button onClick={()=>getProspects()}>Cargar</button>
       <Formik
         initialValues={{
           fname: "",
