@@ -71,6 +71,7 @@ export const NavMobile = () => {
                     Admin
                   </Link>
                   <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                    <li><Link to={"/udtProspect"} className="dropdown-item">Actualizar datos del Prospecto</Link></li>
                     <li><Link to={"/entities_f"} className="dropdown-item">Entidades Financieras</Link></li>
                     <li><Link to={"/sectors"} className="dropdown-item">Sector Laboral</Link></li>
                     <li><Link to={"/profesions"} className="dropdown-item">Profesión</Link></li>
