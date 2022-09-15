@@ -10,7 +10,6 @@ import { makeStyles } from '@mui/styles';
 import {
   Box, IconButton, Paper, InputBase, InputAdornment
 } from '@mui/material/';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
@@ -65,7 +64,7 @@ const Search = ({ prospects, setID }) => {
     setLoading(true)
     const rows = []
     for (const row of prospects) {
-      if (searched.length > 2 && row.name.toLocaleLowerCase().includes(searched.toLocaleLowerCase())) {
+      if (row.name.toLocaleLowerCase().includes(searched.toLocaleLowerCase())) {
         rows.push(row)
       }
     }
@@ -82,9 +81,10 @@ const Search = ({ prospects, setID }) => {
   }
 
   useEffect(() => {
-    if (searched) {
+    if (searched && searched.length > 2) {
       setRows(search())
-    } else {
+    } 
+    if (searched.length === 0) {
       setRows(prospects)
     }
     setLoading(false)
@@ -111,7 +111,7 @@ const Search = ({ prospects, setID }) => {
         >
           <InputBase
             style={{ marginLeft: '5px', width: '80%' }}
-            placeholder="Busqueda por Ubicación"
+            placeholder="Busqueda por Nombre"
             onChange={requestSearch}
             value={searched}
             endAdornment={
@@ -127,9 +127,9 @@ const Search = ({ prospects, setID }) => {
               </InputAdornment>
             }
           />
-          <IconButton type="button" style={{ padding: '10px' }} aria-label="search">
+          {/* <IconButton type="button" style={{ padding: '10px' }} aria-label="search">
             <SearchOutlinedIcon />
-          </IconButton>
+          </IconButton> */}
         </Paper>
       </Box>
 
