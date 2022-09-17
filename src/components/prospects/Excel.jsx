@@ -18,6 +18,7 @@ const DownloadExcel = ({ entity, prospects }) => {
             color="primary"
             variant="contained"
             endIcon={<GridOnIcon />}
+            sx={{ ml: 3 }}
           >Exportar a Excel</Button>}>
 
             <ExcelSheet data={prospDecline} name="Rechazados">

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { userData } from '../../redux/slices/user'
 
 const SimpleFooterContainer = styled.footer`
-    background-color: 'white';
+    background-color: 'red';
     padding: '0.8em 1.2em';
     text-align: center;
 `

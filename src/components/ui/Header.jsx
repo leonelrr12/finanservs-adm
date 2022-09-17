@@ -1,43 +1,39 @@
-import { AppBar, Container, Toolbar, Box, Typography } from '@mui/material'
+import { AppBar, Container, Toolbar, Box } from '@mui/material'
 import styled from 'styled-components'
 
 import { FinanservsHorizontalLogoWhiteImg } from '../images'
 import { Nav, NavMobile } from './'
 
 
-const Header = (props) => {
-
+const Header = () => {
     return (
-        <AppBar position='static' elevation={0}>
-            <Container maxWidth="xll">
-                <Toolbar>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 10, display: { xs: 'none', md: 'flex' } }}
-                    >
-                        <FinanservsHorizontalLogoWhiteImg />
-                    </Typography>
+        <Nav />
+        // <AppBar position='fixed' elevation={0}>
+        //     <Container maxWidth="xll">
+        //         <Toolbar>
+        //             <Box
+        //                 sx={{ mr: 10, display: { xs: 'none', md: 'flex' }}}
+        //             >
+        //                 <FinanservsHorizontalLogoWhiteImg />
+        //             </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <NavMobile />
-                    </Box>
+        //             <Box sx={{ display: { xs: 'flex', md: 'none' }}}>
+        //                 <NavMobile />
+        //             </Box>
 
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-                    >
-                        <FinanservsHorizontalLogoWhiteImg />
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Nav />
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
+        //             <Box
+        //                 sx={{ display: { xs: 'flex', md: 'none' }}}
+        //             >
+        //                 <FinanservsHorizontalLogoWhiteImg />
+        //             </Box>
+
+        //             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
+        //                 <Nav />
+        //             </Box>
+                    
+        //         </Toolbar>
+        //     </Container>
+        // </AppBar>
     )
 }
 

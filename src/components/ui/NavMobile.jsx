@@ -4,9 +4,8 @@ import styled from 'styled-components'
 // import { logOut } from '../../store/user';
 import { logOut, userData } from '../../redux/slices/user';
 
-
 const LayoutNav = styled.nav`
-  max-height: 50px;
+  max-height: 55px;
 `
 
 export const NavMobile = () => {
@@ -28,13 +27,16 @@ export const NavMobile = () => {
 
   return (
     <LayoutNav className="navbar navbar-expand-lg navbar-light">
-      <div className="container-fluid mx-3">
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <div className="container-fluid mx-1">
+        <button   className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarScroll">
-          <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
+        <div 
+          className="collapse navbar-collapse" 
+          id="navbarScroll"
+        >
+          <ul className="nav navbar-nav dropdown-menu">
             {role !== 1 ?
               <>
                 <li className="nav-item">

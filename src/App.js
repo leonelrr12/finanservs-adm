@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+// import { PersistGate } from "redux-persist/integration/react";
+import { PersistGate } from 'reduxjs-toolkit-persist/integration/react'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { lightTheme } from './themes'
 

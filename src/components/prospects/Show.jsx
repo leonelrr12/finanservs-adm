@@ -156,7 +156,6 @@ const Show = (props) => {
     <div className="my-4">
       <Grid
         spacing={4}
-        container  
         direction="row"
         justifyContent="center"
         alignItems="center"
@@ -164,13 +163,16 @@ const Show = (props) => {
         <Grid item xs={12} md={10}>
           <Typography align="center" variant="h3" component="h1">Prospectos</Typography>
         </Grid>
-        <Grid item xs={12} md={2} alignContent="center">
+        <Grid item md={2} sx={{ display: { xs: 'none', md: 'block' }}}>
             <ListProspects id={entity} estado={estado} nameEntity={entityName} fdesde={fdesde} fhasta={fhasta} />
             <DownloadExcel entity={entity} prospects={prospects} fdesde={fdesde} fhasta={fhasta}/>
         </Grid>
       </Grid>
 
-      <Grid container>
+      <Grid 
+        container
+        alignItems="center"
+      >
         <Grid item xs={12} md={4} sx={{ pt: 1.3, mb: 1 }}>
           { (Role === 1 || Tipo_Agente === 2) ? (
             <Box sx={{ ml: 4 }}>
@@ -187,7 +189,9 @@ const Show = (props) => {
           }
         </Grid>
         <Grid item xs={12} md={4}>
-          <Box>
+          <Box
+            sx={{ ml: { xs: 4, md: 0 }}}
+          >
             <FormControlLabel onChange={ handleEstado } control={<Checkbox />} label="Solo Activos" />
           </Box>
         </Grid>
@@ -201,7 +205,7 @@ const Show = (props) => {
               defaultValue={ fdesde }
               value={ fdesde }
               onChange={ (e) => setFDesde(e.target.value) }
-              sx={{ width: 220, mr: 2 }}
+              sx={{ width: 220, mr: 2, mb: 2 }}
               InputLabelProps={{
                 shrink: true,
               }}

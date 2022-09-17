@@ -1,7 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
 import { reducer } from "../reducers";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from 'redux-persist/lib/storage'
+
+import {  configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'reduxjs-toolkit-persist';
+import storage from 'reduxjs-toolkit-persist/lib/storage'
+
 
 // import reducers from "../reducers";
 // import userSlice from '../slices/user'
@@ -16,10 +18,23 @@ const persistConfig = {
   blacklist: []
 }
 
-export const persistedReducer = persistReducer(persistConfig, reducer)
+export const _persistedReducer = persistReducer(persistConfig, reducer)
 
 export const store = configureStore({
-  reducer: persistedReducer
+  reducer: _persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      /* ignore persistance actions */
+      ignoredActions: [
+        FLUSH,
+        REHYDRATE,
+        PAUSE,
+        PERSIST,
+        PURGE,
+        REGISTER
+      ],
+    },
+  }),
 });
 
 export const persistor = persistStore(store)

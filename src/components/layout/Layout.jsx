@@ -14,9 +14,9 @@ export const Layout = ({ children }) => {
                 <Route path="*" element={ <Header></Header> } />
             </Routes>
         </nav>
-        <main>
+        <main className="mx-4">
             { children }
         </main>
-        <Footer></Footer>
+        <Footer />
     </LayoutContainer>
 }

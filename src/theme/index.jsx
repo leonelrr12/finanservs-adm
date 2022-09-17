@@ -61,11 +61,12 @@ export const LayoutContainer = styled.div`
     display: grid;
     min-height: 100vh;
     grid-template-rows: auto minmax(0, 1fr) auto;
-`
+`;
+    // margin: 10px;
+    // margin-top: 50px;
 
 export const SmallContainer = styled.div`
     width: ${ theme.dims.widths.small };
-    
     max-width: 100vw;
     margin: 0 auto;
 `
