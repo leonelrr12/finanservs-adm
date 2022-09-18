@@ -97,14 +97,14 @@ const Search = ({ prospects, setID }) => {
 
   if (loading) {
     return (
-      <div>
+      <div className="my-4">
         <h1>Cargando ...</h1>
       </div>
     )
   }
 
   return (
-    <div id="divSearch">
+    <div  className="my-5" id="divSearch">
       <Box className={classes.pageSearch}>
         <Paper
           className={classes.paper}

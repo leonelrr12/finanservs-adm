@@ -122,7 +122,7 @@ const FormikComponents = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="my-4">
         <h1>Cargando ...</h1>
       </div>
     );

@@ -22,7 +22,7 @@ const Show = () => {
   }
 
   return ( 
-    <>
+    <div className="my-5">
       {/* <h2 className="text-center my-2">Red de Afiliados</h2> */}
       <Grid
         spacing={4}
@@ -78,7 +78,7 @@ const Show = () => {
           }
         </tbody>
       </table>
-    </>
+    </div>
    )
 }
  

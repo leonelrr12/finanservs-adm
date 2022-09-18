@@ -4,10 +4,8 @@ import {
   Navigate,
   Outlet
 } from 'react-router-dom';
-import { useSelector } from "react-redux";
 
 import AllProspects from "../components/prospects/Show";
-
 import AllAffiliets from "../components/affiliets/Show";
 
 import AllSectors from "../components/sectors/Show";
@@ -80,10 +78,12 @@ import Password from "../components/login/password";
 import MissingRoute from "../components/AlertMessage";
 
 import SolFinancomer from "../components/SolicitudFinancomer";
-import { userData } from '../redux/slices/user';
+
+import { useContext } from "react";
+import { LoginContext } from "../context/loginContext";
 
 export const AppRoutes = () => {
-  const user = useSelector(userData);
+  const { userInfo: user } = useContext(LoginContext);
 
   return (
       <Routes>

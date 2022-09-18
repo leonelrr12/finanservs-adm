@@ -1,8 +1,8 @@
+import { useContext } from "react";
+import { LoginContext } from "../../context/loginContext";
 import { Link, Routes, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import styled from 'styled-components'
-import { userData } from '../../redux/slices/user'
 
 const SimpleFooterContainer = styled.footer`
     background-color: 'red';
@@ -18,7 +18,7 @@ const LoggedOutFooter = () =>
     </SimpleFooterContainer>
 
 export const Footer = () => {
-    const user = useSelector(userData)
+    const { userInfo: user } = useContext(LoginContext);
 
     return (
         user ? null : <LoggedOutFooter />

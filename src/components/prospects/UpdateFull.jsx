@@ -29,8 +29,8 @@ function Prospect() {
   }, []);
  
   if(loading) {
-    rerurn (
-      <div>
+    return (
+      <div className="my-4">
         <h1>Cargando ...</h1>
       </div>
     )

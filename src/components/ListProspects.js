@@ -21,10 +21,10 @@ pdfMake.fonts = {
 
 const separator = (numb) => {
   var str = numb.toString().split(".");
-  if(str.length > 1) {
+  if (str.length > 1) {
     str[1] = str[1].padEnd(2, '0')
   } else {
-    str[1]='00'
+    str[1] = '00'
   }
   str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return str.join(".");
@@ -36,24 +36,24 @@ const parseToPdfData = (data) => {
   return data.map((d, idx) => {
 
     cnt += 1;
-    if(d.estado === 'Rechazado') {
+    if (d.estado === 'Rechazado') {
       cnr += 1
-    } else if(d.estado === 'Aprobado') {
+    } else if (d.estado === 'Aprobado') {
       cna += 1
-    } else  cnp += 1
+    } else cnp += 1
 
     return [
-      { style: ['small', 'center'], text: d.id }, 
-      { style: 'small', text: d.name }, 
-      { style: 'small', text: d.cedula }, 
-      { style: 'small', text: d.email }, 
-      { style: 'small', text: d.celular }, 
-      { style: 'small', text: d.telefono }, 
-      { style: ['small', 'center'], text: d.fecha }, 
-      { style: ['small', 'right'], text: separator(d.monto) }, 
-      { style: ['small', 'center'], text: d.sector }, 
-      { style: ['small', 'left'], text: d.ejecutivo }, 
-      { style: ['small', 'center'], text: d.estado }, 
+      { style: ['small', 'center'], text: d.id },
+      { style: 'small', text: d.name },
+      { style: 'small', text: d.cedula },
+      { style: 'small', text: d.email },
+      { style: 'small', text: d.celular },
+      { style: 'small', text: d.telefono },
+      { style: ['small', 'center'], text: d.fecha },
+      { style: ['small', 'right'], text: separator(d.monto) },
+      { style: ['small', 'center'], text: d.sector },
+      { style: ['small', 'left'], text: d.ejecutivo },
+      { style: ['small', 'center'], text: d.estado },
       { style: 'small', text: d.comentarios }
     ];
   });
@@ -69,39 +69,39 @@ const docDefinitionDefault = {
       style: 'header',
       alignment: "center"
     },
-    '\n',  
+    '\n',
     {
       text: "",
       style: 'samll8',
       alignment: "center"
     },
-    '\n',  
+    '\n',
     {
-      layout: 'noBorders', 
+      layout: 'noBorders',
       table: {
         widths: ['*', 370, '*'],
-        body: [  
+        body: [
           [],
         ]
       }
-    }, 
+    },
     {
-      layout: 'noBorders', 
+      layout: 'noBorders',
       table: {
         headerRows: 1,
-        widths: [ 20, 80, 50, 80, 50, 50, 40, 50, 40, 50, 50, '*' ],
+        widths: [20, 80, 50, 80, 50, 50, 40, 50, 40, 50, 50, '*'],
         body: [
           [],
-          [ "", "", "", "", "", "", "", "", "", "", "", "" ],
+          ["", "", "", "", "", "", "", "", "", "", "", ""],
         ]
       }
     },
     '\n\n',
     {
-      layout: 'noBorders', 
+      layout: 'noBorders',
       table: {
         widths: [80, 30, 80, 30, 80, 30, 80, 30],
-        body: [  
+        body: [
           [],
         ]
       }
@@ -178,19 +178,19 @@ export default function ListProspects({ id, estado, nameEntity }) {
 
   const headerf = [
     { style: 'small1', text: nameEntity },
-    { style: 'small1', alignment: 'right', text: 'Fecha: ' }, 
+    { style: 'small1', alignment: 'right', text: 'Fecha: ' },
     { style: 'small1', text: hoyes }
   ]
 
   const header0 = [
-    { style: ['blueWhite', 'center'], text: 'ID' }, 
-    { style: 'blueWhite', text: 'Nombre' }, 
-    { style: 'blueWhite', text: 'Cédula' }, 
-    { style: 'blueWhite', text: 'Email' }, 
-    { style: 'blueWhite', text: 'Celular' }, 
-    { style: 'blueWhite', text: 'Teléfono' }, 
-    { style: ['blueWhite', 'center'], text: 'Fecha'}, 
-    { style: ['blueWhite', 'right'], text: 'Monto'}, 
+    { style: ['blueWhite', 'center'], text: 'ID' },
+    { style: 'blueWhite', text: 'Nombre' },
+    { style: 'blueWhite', text: 'Cédula' },
+    { style: 'blueWhite', text: 'Email' },
+    { style: 'blueWhite', text: 'Celular' },
+    { style: 'blueWhite', text: 'Teléfono' },
+    { style: ['blueWhite', 'center'], text: 'Fecha' },
+    { style: ['blueWhite', 'right'], text: 'Monto' },
     { style: ['blueWhite', 'center'], text: 'Sector' },
     { style: 'blueWhite', text: 'Ejecutivo' },
     { style: ['blueWhite', 'center'], text: 'Estado' },
@@ -201,14 +201,14 @@ export default function ListProspects({ id, estado, nameEntity }) {
     let idx = 4
     const template = { ...docDefinitionDefault };
     template.content[2].text = 'Período de: xx/xx/xxxx a xx/xx/xxx'
-    template.content[idx].table.body = [headerf]; idx+=1
-    template.content[idx].table.body = [header0, ...data]; idx+=2
-    template.content[idx].table.body = [...resumen]; idx+=1
+    template.content[idx].table.body = [headerf]; idx += 1
+    template.content[idx].table.body = [header0, ...data]; idx += 2
+    template.content[idx].table.body = [...resumen]; idx += 1
 
     setDocDefinition(template);
   };
 
-  const create = async() => {
+  const create = async () => {
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
     pdfDocGenerator.open();
     // pdfDocGenerator.download();
@@ -216,20 +216,23 @@ export default function ListProspects({ id, estado, nameEntity }) {
 
   useEffect(() => {
     setTableBodyData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
 
-  useEffect(async () => {
-    await getData(id, estado)
- 
-    const res = []
-    res.push({ style: 'blueWhite', text: 'Total prospectos:' }, { text: cnt, style: 'small1' })
-    res.push({ style: 'blueWhite', text: 'Aprobadoss:' }, { text: cna, style: 'small1' })
-    res.push({ style: 'blueWhite', text: 'Rechazados:' }, { text: cnr, style: 'small1' })
-    res.push({ style: 'blueWhite', text: 'En Proceso:' }, { text: cnp, style: 'small1' })
+  useEffect(() => {
+    const fnData = async () => {
+      await getData(id, estado)
 
-    setResumen([res])
+      const res = []
+      res.push({ style: 'blueWhite', text: 'Total prospectos:' }, { text: cnt, style: 'small1' })
+      res.push({ style: 'blueWhite', text: 'Aprobadoss:' }, { text: cna, style: 'small1' })
+      res.push({ style: 'blueWhite', text: 'Rechazados:' }, { text: cnr, style: 'small1' })
+      res.push({ style: 'blueWhite', text: 'En Proceso:' }, { text: cnp, style: 'small1' })
+
+      setResumen([res])
+    }
+    fnData()
   }, [id, estado])
 
 

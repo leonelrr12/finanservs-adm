@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
-import { useSelector } from "react-redux";
+import { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { Box, Checkbox, FormControlLabel, Grid, Modal, TextField, Typography } from '@mui/material';
+import { LoginContext } from "../../context/loginContext";
 
 import NotData from '../NotData'
 import Form from './Form'
@@ -10,11 +10,9 @@ import { InfoModal } from './InfoModal';
 import apiConfig from '../../config/api'
 import DownloadExcel from './Excel'
 import ListProspects from '../ListProspects';
-import { userData } from '../../redux/slices/user';
-
 
 const Show = (props) => {
-  const user = useSelector(userData);
+  const { userInfo: user } = useContext(LoginContext);
 
   const [prospects, setProspects] = useState([])
   const [prospectsA, setProspectsA] = useState([])
@@ -27,7 +25,6 @@ const Show = (props) => {
   const { Role, Ruta, Tipo_Agente, Agente } = user
   const [entity, setEntity] = useState(Role === 1 ? '0' : Ruta)
   const [entityName, setEntityName] = useState("")
-
 
   const ee = new Date()
   let d0 = ee.getDate().toString()
@@ -155,6 +152,7 @@ const Show = (props) => {
   return ( 
     <div className="my-4">
       <Grid
+        container
         spacing={4}
         direction="row"
         justifyContent="center"
@@ -202,7 +200,7 @@ const Show = (props) => {
               id="date"
               label="Desde"
               type="date"
-              defaultValue={ fdesde }
+              // defaultValue={ fdesde }
               value={ fdesde }
               onChange={ (e) => setFDesde(e.target.value) }
               sx={{ width: 220, mr: 2, mb: 2 }}

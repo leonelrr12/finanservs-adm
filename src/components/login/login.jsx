@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import AlertMessage from "../AlertMessage";
 import { UserFormLayout } from "./UserFormLayout";
@@ -9,43 +8,33 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import apiConfig from '../../config/api'
 
-// import { signIn } from "../../store/user";
-import { singIn } from "../../redux/slices/user";
+import { LoginContext } from "../../context/loginContext";
 
 const URL_API = apiConfig.domain
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate()
-
+  
+  const { setUserInfo } = useContext(LoginContext);
   const { register, handleSubmit } = useForm();
-
   const [errorMessage, setErrorMessage] = useState(null);
 
   const onFormSubmit = async (data) => {
-    const res = await axios.get(URL_API + '/api/login/new-user/' + data.email )
-    const isNew = res.data
+    let results = await axios.get(URL_API + '/api/login/new-user/' + data.email )
+    const isNew = results.data
     if(isNew === 1) {
       navigate("/password/?email=" + data.email)
       return
     }
-    dispatch(singIn(data))
+    results = await axios.post(URL_API + '/api/login/signin/', { user: data })
+    if(results.data.error) {
+      setErrorMessage(results.data.error)
+      setUserInfo(null)
+    } else {
+      setUserInfo(results.data)
+      window.localStorage.setItem("ctx-api",JSON.stringify(results.data))
+    }
   };
-
-  // const onFormSubmit = async (data) => {
-  //   const res = await axios.get(URL_API + '/api/login/new-user/' + data.email)
-  //   const isNew = res.data
-  //   console.log(res.data)
-  //   if (isNew === 1) {
-  //     navigate("/password/?email=" + data.email)
-  //     return
-  //   }
-  //   dispatch(
-  //     signIn(
-  //       { credentials: data }
-  //     )
-  //   );
-  // };
 
   const onErrors = (errors) => setErrorMessage(errors)
 
@@ -67,7 +56,7 @@ const Login = () => {
         />
         <AppButton
           type="submit"
-          large
+          className="d-block"
         >
           Iniciar sessión
         </AppButton>

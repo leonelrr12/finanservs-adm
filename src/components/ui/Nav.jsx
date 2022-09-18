@@ -1,14 +1,12 @@
+import { useContext } from "react";
+import { LoginContext } from "../../context/loginContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-// import { logOut } from '../../store/user';
-import { logOut, userData } from "../../redux/slices/user";
 import { FinanservsHorizontalLogoWhiteImg } from "../images";
 
 export const Nav = () => {
-  const user = useSelector(userData);
+  const { userInfo: user, setUserInfo } = useContext(LoginContext);
 
   let navigate = useNavigate();
-  const dispatch = useDispatch();
 
   if (user) {
     if (!Object.keys(user).length) return navigate("/", { replace: true });
@@ -16,7 +14,8 @@ export const Nav = () => {
   const { Role: role } = user;
 
   const handleLogout = () => {
-    dispatch(logOut());
+    window.localStorage.removeItem("ctx-api");
+    setUserInfo(null)
     navigate("/", { replace: true });
   };
 

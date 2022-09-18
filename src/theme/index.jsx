@@ -59,11 +59,10 @@ export let GlobalStyles = createGlobalStyle`
 
 export const LayoutContainer = styled.div`
     display: grid;
-    min-height: 100vh;
     grid-template-rows: auto minmax(0, 1fr) auto;
+    margin-top: 50px;
 `;
     // margin: 10px;
-    // margin-top: 50px;
 
 export const SmallContainer = styled.div`
     width: ${ theme.dims.widths.small };

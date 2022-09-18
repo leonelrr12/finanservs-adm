@@ -1,32 +1,24 @@
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-// import { PersistGate } from "redux-persist/integration/react";
-import { PersistGate } from 'reduxjs-toolkit-persist/integration/react'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { lightTheme } from './themes'
-
-// import { persistor, store } from "./store";
-// import { store } from "./store";
-import { persistor, store } from "./redux/store";
 
 import { AppRoutes } from "./routes/AppRoutes";
 import { Layout } from "./components/layout/Layout";
 import "./App.css";
-// import { LoginProvider } from "./context/loginContext";
+import { LoginProvider } from "./context/loginContext";
 
 function App() {
+
   return (
     <BrowserRouter>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <ThemeProvider theme={lightTheme}>
-              <CssBaseline />
-              <Layout>
-                <AppRoutes />
-              </Layout>
-            </ThemeProvider>
-          </PersistGate>
-        </Provider>
+      <LoginProvider>
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline />
+          <Layout>
+            <AppRoutes />
+          </Layout>
+        </ThemeProvider>
+      </LoginProvider>
     </BrowserRouter>
   )
 }

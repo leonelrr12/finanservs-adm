@@ -1,18 +1,16 @@
+import { useContext } from "react";
+import { LoginContext } from "../../context/loginContext";
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-// import { logOut } from '../../store/user';
-import { logOut, userData } from '../../redux/slices/user';
 
 const LayoutNav = styled.nav`
   max-height: 55px;
 `
 
 export const NavMobile = () => {
-  const user = useSelector(userData);
+  const { userInfo: user, setUserInfo } = useContext(LoginContext);;
 
   let navigate = useNavigate()
-  const dispatch = useDispatch()
 
   if (user) {
     if(!Object.keys(user).length)
@@ -21,7 +19,8 @@ export const NavMobile = () => {
   const { Role: role } = user
 
   const handleLogout = () => {
-    dispatch(logOut())
+    window.localStorage.removeItem("ctx-api");
+    setUserInfo(null)
     navigate("/", { replace: true })
   }
 
