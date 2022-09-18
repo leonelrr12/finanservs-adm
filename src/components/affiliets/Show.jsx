@@ -22,19 +22,20 @@ const Show = () => {
   }
 
   return ( 
-    <div className="my-5">
+    <div className="my-3">
       {/* <h2 className="text-center my-2">Red de Afiliados</h2> */}
       <Grid
-        spacing={4}
+        spacing={2}
         container  
         direction="row"
         justifyContent="center"
         alignItems="center"
+        marginBottom="10px"
       >
         <Grid item xs={12} md={10}>
           <Typography align="center" component="h1">Red de Afiliados</Typography>
         </Grid>
-        <Grid item xs={12} md={2} alignContent="center">
+        <Grid item alignContent="center" sx={{ display: { xs: 'none', md: 'block' }}}>
             <DownloadExcel items={affiliets}/>
         </Grid>
       </Grid>

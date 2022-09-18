@@ -150,18 +150,18 @@ const Show = (props) => {
   },[entity, fdesde, fhasta])
 
   return ( 
-    <div className="my-4">
+    <div className="my-3">
       <Grid
         container
-        spacing={4}
         direction="row"
         justifyContent="center"
         alignItems="center"
+        marginBottom="5px"
       >
-        <Grid item xs={12} md={10}>
+        <Grid item xs={12}>
           <Typography align="center" variant="h3" component="h1">Prospectos</Typography>
         </Grid>
-        <Grid item md={2} sx={{ display: { xs: 'none', md: 'block' }}}>
+        <Grid item justifyContent="end" marginRight="50px" md={12} sx={{ display: { xs: 'none', md: 'flex' }}}>
             <ListProspects id={entity} estado={estado} nameEntity={entityName} fdesde={fdesde} fhasta={fhasta} />
             <DownloadExcel entity={entity} prospects={prospects} fdesde={fdesde} fhasta={fhasta}/>
         </Grid>

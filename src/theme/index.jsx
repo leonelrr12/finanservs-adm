@@ -60,8 +60,8 @@ export let GlobalStyles = createGlobalStyle`
 export const LayoutContainer = styled.div`
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    margin-top: 50px;
 `;
+    // margin-top: 50px;
     // margin: 10px;
 
 export const SmallContainer = styled.div`
