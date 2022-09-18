@@ -21,7 +21,7 @@ const Edit = (props) => {
   },[])
 
   return ( 
-    <div className="row justify-content-center mt-5">
+    <div className="container-sm row justify-content-center m-auto mt-3">
       <div className="col-md-8">
         <div className="card">
           <div className="card-body">

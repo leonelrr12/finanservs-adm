@@ -45,7 +45,7 @@ const Form = (props) => {
         <div className="mt-3">
           <button
             type="submit"
-            className="btn btn-primary font-weight-bold"
+            className="btn btn-primary font-weight-bold m-0"
           >{update ? "Actualizar" : "Agregar"}</button>
           <Link to={"/planillas_j"}
             className="btn btn-warning font-weight-bold mx-3"

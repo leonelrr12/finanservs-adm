@@ -68,8 +68,8 @@ const Show = () => {
   },[])
 
   return ( 
-    <div className="w-100 m-auto">
-      <h2 className="text-center mt-5">Instituciones</h2>
+    <div className="m-auto mt-3">
+      <h2 className="text-center">Instituciones</h2>
       <div className="my-2 d-flex justify-content-end">
         <Link to={"/planillas_j/new"} className="btn btn-primary btn-md ">Nuevo</Link>
       </div>
@@ -78,7 +78,7 @@ const Show = () => {
           <tr>
             <th scope="col" className="text-center">ID</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" className="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody> 
@@ -88,9 +88,9 @@ const Show = () => {
               <tr key={item.id}>
                 <td className="text-center">{item.id}</td>
                 <td>{item.name}</td>
-                <td>
+                <td className="text-center">
                   <Link to={"/planillas_j/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
-                  <button onClick={() => {delRecord(item.id)}} className="state.userbtn btn-danger btn-sm mx-2 mt-0">Borrar</button>
+                  <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2 m-0">Borrar</button>
                 </td>
               </tr>
               )})

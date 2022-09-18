@@ -107,8 +107,8 @@ const Show = () => {
 
 
   return ( 
-    <div className="w-100 m-auto">
-      <h2 className="text-center mt-5">Tarifas para Cálculo</h2>
+    <div className="w-100 m-auto mt-3">
+      <h2 className="text-center">Tarifas para Cálculo</h2>
       <div className={classes.root}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
@@ -142,7 +142,7 @@ const Show = () => {
             <th scope="col">Plazo Mx</th>
             <th scope="col">Tasa</th>
             <th scope="col">Comision</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" className="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody> 
@@ -162,9 +162,9 @@ const Show = () => {
                   <td>{item.plazo_max}</td>
                   <td>{item.tasa}</td>
                   <td>{item.comision}</td>
-                  <td>
+                  <td className="text-center">
                     <Link to={"/entity_params/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
-                    <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2 mt-0">Borrar</button>
+                    <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2 m-0">Borrar</button>
                   </td> 
                 </tr>
                 )})

@@ -67,8 +67,8 @@ const Show = () => {
   },[])
 
   return ( 
-    <div className="w-50 m-auto">
-      <h2 className="text-center mt-5">Plazos del Préstamo</h2>
+    <div className="container-sm m-auto mt-3">
+      <h2 className="text-center">Plazos del Préstamo</h2>
       <div className="my-2 d-flex justify-content-end">
         <Link to={"/terms_loan/new"} className="btn btn-primary btn-md ">Nuevo</Link>
       </div>
@@ -78,7 +78,7 @@ const Show = () => {
             <th scope="col" className="text-center">ID</th>
             <th scope="col">Días</th>
             <th scope="col">Activo</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" className="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody> 
@@ -89,9 +89,9 @@ const Show = () => {
                 <td className="text-center">{item.id}</td>
                 <td>{item.name}</td>
                 <td>{item.is_active}</td>
-                <td>
+                <td className="text-center">
                   <Link to={"/terms_loan/edit/" + item.id} className="btn btn-warning btn-sm">Editar</Link>
-                  <button onClick={() => {delRecord(item.id)}} className="state.userbtn btn-danger btn-sm mx-2 mt-0">Borrar</button>
+                  <button onClick={() => {delRecord(item.id)}} className="btn btn-danger btn-sm mx-2 m-0">Borrar</button>
                 </td>
               </tr>
               )})
