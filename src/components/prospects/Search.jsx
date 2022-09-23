@@ -111,7 +111,7 @@ const Search = ({ prospects, setID }) => {
         >
           <InputBase
             style={{ marginLeft: '5px', width: '80%' }}
-            placeholder="Busqueda por Nombre"
+            placeholder="Búsqueda por Nombre"
             onChange={requestSearch}
             value={searched}
             endAdornment={

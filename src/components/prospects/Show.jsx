@@ -293,7 +293,7 @@ const Show = () => {
           >
             <InputBase
               style={{ marginLeft: '5px', width: '100%' }}
-              placeholder="Busqueda por Nombre"
+              placeholder="Búsqueda por Nombre"
               onChange={requestSearch}
               value={searched}
               endAdornment={
