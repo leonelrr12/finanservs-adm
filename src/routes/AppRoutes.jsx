@@ -56,8 +56,8 @@ import AllTermsLoan from "../components/termsLoan/Show";
 import NewTermsLoan from "../components/termsLoan/New";
 import EditTermsLoan from "../components/termsLoan/Edit";
 
-import FormikBasicPage from '../pages/FormikComponents';
 import AllEntities from "../components/entities_f/Show";
+import UpdateFull from '../components/prospects/UpdateFull';
 
 import AllSectorProfesion from "../components/sectorProfesion/Show";
 import NewSectorProfesion from "../components/sectorProfesion/New";
@@ -81,6 +81,7 @@ import SolFinancomer from "../components/SolicitudFinancomer";
 
 import { useContext } from "react";
 import { LoginContext } from "../context/loginContext";
+
 
 export const AppRoutes = () => {
   const { userInfo: user } = useContext(LoginContext);
@@ -149,7 +150,7 @@ export const AppRoutes = () => {
           <Route path="/terms_loan/new" element={<NewTermsLoan />} />
           <Route path="/terms_loan/edit/:id" element={<EditTermsLoan />} />
 
-          <Route path="/udtProspect" element={<FormikBasicPage />} />
+          <Route path="/udtProspect" element={<UpdateFull />} />
           <Route path="/entities_f" element={<AllEntities />} />
 
           <Route path="/sector_profesion" element={<AllSectorProfesion />} />

@@ -446,27 +446,3 @@ const FormikComponents = () => {
 };
 
 export default FormikComponents;
-
-// initialValues={{
-//   fname: "",
-//   fname_2: "",
-//   lname: "",
-//   lname_2: "",
-//   email: "",
-//   phoneNumber: "",
-//   work_name: "",
-//   work_cargo: "",
-//   work_address: "",
-//   work_phone: "",
-//   work_phone_ext: "",
-//   work_prev_name: "",
-//   work_prev_month: "",
-//   work_prev_salary: "",
-//   nationality: "",
-//   province: "",
-//   district: "",
-//   county: "",
-//   calle: "",
-//   barriada_edificio: "",
-//   no_casa_piso_apto: "",
-// }}
