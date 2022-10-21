@@ -169,7 +169,6 @@ export default function ListProspects({ id, estado, nameEntity }) {
     const res = await axios.get(URL_API + `/upload/prospectsPDF/${id}/${estado}`)
     const da = await res.data
 
-    console.log(da)
     cnt = 0; cna = 0; cnr = 0; cnp = 0;
     setData(parseToPdfData(da))
   }

@@ -136,7 +136,6 @@ const Form = (props) => {
                   className="form-control"
                   name="F7Comentarios"
                   onChange={onChange}
-                  value={data.F7Comentarios || ''}
                 >
                 </textarea>
               </div>

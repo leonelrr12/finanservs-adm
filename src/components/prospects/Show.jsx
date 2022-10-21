@@ -2,7 +2,8 @@
 import { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import {
-  Box, Checkbox, FormControlLabel, Grid, Modal, TextField, Typography, IconButton, Paper, InputBase, InputAdornment
+  Box, Checkbox, FormControlLabel, Grid, Modal, TextField, 
+  Typography, IconButton, Paper, InputBase, InputAdornment
 } from '@mui/material';
 import { LoginContext } from "../../context/loginContext";
 import { makeStyles } from '@mui/styles';
@@ -46,6 +47,7 @@ const Show = () => {
   const [estado, setEstado] = useState(1);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
   const [item, setItem] = useState({});
 
   const { Role, Ruta, Tipo_Agente, Agente } = user
@@ -54,6 +56,8 @@ const Show = () => {
 
   const [searched, setSearched] = useState('')
   const [loading, setLoading] = useState(true);
+  const [comentarios, setComentarios] = useState([])
+  
 
   const search = () => {
     setLoading(true)
@@ -107,6 +111,15 @@ const Show = () => {
     setLoading(false)
   }
 
+  // AQUI INCLUIR BUSCAR LOS COMENTARIOS POR EL id SELECCIONADO
+  const getComentariosByIdProspect = async (id) => {
+    setLoading(true)
+    const res = await axios.get(apiConfig.domain + '/adm/comentario/' + id)
+    const da = await res.data
+    setComentarios(da)
+    setLoading(false)
+  }
+
   const handleChange = (event) => {
     setEntity(event.target.value.split('/')[0])
     setEntityName(event.target.value.split('/')[1])
@@ -153,6 +166,11 @@ const Show = () => {
     setOpen2(true);
   };
 
+  const handleOpen3 = (pitem) => {
+    setItem(pitem)
+    setOpen3(true);
+  };
+
   const handleClose2 = () => {
     switch (item.n1Estado) {
       case "1":
@@ -184,6 +202,10 @@ const Show = () => {
     setProspectsA(uptData)
   };
 
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
+
   // const crearPdf = (id) => {
   //   var oReq = new XMLHttpRequest();
   //   var URLToPDF = `${apiConfig.domain}/upload/prospectsPDF/${id}/${estado}`
@@ -203,6 +225,11 @@ const Show = () => {
   useEffect(() => {
     getEntities()
   }, [])
+
+  useEffect(() => {
+    getComentariosByIdProspect(item.A1ID)
+  }, [item.A1ID])
+
 
   useEffect(() => {
     if (Role === 1 || Tipo_Agente === 2) {
@@ -355,6 +382,7 @@ const Show = () => {
                   <td>
                     <button onClick={() => { handleOpen(item) }} className="btn btn-secondary btn-sm">Ver +</button>
                     <button onClick={() => { handleOpen2(item) }} className="btn btn-warning btn-sm">Editar</button>
+                    <button onClick={() => { handleOpen3(item) }} className="btn btn-warning btn-sm">Comentarios</button>
                   </td>
                 </tr>
               )
@@ -406,6 +434,53 @@ const Show = () => {
                 estadoAnt={item.n1Estado}
                 Role={Role}
               />
+            </Box>
+          </Grid>
+        </Grid>
+      </Modal>
+
+      <Modal
+        open={open3}
+        title="Comentarios"
+        onCancel={handleClose3}
+        centered
+        sx={{
+          display: 'flex',
+          p: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Grid container justifyContent="center">
+          <Grid item xs={11} md={6}>
+            <Box
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '95%' },
+                position: 'relative',
+                alignContent: 'center',
+                minWidth: 300,
+                
+                borderRadius: '7px',
+                bgcolor: 'background.paper',
+                border: '1px solid #000',
+                boxShadow: (theme) => theme.shadows[5],
+                p: 2,
+              }}
+            >
+              <h3 className='text-center my-3'>Comentarios</h3>
+              <Paper style={{ maxHeight: 600, overflow: 'auto' }}>
+                  { comentarios.length > 0 ?
+                    comentarios.map(c => <ul><textarea rows="10" cols="85">{ c.comentario }</textarea><h6>{ c.fecha }</h6><h6>{ c.usuario }</h6><hr /></ul>)
+                    :
+                    <h2 className='text-center mb-3'>N/A</h2>
+                  }
+                <div className="text-center mt-3">
+                  <button
+                    onClick={()=>setOpen3(false)}
+                    className="btn btn-warning font-weight-bold mx-2"
+                  >Cancelar</button>
+                </div>
+              </Paper>
             </Box>
           </Grid>
         </Grid>
